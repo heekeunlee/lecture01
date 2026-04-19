@@ -40,8 +40,8 @@ export default function App() {
           <span className="section-label">01. Opening (5분)</span>
           <h2>"우리는 이미 바이브 코딩을 하고 있습니다"</h2>
           <div className="highlight-box">
-            <p className="quote">"자율주행 자동차를 탈 때 엔진 오일의 점도를 계산하시나요?"</p>
-            <p>과거에는 '어떻게(How)'를 알아야 했지만, 이제는 '어디로(Where)'가 중요한 시대입니다. 바이브 코딩은 바로 그 지점에 있습니다.</p>
+            <p className="quote">"여러분, 자동차 운전을 할 때 엔진 오일의 점도나 피스톤의 회전 속도를 일일이 계산하며 타시나요?"</p>
+            <p>어떻게 가야 목적지에 최적 경로, 최단 시간으로 갈지만 알면 됩니다. 과거에는 '어떻게(How)'를 알아야 했지만, 이제는 '어디로(Where)'가 중요한 시대입니다.</p>
           </div>
         </section>
 
