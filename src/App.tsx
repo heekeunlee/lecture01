@@ -17,8 +17,17 @@ export default function App() {
               className="header-logo"
               onError={(e) => { e.currentTarget.style.display = 'none'; }}
             />
+          </motion.div>
+          
+          <motion.div 
+            className="header-tag-container"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2 }}
+          >
             <span className="header-tag">AI를 지휘하는 스마트한 엔지니어의 시작</span>
           </motion.div>
+
           <motion.div 
             className="philosophy-tag"
             initial={{ opacity: 0, x: 20 }}
