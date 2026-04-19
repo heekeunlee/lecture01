@@ -19,6 +19,15 @@ export default function App() {
             />
             <span className="cursive-tag">Vibe Coding for Engineering</span>
           </motion.div>
+          <motion.div 
+            className="philosophy-tag"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.3 }}
+          >
+            {/* Philosophical message goes here */}
+            <span>How에서 Where로, 기술에서 가치로</span>
+          </motion.div>
         </div>
         
         <motion.div 
@@ -27,7 +36,7 @@ export default function App() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
         >
-          <h1>[강의안] 1-1. 바이브 코딩:<br/>코딩의 시대에서 '의도'의 시대로</h1>
+          <h1>1. 바이브 코딩: '코딩'의 시대에서 '의도'의 시대로</h1>
           <p className="subtitle">AI와 함께 기술의 한계를 넘어서는 미래 엔지니어로의 도약</p>
         </motion.div>
       </header>
