@@ -17,7 +17,7 @@ export default function App() {
               className="header-logo"
               onError={(e) => { e.currentTarget.style.display = 'none'; }}
             />
-            <span className="cursive-tag">Vibe Coding for Engineering</span>
+            <span className="header-tag">AI를 지휘하는 스마트한 엔지니어의 시작</span>
           </motion.div>
           <motion.div 
             className="philosophy-tag"
@@ -25,8 +25,7 @@ export default function App() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.3 }}
           >
-            {/* Philosophical message goes here */}
-            <span>How에서 Where로, 기술에서 가치로</span>
+            <span>엔지니어링의 본질은 코드가 아닌 해결입니다</span>
           </motion.div>
         </div>
         
