@@ -77,7 +77,7 @@ export default function App() {
               <span>즐거운 여행 성공!</span>
             </div>
           </motion.div>
-          <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', marginTop: '1.5rem', textAlign: 'center', fontWeight: 500 }}>
+          <p style={{ fontSize: '1.8rem', color: 'var(--text-primary)', marginTop: '2rem', textAlign: 'center', fontWeight: 800, wordBreak: 'keep-all' }}>
             복잡한 구현(코딩)은 AI가, 최종 목적지(의도) 결정은 엔지니어가 합니다.
           </p>
 
