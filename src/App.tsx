@@ -6,16 +6,19 @@ export default function App() {
     <div className="app-container">
       <header>
         <motion.div 
-          className="logo-container"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
+          className="header-top-nav"
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
         >
-          <img 
-            src="/lecture01/logo.png" 
-            alt="LettUin Edu" 
-            style={{ height: '40px', opacity: 0.8 }} 
-            onError={(e) => { e.currentTarget.style.display = 'none'; }}
-          />
+          <div className="logo-group">
+            <img 
+              src="/lecture01/logo.png" 
+              alt="LettUin Edu" 
+              className="header-logo"
+              onError={(e) => { e.currentTarget.style.display = 'none'; }}
+            />
+            <span className="cursive-tag">Vibe Coding for Engineering</span>
+          </div>
         </motion.div>
         <motion.h1
           initial={{ opacity: 0, y: 20 }}

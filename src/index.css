@@ -35,6 +35,7 @@ body {
   max-width: 1000px;
   margin: 0 auto;
   padding: 4rem 2rem;
+  position: relative;
 }
 
 header {
@@ -42,8 +43,32 @@ header {
   margin-bottom: 6rem;
 }
 
-.logo-container {
-  margin-bottom: 2rem;
+.header-top-nav {
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+}
+
+.logo-group {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.header-logo {
+  height: 32px;
+  width: auto;
+  opacity: 0.8;
+}
+
+.cursive-tag {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.5rem;
+  color: var(--accent);
+  letter-spacing: 0.05em;
+  opacity: 0.9;
+  display: inline-block;
+  transform: translateY(2px);
 }
 
 h1 {
