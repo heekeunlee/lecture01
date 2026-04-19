@@ -44,21 +44,31 @@ export default function App() {
             <p>어떻게 가야 목적지에 최적 경로, 최단 시간으로 갈지만 알면 됩니다. 과거에는 '어떻게(How)'를 알아야 했지만, 이제는 '어디로(Where)'가 중요한 시대입니다.</p>
           </div>
           <motion.div 
-            className="illustration-container"
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
+            className="comic-grid-horizontal"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
-            style={{ marginTop: '2rem', textAlign: 'center' }}
           >
-            <img 
-              src="/lecture01/comic.png" 
-              alt="운전 비유 4컷 만화" 
-              style={{ width: '100%', borderRadius: '16px', boxShadow: '0 4px 20px rgba(0,0,0,0.1)' }} 
-            />
-            <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginTop: '0.5rem' }}>
-              복잡한 원리를 몰라도 목적지(의도)만 명확하면 여정을 즐길 수 있습니다.
-            </p>
+            <div className="comic-item">
+              <img src="/lecture01/panel1.png" alt="복잡한 원리" />
+              <span>복잡한 엔진 원리...</span>
+            </div>
+            <div className="comic-item">
+              <img src="/lecture01/panel2.png" alt="단순한 시작" />
+              <span>그냥 시동 걸고 출발!</span>
+            </div>
+            <div className="comic-item">
+              <img src="/lecture01/panel3.png" alt="목적지 설정" />
+              <span>목적지만 정하세요</span>
+            </div>
+            <div className="comic-item">
+              <img src="/lecture01/panel4.png" alt="여행 성공" />
+              <span>즐거운 여행 성공!</span>
+            </div>
           </motion.div>
+          <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', marginTop: '1.5rem', textAlign: 'center', fontWeight: 500 }}>
+            복잡한 구현(코딩)은 AI가, 최종 목적지(의도) 결정은 엔지니어가 합니다.
+          </p>
         </section>
 
         {/* Section 2 */}
