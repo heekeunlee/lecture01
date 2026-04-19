@@ -36,12 +36,14 @@ export default function App() {
         {/* Section 1 */}
         <section>
           <span className="section-label">01. Opening (5분)</span>
-          <h2>"우리는 이미 바이브 코딩을 하고 있습니다"</h2>
+          <h2 style={{ fontSize: '3rem', color: 'var(--accent)', fontWeight: 900, marginBottom: '2rem' }}>
+            "우리는 이미 바이브 코딩을 하고 있습니다"
+          </h2>
           <div className="highlight-box">
             <p className="quote">"자동차 운전을 할 때 엔진 오일의 점도나 피스톤의 회전 속도를 일일이 계산하며 타시나요?"</p>
-            <p className="main-message">
-              어떻게 가야 목적지에 최적 경로, 최단 시간으로 갈지만 알면 됩니다.<br/>
-              과거에는 '어떻게(How)'를 알아야 했지만, 이제는 '어디로(Where)'가 중요한 시대입니다.
+            <p style={{ fontSize: '1.1rem', fontWeight: 400, color: 'var(--text-secondary)', marginTop: '1.5rem', lineHeight: '1.6' }}>
+              자동차의 동작원리를 몰라도 운전해서 여행을 떠나는데는 문제가 없습니다.<br/>
+              복잡한 코딩은 AI에게 맡기고 우리는 기획과 설계를해서 원하는 결과물만 정확하게 얻으면 됩니다.
             </p>
           </div>
           <motion.div 
@@ -70,6 +72,22 @@ export default function App() {
           <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', marginTop: '1.5rem', textAlign: 'center', fontWeight: 500 }}>
             복잡한 구현(코딩)은 AI가, 최종 목적지(의도) 결정은 엔지니어가 합니다.
           </p>
+
+          <motion.div 
+            className="important-note"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            style={{ marginTop: '4rem', padding: '2.5rem', background: '#fff9e6', borderRadius: '24px', border: '1px solid #ffeeba' }}
+          >
+            <h3 style={{ color: '#856404', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <Sparkles size={20} /> 꼭 기억하세요!
+            </h3>
+            <p style={{ fontSize: '1.2rem', color: '#533f03', fontWeight: 600, lineHeight: 1.5 }}>
+              "여러분, 삼성이든 SK하이닉스든 현장에서 원하는 엔지니어는 '코드를 잘 치는 사람'이 아닙니다.<br/>
+              '데이터를 보고 어떤 로직이 필요한지 설계할 수 있는 사람'입니다."
+            </p>
+          </motion.div>
         </section>
 
         {/* Section 2 */}
