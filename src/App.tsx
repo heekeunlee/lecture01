@@ -43,6 +43,22 @@ export default function App() {
             <p className="quote">"여러분, 자동차 운전을 할 때 엔진 오일의 점도나 피스톤의 회전 속도를 일일이 계산하며 타시나요?"</p>
             <p>어떻게 가야 목적지에 최적 경로, 최단 시간으로 갈지만 알면 됩니다. 과거에는 '어떻게(How)'를 알아야 했지만, 이제는 '어디로(Where)'가 중요한 시대입니다.</p>
           </div>
+          <motion.div 
+            className="illustration-container"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.6 }}
+            style={{ marginTop: '2rem', textAlign: 'center' }}
+          >
+            <img 
+              src="/lecture01/comic.png" 
+              alt="운전 비유 4컷 만화" 
+              style={{ width: '100%', borderRadius: '16px', boxShadow: '0 4px 20px rgba(0,0,0,0.1)' }} 
+            />
+            <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginTop: '0.5rem' }}>
+              복잡한 원리를 몰라도 목적지(의도)만 명확하면 여정을 즐길 수 있습니다.
+            </p>
+          </motion.div>
         </section>
 
         {/* Section 2 */}
