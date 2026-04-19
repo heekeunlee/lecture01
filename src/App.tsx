@@ -62,7 +62,7 @@ export default function App() {
           >
             <div className="comic-item">
               <img src="/lecture01/panel1.png" alt="복잡한 원리" />
-              <span>복잡한 엔진 원리...</span>
+              <span>복잡한 엔진 원리 몰라도...</span>
             </div>
             <div className="comic-item">
               <img src="/lecture01/panel2.png" alt="단순한 시작" />
