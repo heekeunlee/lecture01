@@ -4,13 +4,13 @@ import { Sparkles, Navigation, Truck, Zap, Terminal, Layers, Quote } from 'lucid
 export default function App() {
   return (
     <div className="app-container">
-      <header>
-        <motion.div 
-          className="header-top-nav"
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-        >
-          <div className="logo-group">
+      <header className="main-header">
+        <div className="header-top">
+          <motion.div 
+            className="logo-group"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+          >
             <img 
               src="/lecture01/logo.png" 
               alt="LettUin Edu" 
@@ -18,23 +18,18 @@ export default function App() {
               onError={(e) => { e.currentTarget.style.display = 'none'; }}
             />
             <span className="cursive-tag">Vibe Coding for Engineering</span>
-          </div>
-        </motion.div>
-        <motion.h1
+          </motion.div>
+        </div>
+        
+        <motion.div 
+          className="hero-section"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
         >
-          [강의안] 1-1. 바이브 코딩:<br/>코딩의 시대에서 '의도'의 시대로
-        </motion.h1>
-        <motion.p 
-          className="subtitle"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.4 }}
-        >
-          AI와 함께 기술의 한계를 넘어서는 미래 엔지니어로의 도약
-        </motion.p>
+          <h1>[강의안] 1-1. 바이브 코딩:<br/>코딩의 시대에서 '의도'의 시대로</h1>
+          <p className="subtitle">AI와 함께 기술의 한계를 넘어서는 미래 엔지니어로의 도약</p>
+        </motion.div>
       </header>
 
       <main>
@@ -44,7 +39,7 @@ export default function App() {
           <h2>"우리는 이미 바이브 코딩을 하고 있습니다"</h2>
           <div className="highlight-box">
             <p className="quote">"자동차 운전을 할 때 엔진 오일의 점도나 피스톤의 회전 속도를 일일이 계산하며 타시나요?"</p>
-            <p style={{ fontSize: '2.2rem', fontWeight: 800, lineHeight: 1.3, marginTop: '2rem', wordBreak: 'keep-all' }}>
+            <p className="main-message">
               어떻게 가야 목적지에 최적 경로, 최단 시간으로 갈지만 알면 됩니다.<br/>
               과거에는 '어떻게(How)'를 알아야 했지만, 이제는 '어디로(Where)'가 중요한 시대입니다.
             </p>
