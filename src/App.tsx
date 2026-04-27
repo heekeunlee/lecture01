@@ -1,5 +1,79 @@
 import { motion } from 'framer-motion';
-import { Sparkles, Navigation, Truck, Zap, Terminal, Layers, Quote } from 'lucide-react';
+import {
+  Activity,
+  ArrowRight,
+  BarChart3,
+  CheckCircle2,
+  ClipboardCheck,
+  Factory,
+  FileText,
+  Gauge,
+  Image,
+  Layers,
+  Navigation,
+  Quote,
+  Sparkles,
+  Target,
+  Terminal,
+  Truck,
+  Wrench,
+  Zap,
+} from 'lucide-react';
+
+const fieldScenarios = [
+  {
+    icon: BarChart3,
+    title: '수율 로그 자동 요약',
+    before: '라인별 Excel 파일을 하나씩 열어 수율 하락 구간을 눈으로 찾음',
+    intent: '최근 7일간 라인/공정/모델별 수율을 비교하고 전일 대비 3% 이상 하락한 항목만 빨간색으로 표시해줘.',
+    output: '수율 이상 구간 TOP5와 원인 후보 요약',
+  },
+  {
+    icon: Image,
+    title: 'AOI 불량 이미지 분류',
+    before: '이미지 폴더를 넘기며 Scratch, Particle, Mura 여부를 수작업 기록',
+    intent: 'AOI 이미지 샘플을 불량 유형별로 분류하고, 대표 이미지를 포함한 리뷰용 대시보드를 만들어줘.',
+    output: '불량 유형별 갤러리와 검토 우선순위',
+  },
+  {
+    icon: Activity,
+    title: '설비 센서 OOC 감지',
+    before: '온도/압력/유량 로그에서 관리 한계 초과 여부를 수동 필터링',
+    intent: '설비 센서 데이터에 이동평균과 UCL/LCL을 적용해서 OOC 발생 시점과 전조 패턴을 표시해줘.',
+    output: '관리도 기반 알림 화면과 조치 메모',
+  },
+];
+
+const intentChecklist = [
+  '문제 배경: 어떤 공정/장비/데이터에서 발생한 문제인가?',
+  '입력 데이터: 파일 형식, 주요 컬럼, 단위, 기간을 설명했는가?',
+  '판정 기준: 정상/이상, 목표값, spec, 관리 한계를 적었는가?',
+  '출력 형식: 표, 그래프, 대시보드, 보고서 중 무엇을 원하는가?',
+  '검증 조건: 엔지니어가 다시 확인해야 할 리스크를 남겼는가?',
+];
+
+const practiceSteps = [
+  {
+    step: '1',
+    title: '현장 문제를 한 문장으로 쓰기',
+    body: '예: CVD 이후 막두께 산포가 특정 Lot에서 커졌고, 원인이 장비인지 레시피인지 빠르게 보고 싶다.',
+  },
+  {
+    step: '2',
+    title: '데이터와 기준을 붙이기',
+    body: '예: 컬럼은 Lot ID, 설비 ID, Recipe, Temp, Pressure, Thickness이며 목표 막두께는 120nm +/- 5nm이다.',
+  },
+  {
+    step: '3',
+    title: 'AI에게 맡길 결과물을 지정하기',
+    body: '예: 설비별 산포 box plot, 이상 Lot 목록, 원인 후보 3개, 엔지니어 확인 질문을 포함한 HTML 리포트를 만들어줘.',
+  },
+];
+
+const navigationLinks = [
+  { label: '커리큘럼으로 돌아가기', href: 'https://heekeunlee.github.io/lecture_assist001/' },
+  { label: '2강 프롬프트 기획 예고', href: 'https://heekeunlee.github.io/lecture_assist001/' },
+];
 
 export default function App() {
   return (
@@ -46,10 +120,38 @@ export default function App() {
         >
           <h1>1. 바이브 코딩: '코딩'의 시대에서 '의도'의 시대로</h1>
           <p className="subtitle">AI와 함께 기술의 한계를 넘어서는 미래 엔지니어로의 도약</p>
+          <div className="lesson-meta" aria-label="lesson summary">
+            <span>40분</span>
+            <span>마인드셋</span>
+            <span>실습 포함</span>
+            <span>결과물: 첫 AI 작업지시서</span>
+          </div>
         </motion.div>
       </header>
 
       <main>
+        <section className="overview-section">
+          <span className="section-label">00. Learning Goal</span>
+          <h2>오늘의 목표: 코드를 배우기 전에, AI가 실행할 의도를 설계합니다</h2>
+          <div className="outcome-grid">
+            <div className="outcome-card">
+              <Target size={28} color="var(--accent)" />
+              <h3>문제 정의</h3>
+              <p>현장 문제를 AI가 이해할 수 있는 작업 단위로 바꿉니다.</p>
+            </div>
+            <div className="outcome-card">
+              <Factory size={28} color="var(--accent)" />
+              <h3>도메인 언어</h3>
+              <p>공정명, 장비명, spec, 수율 같은 엔지니어링 언어를 프롬프트의 중심에 둡니다.</p>
+            </div>
+            <div className="outcome-card">
+              <ClipboardCheck size={28} color="var(--accent)" />
+              <h3>산출물 기준</h3>
+              <p>표, 차트, 대시보드, 보고서처럼 AI가 끝내야 할 결과물을 먼저 정합니다.</p>
+            </div>
+          </div>
+        </section>
+
         {/* Section 1 */}
         <section>
           <span className="section-label">01. Opening (5분)</span>
@@ -165,14 +267,125 @@ export default function App() {
           </div>
         </section>
 
+        <section>
+          <span className="section-label">05. Display Engineering Case (8분)</span>
+          <h2>이 강의는 일반 코딩 수업이 아니라, 디스플레이 엔지니어의 업무 자동화 수업입니다</h2>
+          <p className="section-intro">
+            바이브 코딩의 출발점은 문법이 아니라 현장 문제입니다. 수율, AOI, 센서 로그처럼 이미 여러분이 알고 있는
+            업무 언어를 AI가 실행 가능한 지시로 바꾸는 것이 핵심입니다.
+          </p>
+          <div className="scenario-grid">
+            {fieldScenarios.map((item) => {
+              const Icon = item.icon;
+              return (
+                <motion.div
+                  className="scenario-card"
+                  key={item.title}
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                >
+                  <div className="scenario-icon">
+                    <Icon size={24} />
+                  </div>
+                  <h3>{item.title}</h3>
+                  <p className="scenario-before">{item.before}</p>
+                  <div className="intent-box">
+                    <span>의도 지시문</span>
+                    <p>{item.intent}</p>
+                  </div>
+                  <p className="scenario-output">{item.output}</p>
+                </motion.div>
+              );
+            })}
+          </div>
+        </section>
+
+        <section>
+          <span className="section-label">06. Intent Engineering (7분)</span>
+          <h2>좋은 의도는 “해줘”가 아니라, 판단 기준과 결과물까지 포함합니다</h2>
+          <div className="comparison-panel">
+            <div className="bad-prompt">
+              <h3>부족한 지시</h3>
+              <p>수율 분석해줘.</p>
+              <span>문제: 데이터 범위, 기준, 출력물, 검증 조건이 없습니다.</span>
+            </div>
+            <ArrowRight className="comparison-arrow" size={32} />
+            <div className="good-prompt">
+              <h3>엔지니어형 지시</h3>
+              <p>
+                최근 2주간 Array 공정의 라인/모델/설비별 수율을 비교하고, 전일 대비 3% 이상 하락한 구간을 표시해줘.
+                원인 후보는 온도, 압력, 검사 불량률과 함께 우선순위로 정리하고 HTML 대시보드로 보여줘.
+              </p>
+              <span>핵심: 데이터, 기준, 분석 관점, 산출물이 한 번에 정의됩니다.</span>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <span className="section-label">07. Mini Workshop (7분)</span>
+          <h2>실습: 나의 첫 AI 작업지시서 만들기</h2>
+          <p className="section-intro">
+            아래 3단계를 채우면 다음 강의에서 바로 프롬프트로 발전시킬 수 있는 개인용 작업지시서가 됩니다.
+          </p>
+          <div className="practice-board">
+            {practiceSteps.map((item) => (
+              <div className="practice-step" key={item.step}>
+                <span className="step-number">{item.step}</span>
+                <h3>{item.title}</h3>
+                <p>{item.body}</p>
+              </div>
+            ))}
+          </div>
+          <div className="template-card">
+            <div>
+              <FileText size={28} color="var(--accent)" />
+              <h3>작업지시서 템플릿</h3>
+            </div>
+            <p>
+              나는 [공정/장비/데이터]에서 [문제 현상]을 확인하고 싶다. 입력 데이터는 [컬럼/단위/기간]으로 구성되어 있다.
+              정상 기준은 [spec/관리 한계]이며, 결과물은 [표/그래프/대시보드/보고서] 형태로 만들어야 한다.
+              마지막에는 엔지니어가 확인해야 할 리스크와 추가 질문을 정리해줘.
+            </p>
+          </div>
+        </section>
+
+        <section>
+          <span className="section-label">08. Quality Gate (3분)</span>
+          <h2>AI에게 보내기 전, 이 5가지를 확인하세요</h2>
+          <div className="checklist">
+            {intentChecklist.map((item) => (
+              <div className="check-item" key={item}>
+                <CheckCircle2 size={20} />
+                <span>{item}</span>
+              </div>
+            ))}
+          </div>
+          <div className="instructor-note">
+            <Gauge size={24} />
+            <p>
+              강사의 진행 포인트: 수강생 답변을 “데이터-기준-산출물” 구조로 다시 써주면,
+              2강의 프롬프트 설계로 자연스럽게 이어집니다.
+            </p>
+          </div>
+        </section>
+
         {/* Section 5 */}
         <section style={{ textAlign: 'center' }}>
-          <span className="section-label" style={{ margin: '0 auto 1rem auto' }}>05. Wrap-up & Bridge (5분)</span>
+          <span className="section-label" style={{ margin: '0 auto 1rem auto' }}>09. Wrap-up & Bridge (5분)</span>
           <Quote size={48} color="var(--accent)" style={{ margin: '2rem auto' }} />
           <h2 style={{ fontSize: '2.5rem' }}>"코드를 외우지 마세요.<br/>여러분의 의도(Vibe)를 정의하세요."</h2>
           <p className="subtitle" style={{ marginTop: '2rem' }}>
             다음 강의: 그 의도를 어떻게 AI에게 전달할까요? (프롬프트 기획)
           </p>
+          <div className="lesson-actions">
+            {navigationLinks.map((link) => (
+              <a href={link.href} key={link.label}>
+                {link.label}
+                <ArrowRight size={16} />
+              </a>
+            ))}
+          </div>
         </section>
 
         <section className="professional-point">
@@ -182,6 +395,11 @@ export default function App() {
               "전통적 코딩이 <strong>어셈블리(Assembly)</strong>라면, 바이브 코딩은 <strong>시스템 아키텍처(Architecture)</strong>입니다."<br/>
               단순한 스킬이 아닌, 고차원적 엔지니어링 설계를 현실로 만드는 가장 스마트한 툴 체인을 경험하세요.
             </p>
+            <div className="point-strip">
+              <span><Wrench size={16} /> 도구는 AI가 만듭니다</span>
+              <span><Target size={16} /> 문제는 엔지니어가 정의합니다</span>
+              <span><CheckCircle2 size={16} /> 판단은 사람이 검증합니다</span>
+            </div>
           </div>
         </section>
       </main>

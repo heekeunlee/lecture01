@@ -103,6 +103,24 @@ h1 {
   font-weight: 400;
 }
 
+.lesson-meta {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+
+.lesson-meta span {
+  border: 1px solid var(--border);
+  background: var(--bg-secondary);
+  border-radius: 999px;
+  padding: 0.55rem 0.9rem;
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  font-weight: 800;
+}
+
 .main-message {
   font-size: 1.7rem;
   font-weight: 800;
@@ -114,6 +132,21 @@ h1 {
 
 section {
   margin-bottom: 8rem;
+}
+
+section h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  word-break: keep-all;
+}
+
+.section-intro {
+  max-width: 780px;
+  margin-top: 1rem;
+  color: var(--text-secondary);
+  font-family: var(--font-content);
+  font-size: 1.08rem;
 }
 
 .section-label {
@@ -154,6 +187,278 @@ section {
 .card p {
   color: var(--text-secondary);
   font-family: var(--font-content);
+}
+
+.overview-section {
+  margin-bottom: 6rem;
+}
+
+.outcome-grid,
+.scenario-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  margin-top: 2rem;
+}
+
+.outcome-card {
+  border: 1px solid var(--border);
+  background: var(--bg-secondary);
+  border-radius: 18px;
+  padding: 1.5rem;
+}
+
+.outcome-card h3,
+.scenario-card h3,
+.practice-step h3,
+.template-card h3 {
+  margin-top: 0.9rem;
+  margin-bottom: 0.6rem;
+  font-size: 1.25rem;
+  font-weight: 900;
+}
+
+.outcome-card p,
+.scenario-card p,
+.practice-step p,
+.template-card p {
+  color: var(--text-secondary);
+  font-family: var(--font-content);
+}
+
+.scenario-card {
+  position: relative;
+  overflow: hidden;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 1.6rem;
+}
+
+.scenario-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: #e8f2ff;
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.scenario-before {
+  min-height: 4.5rem;
+}
+
+.intent-box {
+  margin: 1.2rem 0;
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1rem;
+}
+
+.intent-box span {
+  display: block;
+  color: var(--accent);
+  font-size: 0.75rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.45rem;
+}
+
+.intent-box p {
+  color: var(--text-primary);
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.scenario-output {
+  border-top: 1px solid var(--border);
+  padding-top: 1rem;
+  font-weight: 800;
+  color: var(--text-primary) !important;
+}
+
+.comparison-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1.3fr);
+  align-items: stretch;
+  gap: 1.25rem;
+  margin-top: 2rem;
+}
+
+.bad-prompt,
+.good-prompt {
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 1.8rem;
+}
+
+.bad-prompt {
+  background: #fff7f7;
+}
+
+.good-prompt {
+  background: #f0f7ff;
+  border-color: rgba(0,113,227,0.35);
+}
+
+.bad-prompt h3,
+.good-prompt h3 {
+  font-size: 1.25rem;
+  font-weight: 900;
+  margin-bottom: 1rem;
+}
+
+.bad-prompt p,
+.good-prompt p {
+  font-family: var(--font-content);
+  font-size: 1.05rem;
+  color: var(--text-primary);
+}
+
+.bad-prompt span,
+.good-prompt span {
+  display: block;
+  margin-top: 1rem;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.comparison-arrow {
+  align-self: center;
+  color: var(--accent);
+}
+
+.practice-board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.practice-step {
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 1.5rem;
+  background: var(--bg-secondary);
+}
+
+.step-number {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+}
+
+.template-card {
+  margin-top: 1.5rem;
+  padding: 2rem;
+  border-radius: 22px;
+  background: #111827;
+  color: white;
+}
+
+.template-card > div {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.template-card h3 {
+  margin: 0;
+}
+
+.template-card p {
+  margin-top: 1rem;
+  color: rgba(255,255,255,0.78);
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+.checklist {
+  display: grid;
+  gap: 0.9rem;
+  margin-top: 2rem;
+}
+
+.check-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1rem 1.1rem;
+  font-weight: 800;
+}
+
+.check-item svg {
+  color: var(--accent);
+  flex-shrink: 0;
+  margin-top: 0.15rem;
+}
+
+.instructor-note {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+  border-radius: 18px;
+  background: #fff9e6;
+  color: #533f03;
+  font-weight: 700;
+}
+
+.instructor-note svg {
+  flex-shrink: 0;
+}
+
+.lesson-actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 2.5rem;
+}
+
+.lesson-actions a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: white;
+  background: var(--accent);
+  text-decoration: none;
+  border-radius: 999px;
+  padding: 0.85rem 1.15rem;
+  font-weight: 900;
+}
+
+.point-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin-top: 1.5rem;
+}
+
+.point-strip span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 999px;
+  padding: 0.55rem 0.85rem;
+  color: white;
+  font-weight: 800;
 }
 
 .highlight-box {
@@ -211,7 +516,39 @@ footer {
 }
 
 @media (max-width: 768px) {
+  .app-container {
+    padding: 1.2rem;
+  }
+
+  .header-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.2rem;
+  }
+
+  .header-tag-container {
+    margin: 0;
+    justify-content: flex-start;
+  }
+
   .card-grid {
     grid-template-columns: 1fr;
+  }
+
+  .comic-grid-horizontal,
+  .outcome-grid,
+  .scenario-grid,
+  .practice-board,
+  .comparison-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .comparison-arrow {
+    transform: rotate(90deg);
+    margin: 0.5rem auto;
+  }
+
+  .scenario-before {
+    min-height: auto;
   }
 }
