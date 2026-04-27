@@ -152,6 +152,73 @@ export default function App() {
           </div>
         </section>
 
+        <section className="definition-section">
+          <span className="section-label">00-1. What is Vibe Coding?</span>
+          <h2>바이브 코딩은 “문법을 입력하는 일”이 아니라 “의도를 설계하고 AI를 지휘하는 일”입니다</h2>
+          <p className="section-intro">
+            일반 코딩은 사람이 구현 절차를 한 줄씩 작성하는 방식입니다. 바이브 코딩은 엔지니어가 문제, 데이터,
+            판단 기준, 원하는 결과물을 말하면 AI가 구현을 대신 수행하고, 사람은 결과가 현장 기준에 맞는지 검증합니다.
+          </p>
+          <div className="coding-compare-grid">
+            <motion.article
+              className="coding-compare-card traditional"
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <img src="/lecture01/traditional-coding.png" alt="전통적인 코딩 방식" />
+              <div className="compare-content">
+                <span className="compare-kicker">Traditional Coding</span>
+                <h3>사람이 코드와 오류를 직접 다룹니다</h3>
+                <p>
+                  문법, 라이브러리, 디버깅, 화면 구성까지 사람이 직접 챙겨야 합니다. 처음 배우는 수강생은
+                  “무엇을 만들지”보다 “왜 에러가 나는지”에 시간을 많이 씁니다.
+                </p>
+                <ul>
+                  <li>문법과 구현 순서를 먼저 배워야 함</li>
+                  <li>작은 오타와 설정 오류가 진행을 막음</li>
+                  <li>현장 문제보다 코드 수정에 집중하기 쉬움</li>
+                </ul>
+              </div>
+            </motion.article>
+
+            <motion.article
+              className="coding-compare-card vibe"
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.08 }}
+            >
+              <img src="/lecture01/vibe-coding.png" alt="바이브 코딩 방식" />
+              <div className="compare-content">
+                <span className="compare-kicker">Vibe Coding</span>
+                <h3>엔지니어가 의도를 말하면 AI가 도구를 만듭니다</h3>
+                <p>
+                  “어떤 데이터로 무엇을 판단할지”를 명확히 말하면 AI가 코드, 차트, 대시보드, 보고서 초안을 빠르게
+                  만듭니다. 엔지니어는 결과의 타당성과 현장 적용성을 판단합니다.
+                </p>
+                <ul>
+                  <li>한국어와 전공 용어로 바로 시작 가능</li>
+                  <li>몇 시간 걸리던 초안을 몇 분 안에 확인</li>
+                  <li>수율, 불량, 설비 문제 해결에 집중</li>
+                </ul>
+              </div>
+            </motion.article>
+          </div>
+
+          <div className="innovation-callout">
+            <Zap size={26} />
+            <div>
+              <h3>혁신의 핵심</h3>
+              <p>
+                코딩 실력의 출발점이 “문법 암기”에서 “문제 정의 능력”으로 이동합니다.
+                그래서 디스플레이 엔지니어에게 필요한 것은 개발자가 되는 것이 아니라,
+                AI가 일할 수 있을 만큼 정확하게 공정 문제를 설명하는 능력입니다.
+              </p>
+            </div>
+          </div>
+        </section>
+
         {/* Section 1 */}
         <section>
           <span className="section-label">01. Opening (5분)</span>

@@ -281,6 +281,107 @@ section h2 {
   color: var(--text-primary) !important;
 }
 
+.definition-section {
+  margin-bottom: 8rem;
+}
+
+.coding-compare-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+}
+
+.coding-compare-card {
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--bg-secondary);
+  border-radius: 24px;
+}
+
+.coding-compare-card img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  border-bottom: 1px solid var(--border);
+}
+
+.compare-content {
+  padding: 1.8rem;
+}
+
+.compare-kicker {
+  display: inline-flex;
+  margin-bottom: 0.85rem;
+  border-radius: 999px;
+  padding: 0.35rem 0.7rem;
+  font-size: 0.75rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.traditional .compare-kicker {
+  background: #fff1f2;
+  color: #be123c;
+}
+
+.vibe .compare-kicker {
+  background: #e8f2ff;
+  color: var(--accent);
+}
+
+.compare-content h3 {
+  font-size: 1.45rem;
+  font-weight: 900;
+  line-height: 1.2;
+  margin-bottom: 0.85rem;
+  word-break: keep-all;
+}
+
+.compare-content p {
+  color: var(--text-secondary);
+  font-family: var(--font-content);
+  margin-bottom: 1.1rem;
+}
+
+.compare-content ul {
+  display: grid;
+  gap: 0.55rem;
+  padding-left: 1.1rem;
+  color: var(--text-primary);
+  font-weight: 800;
+}
+
+.innovation-callout {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  margin-top: 1.5rem;
+  padding: 1.6rem;
+  border: 1px solid rgba(0,113,227,0.28);
+  background: #f0f7ff;
+  border-radius: 20px;
+}
+
+.innovation-callout svg {
+  flex-shrink: 0;
+  color: var(--accent);
+  margin-top: 0.15rem;
+}
+
+.innovation-callout h3 {
+  font-size: 1.2rem;
+  font-weight: 900;
+  margin-bottom: 0.4rem;
+}
+
+.innovation-callout p {
+  color: var(--text-secondary);
+  font-family: var(--font-content);
+}
+
 .comparison-panel {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto minmax(0, 1.3fr);
@@ -538,6 +639,7 @@ footer {
   .comic-grid-horizontal,
   .outcome-grid,
   .scenario-grid,
+  .coding-compare-grid,
   .practice-board,
   .comparison-panel {
     grid-template-columns: 1fr;
