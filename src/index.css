@@ -571,7 +571,7 @@ section h2 {
 }
 
 .case-visual-grid {
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 1fr;
 }
 
 .visual-card,
@@ -724,16 +724,20 @@ section h2 {
 
 .yield-case-compare {
   display: grid;
-  grid-template-columns: 1fr 0.9fr 1.1fr;
+  grid-template-columns: 1fr;
   gap: 1rem;
   margin-top: 2rem;
+}
+
+.vertical-case-flow {
+  gap: 1.4rem;
 }
 
 .yield-case-panel {
   border: 1px solid var(--border);
   background: #ffffff;
   border-radius: 22px;
-  padding: 1.25rem;
+  padding: 1.6rem;
   box-shadow: 0 12px 34px rgba(15,23,42,0.06);
 }
 
@@ -786,7 +790,8 @@ section h2 {
 
 .excel-stack {
   display: grid;
-  gap: 0.55rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
   margin-top: 1rem;
 }
 
@@ -806,7 +811,7 @@ section h2 {
   font-weight: 900;
 }
 
-.mini-excel div {
+.mini-excel > div {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   font-size: 0.7rem;
@@ -816,6 +821,44 @@ section h2 {
   border-right: 1px solid #e5e7eb;
   border-bottom: 1px solid #e5e7eb;
   padding: 0.35rem 0.45rem;
+}
+
+.dense-excel strong {
+  font-size: 0.64rem;
+  padding: 0.38rem 0.5rem;
+}
+
+.dense-excel em {
+  display: block;
+  padding: 0.42rem 0.5rem;
+  color: var(--text-secondary);
+  font-size: 0.62rem;
+  font-style: normal;
+  font-weight: 800;
+}
+
+.excel-sheet-grid {
+  display: grid !important;
+  grid-template-columns: 0.85fr 0.55fr 0.78fr 0.95fr 0.62fr 0.62fr 0.62fr 0.8fr !important;
+  font-size: 0.56rem !important;
+}
+
+.excel-sheet-grid b,
+.excel-sheet-grid span {
+  min-width: 0;
+  border-right: 1px solid #e5e7eb;
+  border-bottom: 1px solid #e5e7eb;
+  padding: 0.24rem 0.22rem;
+  line-height: 1.1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.excel-sheet-grid b {
+  background: #f3f4f6;
+  color: #374151;
+  font-weight: 900;
 }
 
 .manual-panel ul {
@@ -877,12 +920,14 @@ section h2 {
   box-shadow: none;
   padding: 1rem;
   margin-top: 1rem;
+  max-width: 720px;
 }
 
 .result-panel .ai-report-card {
   box-shadow: none;
   margin-top: 0.8rem;
   padding: 1rem;
+  max-width: 720px;
 }
 
 .result-panel .finding-card {
@@ -896,6 +941,7 @@ section h2 {
 
 .compact-detected {
   grid-template-columns: repeat(2, 1fr);
+  max-width: 720px;
 }
 
 .case-takeaway {
@@ -1557,6 +1603,7 @@ footer {
   .workload-strip,
   .ai-dashboard-preview,
   .yield-case-compare,
+  .excel-stack,
   .pain-metrics,
   .compact-detected,
   .prompt-anatomy,

@@ -115,6 +115,23 @@ const excelFiles = [
   { name: 'LINE_B_ARRAY_yield.xlsx', rows: '1,176 rows', status: '전일 대비 -0.8%' },
   { name: 'LINE_C_CELL_yield.xlsx', rows: '1,332 rows', status: '전일 대비 -3.7%' },
   { name: 'LINE_D_MODULE_yield.xlsx', rows: '964 rows', status: '전일 대비 +0.4%' },
+  { name: 'LINE_E_ARRAY_yield.xlsx', rows: '1,106 rows', status: '전일 대비 -2.1%' },
+  { name: 'LINE_F_CELL_yield.xlsx', rows: '1,284 rows', status: '전일 대비 -3.4%' },
+  { name: 'LINE_G_MODULE_yield.xlsx', rows: '1,019 rows', status: '전일 대비 +0.2%' },
+  { name: 'LINE_H_ARRAY_yield.xlsx', rows: '1,411 rows', status: '전일 대비 -1.6%' },
+];
+
+const excelPreviewColumns = ['Date', 'Line', 'Proc', 'Model', 'D-1', 'D', 'Diff', 'Judge'];
+
+const excelPreviewRows = [
+  ['04-21', 'A', 'Array', 'OLED-14', '94.1', '93.8', '-0.3', 'OK'],
+  ['04-22', 'A', 'Array', 'OLED-14', '93.8', '92.4', '-1.4', 'OK'],
+  ['04-23', 'A', 'Array', 'OLED-14', '92.4', '88.2', '-4.2', 'Check'],
+  ['04-23', 'C', 'Cell', 'OLED-17', '91.6', '87.9', '-3.7', 'Check'],
+  ['04-24', 'B', 'Array', 'OLED-14', '95.2', '94.4', '-0.8', 'OK'],
+  ['04-24', 'F', 'Cell', 'OLED-14', '93.5', '90.1', '-3.4', 'Check'],
+  ['04-25', 'D', 'Module', 'OLED-17', '96.1', '96.5', '+0.4', 'OK'],
+  ['04-25', 'H', 'Array', 'OLED-17', '94.8', '93.2', '-1.6', 'OK'],
 ];
 
 const manualWorkSteps = [
@@ -282,24 +299,39 @@ function YieldCaseDeepDive() {
         <span>Case 01 Deep Dive</span>
         <h3>수율 로그 자동 요약: Excel 노가다에서 AI 보고서 초안으로</h3>
         <p>
-          강의에서는 이 한 블록만 보여주면 됩니다. 왼쪽은 기존 방식의 반복 작업, 가운데는 실제 프롬프트,
-          오른쪽은 AI가 만든 표·그래프·보고서 초안입니다.
+          강의에서는 아래 박스를 위에서 아래로 스크롤하며 설명하면 됩니다. 먼저 Excel 파일을 여러 개 열어
+          눈으로 찾는 방식의 부담을 보여주고, 그 다음 같은 업무를 프롬프트 한 문장과 AI 산출물로 압축합니다.
         </p>
       </div>
 
-      <div className="yield-case-compare" aria-label="수율 로그 자동 요약 Before Prompt After 비교">
+      <div className="yield-case-compare vertical-case-flow" aria-label="수율 로그 자동 요약 Before Prompt After 비교">
         <article className="yield-case-panel manual-panel">
           <span>Before: 기존 Excel 방식</span>
           <h4>파일을 열고, 필터를 걸고, 하락 구간을 눈으로 찾습니다</h4>
           <div className="excel-stack">
-            {excelFiles.slice(0, 3).map((file, index) => (
-              <div className="mini-excel" key={file.name} style={{ marginLeft: `${index * 10}px` }}>
+            {excelFiles.map((file) => (
+              <div className="mini-excel dense-excel" key={file.name}>
                 <strong>{file.name}</strong>
-                <div>
-                  <span>Date</span><span>Line</span><span>Yield</span>
-                  <span>D-1</span><span>{file.name.slice(5, 6)}</span><span>92.4%</span>
-                  <span>D</span><span>{file.name.slice(5, 6)}</span><span className="excel-alert">{file.status}</span>
+                <div className="excel-sheet-grid">
+                  {excelPreviewColumns.map((column) => (
+                    <b key={column}>{column}</b>
+                  ))}
+                  {excelPreviewRows.map((row, rowIndex) =>
+                    row.map((cell, cellIndex) => {
+                      const isAlert = cell === 'Check' || cell.startsWith('-3') || cell.startsWith('-4');
+                      const lineAdjustedCell = cellIndex === 1 ? file.name.slice(5, 6) : cell;
+                      return (
+                        <span
+                          className={isAlert ? 'excel-alert' : ''}
+                          key={`${file.name}-${rowIndex}-${cellIndex}`}
+                        >
+                          {lineAdjustedCell}
+                        </span>
+                      );
+                    })
+                  )}
                 </div>
+                <em>{file.rows} · 날짜/라인/공정/모델 필터를 반복 적용</em>
               </div>
             ))}
           </div>
