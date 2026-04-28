@@ -955,6 +955,244 @@ section h2 {
   word-break: keep-all;
 }
 
+.aoi-deep-dive {
+  background: linear-gradient(180deg, #fbf8ff 0%, #ffffff 100%);
+  border-color: rgba(124,58,237,0.2);
+}
+
+.aoi-manual-panel {
+  background: #fffafd;
+}
+
+.folder-chaos {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem;
+  margin-top: 1rem;
+}
+
+.folder-card {
+  position: relative;
+  border: 1px solid #e9d5ff;
+  background: white;
+  border-radius: 16px;
+  padding: 1.1rem 0.9rem 0.9rem;
+  box-shadow: 0 10px 26px rgba(88,28,135,0.08);
+}
+
+.folder-tab {
+  position: absolute;
+  left: 0.9rem;
+  top: -0.35rem;
+  width: 44px;
+  height: 12px;
+  border-radius: 8px 8px 0 0;
+  background: #c084fc;
+}
+
+.folder-card strong,
+.folder-card span {
+  display: block;
+}
+
+.folder-card strong {
+  color: var(--text-primary);
+  font-size: 0.82rem;
+  font-weight: 900;
+}
+
+.folder-card span {
+  margin-top: 0.1rem;
+  color: var(--text-secondary);
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.folder-thumbs {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0.28rem;
+  margin-top: 0.7rem;
+}
+
+.folder-thumbs i {
+  aspect-ratio: 1;
+  border-radius: 5px;
+  background: #111827;
+  position: relative;
+  overflow: hidden;
+}
+
+.folder-thumbs i:after {
+  content: "";
+  position: absolute;
+  inset: 28%;
+  background: rgba(255,255,255,0.58);
+  border-radius: 50%;
+}
+
+.folder-thumbs .scratch:after {
+  inset: 46% 12%;
+  border-radius: 999px;
+  transform: rotate(-25deg);
+}
+
+.folder-thumbs .mura:after {
+  inset: 18%;
+  border-radius: 45% 55% 40% 60%;
+  background: rgba(255,255,255,0.32);
+}
+
+.aoi-rule-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.7rem;
+  margin-top: 1rem;
+}
+
+.aoi-rule-grid div {
+  border: 1px solid rgba(255,255,255,0.18);
+  background: rgba(255,255,255,0.08);
+  border-radius: 14px;
+  padding: 0.9rem;
+}
+
+.aoi-rule-grid strong,
+.aoi-rule-grid span {
+  display: block;
+}
+
+.aoi-rule-grid strong {
+  color: white;
+  font-weight: 900;
+}
+
+.aoi-rule-grid span {
+  margin-top: 0.25rem;
+  color: rgba(255,255,255,0.72);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.aoi-dashboard {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 1rem;
+  margin-top: 1rem;
+  max-width: 900px;
+}
+
+.aoi-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.8rem;
+}
+
+.aoi-tile {
+  border: 1px solid var(--border);
+  background: white;
+  border-radius: 16px;
+  padding: 0.75rem;
+}
+
+.aoi-image {
+  position: relative;
+  aspect-ratio: 1.2 / 1;
+  border-radius: 12px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 30% 24%, rgba(255,255,255,0.16), transparent 16%),
+    linear-gradient(135deg, #111827, #374151);
+}
+
+.aoi-image span,
+.aoi-image i {
+  position: absolute;
+  display: block;
+}
+
+.aoi-tile.scratch .aoi-image span {
+  left: 12%;
+  right: 14%;
+  top: 48%;
+  height: 4px;
+  border-radius: 999px;
+  background: #f8fafc;
+  transform: rotate(-22deg);
+  box-shadow: 0 0 10px rgba(255,255,255,0.9);
+}
+
+.aoi-tile.particle .aoi-image span {
+  width: 14px;
+  height: 14px;
+  left: 58%;
+  top: 34%;
+  border-radius: 50%;
+  background: #fef3c7;
+  box-shadow: 0 0 14px rgba(254,243,199,0.8);
+}
+
+.aoi-tile.mura .aoi-image span {
+  inset: 18% 22%;
+  border-radius: 45% 55% 40% 60%;
+  background: rgba(216,180,254,0.28);
+  box-shadow: 0 0 28px rgba(216,180,254,0.42);
+}
+
+.aoi-tile strong,
+.aoi-tile em {
+  display: block;
+}
+
+.aoi-tile strong {
+  margin-top: 0.55rem;
+  color: var(--text-primary);
+  font-size: 0.85rem;
+  font-weight: 900;
+}
+
+.aoi-tile em {
+  color: var(--text-secondary);
+  font-size: 0.78rem;
+  font-style: normal;
+  font-weight: 800;
+}
+
+.aoi-summary-list {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.aoi-summary-list div {
+  border: 1px solid var(--border);
+  background: white;
+  border-radius: 14px;
+  padding: 0.9rem;
+}
+
+.aoi-summary-list strong,
+.aoi-summary-list span {
+  display: block;
+}
+
+.aoi-summary-list strong {
+  color: var(--text-primary);
+  font-weight: 900;
+}
+
+.aoi-summary-list span {
+  margin-top: 0.25rem;
+  color: var(--text-secondary);
+  font-family: var(--font-content);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.aoi-result-table {
+  max-width: 720px;
+  margin-top: 1rem;
+}
+
 .deep-dive {
   margin-top: 3rem;
   padding: 2rem;
@@ -1604,6 +1842,10 @@ footer {
   .ai-dashboard-preview,
   .yield-case-compare,
   .excel-stack,
+  .folder-chaos,
+  .aoi-rule-grid,
+  .aoi-dashboard,
+  .aoi-gallery,
   .pain-metrics,
   .compact-detected,
   .prompt-anatomy,

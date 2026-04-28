@@ -168,11 +168,41 @@ const aiReportFindings = [
   },
 ];
 
+const aoiFolders = [
+  { name: 'AOI_LINE_A_0424', count: 186 },
+  { name: 'AOI_LINE_B_0424', count: 214 },
+  { name: 'AOI_LINE_C_0424', count: 172 },
+  { name: 'AOI_RECHECK_SET', count: 96 },
+];
+
+const aoiManualSteps = [
+  '폴더별 이미지를 하나씩 열어 확대/축소',
+  'Scratch, Particle, Mura 여부를 육안 판단',
+  '파일명을 Excel에 복사하고 불량 유형을 직접 기록',
+  '대표 이미지를 따로 골라 리뷰 자료에 붙임',
+  '우선 검토할 Lot과 설비를 회의 전에 다시 정리',
+];
+
+const aoiSamples = [
+  { id: 'A-0142', type: 'Scratch', confidence: 94, priority: 'High' },
+  { id: 'A-0187', type: 'Particle', confidence: 91, priority: 'High' },
+  { id: 'B-0203', type: 'Mura', confidence: 87, priority: 'Medium' },
+  { id: 'C-0108', type: 'Particle', confidence: 89, priority: 'Medium' },
+  { id: 'C-0149', type: 'Scratch', confidence: 83, priority: 'Medium' },
+  { id: 'R-0041', type: 'Mura', confidence: 78, priority: 'Low' },
+];
+
 const defectMix = [
   { type: 'Particle', count: 38 },
   { type: 'Scratch', count: 24 },
   { type: 'Mura', count: 18 },
   { type: 'Open', count: 11 },
+];
+
+const aoiSummary = [
+  { type: 'Particle', count: 38, action: '먼지/이물 유입 경로 확인' },
+  { type: 'Scratch', count: 24, action: '이송/접촉 장비 구간 확인' },
+  { type: 'Mura', count: 18, action: '증착/균일도 조건 확인' },
 ];
 
 const sensorReadings = [
@@ -410,6 +440,127 @@ function YieldCaseDeepDive() {
       <p className="case-takeaway">
         핵심은 AI가 최종 판단을 대신하는 것이 아닙니다. AI가 먼저 봐야 할 이상 후보를 정리하고,
         엔지니어가 공정·설비·검사 이력으로 검증하는 구조를 만드는 것입니다.
+      </p>
+    </div>
+  );
+}
+
+function AoiTile({ sample }: { sample: typeof aoiSamples[number] }) {
+  return (
+    <div className={`aoi-tile ${sample.type.toLowerCase()}`}>
+      <div className="aoi-image">
+        <span />
+        <i />
+      </div>
+      <strong>{sample.id}</strong>
+      <em>{sample.type}</em>
+    </div>
+  );
+}
+
+function AoiCaseDeepDive() {
+  return (
+    <div className="deep-dive aoi-deep-dive">
+      <div className="deep-dive-heading">
+        <span>Case 02 Deep Dive</span>
+        <h3>AOI 불량 이미지 분류: 폴더 넘기기에서 리뷰용 대시보드로</h3>
+        <p>
+          AOI 이미지는 한 장씩 보면 단순하지만, 수백 장을 폴더별로 넘기며 유형을 기록하면 시간이 빠르게 소모됩니다.
+          바이브 코딩에서는 이미지 샘플, 분류 기준, 원하는 갤러리 형태를 한 번에 지시합니다.
+        </p>
+      </div>
+
+      <div className="yield-case-compare vertical-case-flow" aria-label="AOI 불량 이미지 분류 Before Prompt After 비교">
+        <article className="yield-case-panel manual-panel aoi-manual-panel">
+          <span>Before: 기존 이미지 폴더 수작업</span>
+          <h4>이미지를 넘기며 Scratch, Particle, Mura를 사람이 직접 기록합니다</h4>
+          <div className="folder-chaos">
+            {aoiFolders.map((folder) => (
+              <div className="folder-card" key={folder.name}>
+                <div className="folder-tab" />
+                <strong>{folder.name}</strong>
+                <span>{folder.count} images</span>
+                <div className="folder-thumbs">
+                  {aoiSamples.slice(0, 6).map((sample) => (
+                    <i className={sample.type.toLowerCase()} key={`${folder.name}-${sample.id}`} />
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+          <ul>
+            {aoiManualSteps.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+          <div className="pain-metrics">
+            <div><strong>600+</strong><span>이미지 후보</span></div>
+            <div><strong>3유형</strong><span>육안 분류</span></div>
+            <div><strong>높음</strong><span>기록 누락 위험</span></div>
+          </div>
+        </article>
+
+        <article className="yield-case-panel prompt-panel">
+          <span>Prompt: 바이브 코딩 지시</span>
+          <h4>분류 기준과 리뷰 화면을 함께 요청합니다</h4>
+          <p>
+            AOI 이미지 샘플을 Scratch, Particle, Mura 유형별로 분류하고, 유형별 대표 이미지와 신뢰도,
+            검토 우선순위를 포함한 리뷰용 대시보드를 만들어줘. 파일명, Lot, Line 정보를 함께 표시하고
+            엔지니어가 재검토해야 할 애매한 이미지는 별도 그룹으로 묶어줘.
+          </p>
+          <div className="aoi-rule-grid">
+            <div><strong>Scratch</strong><span>길고 얇은 선형 결함</span></div>
+            <div><strong>Particle</strong><span>점 형태의 국부 결함</span></div>
+            <div><strong>Mura</strong><span>면 형태의 얼룩/휘도 불균일</span></div>
+          </div>
+        </article>
+
+        <article className="yield-case-panel result-panel">
+          <span>After: AI 산출물</span>
+          <h4>유형별 갤러리와 검토 우선순위가 한 화면에 정리됩니다</h4>
+          <div className="aoi-dashboard">
+            <div className="aoi-gallery">
+              {aoiSamples.map((sample) => (
+                <AoiTile sample={sample} key={sample.id} />
+              ))}
+            </div>
+            <div className="aoi-summary-list">
+              {aoiSummary.map((item) => (
+                <div key={item.type}>
+                  <strong>{item.type}</strong>
+                  <span>{item.count}건 · {item.action}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="data-table-card compact-table aoi-result-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Image</th>
+                  <th>Type</th>
+                  <th>Conf.</th>
+                  <th>Priority</th>
+                </tr>
+              </thead>
+              <tbody>
+                {aoiSamples.slice(0, 5).map((sample) => (
+                  <tr key={sample.id} className={sample.priority === 'High' ? 'danger-row' : ''}>
+                    <td>{sample.id}</td>
+                    <td>{sample.type}</td>
+                    <td>{sample.confidence}%</td>
+                    <td>{sample.priority}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </article>
+      </div>
+
+      <p className="case-takeaway">
+        핵심은 AI가 불량 원인을 확정하는 것이 아니라, 수백 장의 이미지를 유형별로 먼저 묶어
+        엔지니어가 우선 검토할 대상을 빠르게 좁혀주는 것입니다.
       </p>
     </div>
   );
@@ -757,6 +908,7 @@ export default function App() {
             })}
           </div>
           <YieldCaseDeepDive />
+          <AoiCaseDeepDive />
           <div className="case-visual-grid">
             <YieldTrendChart />
             <DefectParetoChart />
