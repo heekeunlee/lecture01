@@ -9,13 +9,11 @@ import {
   FileText,
   Gauge,
   Image,
-  Layers,
   Navigation,
   Quote,
   Sparkles,
   Target,
   Terminal,
-  Truck,
   Wrench,
   Zap,
 } from 'lucide-react';
@@ -41,6 +39,24 @@ const fieldScenarios = [
     before: '온도/압력/유량 로그에서 관리 한계 초과 여부를 수동 필터링',
     intent: '설비 센서 데이터에 이동평균과 UCL/LCL을 적용해서 OOC 발생 시점과 전조 패턴을 표시해줘.',
     output: '관리도 기반 알림 화면과 조치 메모',
+  },
+];
+
+const impactExamples = [
+  {
+    title: '반복 보고서',
+    before: 'Excel 파일을 열고 필터, 피벗, 캡처를 수작업으로 반복',
+    after: '데이터 범위와 기준을 지시하면 표, 그래프, 요약 초안을 자동 생성',
+  },
+  {
+    title: '이상 감지',
+    before: '관리 한계 초과 구간을 사람이 직접 찾고 원인을 메모',
+    after: 'OOC 시점, 관련 센서, 확인 질문을 한 화면에서 검토',
+  },
+  {
+    title: '회의 준비',
+    before: '불량 이미지와 수율 로그를 따로 모아 발표 자료를 구성',
+    after: '대표 이미지, 우선순위, 조치 후보가 포함된 리뷰 자료 초안 생성',
   },
 ];
 
@@ -70,10 +86,302 @@ const practiceSteps = [
   },
 ];
 
+const lessonFlow = [
+  { time: '3분', label: '목표 확인' },
+  { time: '7분', label: '개념·비유' },
+  { time: '8분', label: '실무 사례' },
+  { time: '17분', label: '지시문·실습' },
+  { time: '5분', label: '검증·정리' },
+];
+
+const roleFlow = [
+  { owner: '엔지니어', task: '문제·데이터·기준 정의' },
+  { owner: 'AI', task: '코드·차트·보고서 초안 생성' },
+  { owner: '엔지니어', task: '현장 기준으로 검증·수정 지시' },
+];
+
+const yieldTrend = [
+  { day: 'D-6', value: 94 },
+  { day: 'D-5', value: 95 },
+  { day: 'D-4', value: 93 },
+  { day: 'D-3', value: 92 },
+  { day: 'D-2', value: 88 },
+  { day: 'D-1', value: 86 },
+  { day: 'D', value: 89 },
+];
+
+const excelFiles = [
+  { name: 'LINE_A_ARRAY_yield.xlsx', rows: '1,248 rows', status: '전일 대비 -4.2%' },
+  { name: 'LINE_B_ARRAY_yield.xlsx', rows: '1,176 rows', status: '전일 대비 -0.8%' },
+  { name: 'LINE_C_CELL_yield.xlsx', rows: '1,332 rows', status: '전일 대비 -3.7%' },
+  { name: 'LINE_D_MODULE_yield.xlsx', rows: '964 rows', status: '전일 대비 +0.4%' },
+];
+
+const manualWorkSteps = [
+  '라인별 Excel 파일 열기',
+  '날짜/공정/모델 필터 적용',
+  '전일 수율과 금일 수율을 눈으로 비교',
+  '3% 이상 하락한 셀을 직접 표시',
+  '스크린샷을 보고서에 붙이고 원인 후보 작성',
+];
+
+const yieldLogRows = [
+  { date: '2026-04-22', line: 'A', process: 'Array', model: 'OLED-14', yesterday: 94.1, today: 93.8, diff: -0.3 },
+  { date: '2026-04-23', line: 'A', process: 'Array', model: 'OLED-14', yesterday: 93.8, today: 92.4, diff: -1.4 },
+  { date: '2026-04-24', line: 'A', process: 'Array', model: 'OLED-14', yesterday: 92.4, today: 88.2, diff: -4.2 },
+  { date: '2026-04-24', line: 'C', process: 'Cell', model: 'OLED-17', yesterday: 91.6, today: 87.9, diff: -3.7 },
+  { date: '2026-04-25', line: 'B', process: 'Array', model: 'OLED-14', yesterday: 95.2, today: 94.4, diff: -0.8 },
+  { date: '2026-04-25', line: 'D', process: 'Module', model: 'OLED-17', yesterday: 96.1, today: 96.5, diff: 0.4 },
+];
+
+const detectedDrops = yieldLogRows.filter((item) => item.diff <= -3);
+
+const aiReportFindings = [
+  {
+    title: '우선 확인 1순위',
+    body: 'A Line / Array / OLED-14에서 2026-04-24 수율이 전일 대비 4.2% 하락했습니다.',
+  },
+  {
+    title: '우선 확인 2순위',
+    body: 'C Line / Cell / OLED-17에서 2026-04-24 수율이 전일 대비 3.7% 하락했습니다.',
+  },
+  {
+    title: '추가 확인 질문',
+    body: '해당 Lot의 Recipe 변경, 장비 PM 이력, 검사 불량률 증가 여부를 함께 확인해야 합니다.',
+  },
+];
+
+const defectMix = [
+  { type: 'Particle', count: 38 },
+  { type: 'Scratch', count: 24 },
+  { type: 'Mura', count: 18 },
+  { type: 'Open', count: 11 },
+];
+
+const sensorReadings = [
+  { label: '08:00', value: 72 },
+  { label: '09:00', value: 75 },
+  { label: '10:00', value: 77 },
+  { label: '11:00', value: 82 },
+  { label: '12:00', value: 88 },
+  { label: '13:00', value: 91 },
+  { label: '14:00', value: 84 },
+];
+
+const promptParts = [
+  { label: '문제', text: '어떤 현상을 확인할 것인가?' },
+  { label: '데이터', text: '파일·컬럼·기간·단위는 무엇인가?' },
+  { label: '기준', text: '정상/이상 판정 기준은 무엇인가?' },
+  { label: '산출물', text: '표·그래프·대시보드 중 무엇인가?' },
+  { label: '검증', text: '사람이 다시 볼 리스크는 무엇인가?' },
+];
+
 const navigationLinks = [
   { label: '커리큘럼으로 돌아가기', href: 'https://heekeunlee.github.io/lecture_assist001/' },
   { label: '2강 프롬프트 기획 예고', href: 'https://heekeunlee.github.io/lecture_assist001/' },
 ];
+
+function YieldTrendChart() {
+  const max = 96;
+  const min = 84;
+  const points = yieldTrend
+    .map((item, index) => {
+      const x = 28 + index * 48;
+      const y = 150 - ((item.value - min) / (max - min)) * 110;
+      return `${x},${y}`;
+    })
+    .join(' ');
+
+  return (
+    <div className="visual-card chart-card">
+      <div className="visual-header">
+        <span>Sample Yield Trend</span>
+        <strong>Line A / Array</strong>
+      </div>
+      <svg viewBox="0 0 340 190" role="img" aria-label="7일 수율 추이 샘플 그래프">
+        <line x1="24" y1="42" x2="316" y2="42" className="limit-line" />
+        <line x1="24" y1="150" x2="316" y2="150" className="axis-line" />
+        <polyline points={points} className="trend-line" />
+        {yieldTrend.map((item, index) => {
+          const x = 28 + index * 48;
+          const y = 150 - ((item.value - min) / (max - min)) * 110;
+          return (
+            <g key={item.day}>
+              <circle cx={x} cy={y} r="5" className={item.value < 90 ? 'alert-dot' : 'normal-dot'} />
+              <text x={x} y="174" textAnchor="middle">{item.day}</text>
+              {item.value < 90 && <text x={x} y={y - 12} textAnchor="middle" className="alert-label">{item.value}%</text>}
+            </g>
+          );
+        })}
+      </svg>
+      <p>AI가 먼저 하락 구간을 표시하고, 엔지니어가 원인 후보를 검증합니다.</p>
+    </div>
+  );
+}
+
+function DefectParetoChart() {
+  const max = Math.max(...defectMix.map((item) => item.count));
+
+  return (
+    <div className="visual-card">
+      <div className="visual-header">
+        <span>AOI Defect Pareto</span>
+        <strong>Top 4</strong>
+      </div>
+      <div className="bar-chart" role="img" aria-label="AOI 불량 유형별 빈도 막대 그래프">
+        {defectMix.map((item) => (
+          <div className="bar-row" key={item.type}>
+            <span>{item.type}</span>
+            <div>
+              <i style={{ width: `${(item.count / max) * 100}%` }} />
+            </div>
+            <strong>{item.count}</strong>
+          </div>
+        ))}
+      </div>
+      <p>불량 유형별 우선순위를 시각화하면 리뷰 순서를 빠르게 정할 수 있습니다.</p>
+    </div>
+  );
+}
+
+function SensorControlChart() {
+  return (
+    <div className="visual-card chart-card">
+      <div className="visual-header">
+        <span>Sensor OOC Check</span>
+        <strong>Temp Sensor</strong>
+      </div>
+      <svg viewBox="0 0 340 190" role="img" aria-label="설비 센서 관리 한계 초과 샘플 그래프">
+        <line x1="24" y1="55" x2="316" y2="55" className="ucl-line" />
+        <line x1="24" y1="150" x2="316" y2="150" className="axis-line" />
+        <text x="28" y="48" className="alert-label">UCL</text>
+        <polyline
+          points={sensorReadings.map((item, index) => `${28 + index * 48},${160 - item.value}`).join(' ')}
+          className="trend-line"
+        />
+        {sensorReadings.map((item, index) => {
+          const x = 28 + index * 48;
+          const y = 160 - item.value;
+          return (
+            <g key={item.label}>
+              <circle cx={x} cy={y} r="5" className={item.value >= 88 ? 'alert-dot' : 'normal-dot'} />
+              <text x={x} y="174" textAnchor="middle">{item.label}</text>
+            </g>
+          );
+        })}
+      </svg>
+      <p>관리 한계를 함께 지시해야 AI가 “이상”을 현장 기준으로 표시합니다.</p>
+    </div>
+  );
+}
+
+function YieldCaseDeepDive() {
+  return (
+    <div className="deep-dive">
+      <div className="deep-dive-heading">
+        <span>Case 01 Deep Dive</span>
+        <h3>수율 로그 자동 요약: Excel 노가다에서 AI 보고서 초안으로</h3>
+        <p>
+          강의에서는 이 한 블록만 보여주면 됩니다. 왼쪽은 기존 방식의 반복 작업, 가운데는 실제 프롬프트,
+          오른쪽은 AI가 만든 표·그래프·보고서 초안입니다.
+        </p>
+      </div>
+
+      <div className="yield-case-compare" aria-label="수율 로그 자동 요약 Before Prompt After 비교">
+        <article className="yield-case-panel manual-panel">
+          <span>Before: 기존 Excel 방식</span>
+          <h4>파일을 열고, 필터를 걸고, 하락 구간을 눈으로 찾습니다</h4>
+          <div className="excel-stack">
+            {excelFiles.slice(0, 3).map((file, index) => (
+              <div className="mini-excel" key={file.name} style={{ marginLeft: `${index * 10}px` }}>
+                <strong>{file.name}</strong>
+                <div>
+                  <span>Date</span><span>Line</span><span>Yield</span>
+                  <span>D-1</span><span>{file.name.slice(5, 6)}</span><span>92.4%</span>
+                  <span>D</span><span>{file.name.slice(5, 6)}</span><span className="excel-alert">{file.status}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+          <ul>
+            {manualWorkSteps.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+          <div className="pain-metrics">
+            <div><strong>4개</strong><span>라인별 파일</span></div>
+            <div><strong>4,720+</strong><span>검토 행</span></div>
+            <div><strong>30-50분</strong><span>반복 필터·캡처</span></div>
+          </div>
+        </article>
+
+        <article className="yield-case-panel prompt-panel">
+          <span>Prompt: 바이브 코딩 지시</span>
+          <h4>기준과 결과물까지 한 번에 말합니다</h4>
+          <p>
+            최근 7일간 라인/공정/모델별 수율을 비교하고 전일 대비 3% 이상 하락한 항목만 빨간색으로 표시해줘.
+            하락 폭 TOP5와 원인 후보, 엔지니어 확인 질문을 포함한 HTML 보고서 형태로 만들어줘.
+          </p>
+          <div className="data-table-card compact-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Line</th>
+                  <th>Process</th>
+                  <th>Model</th>
+                  <th>Diff</th>
+                </tr>
+              </thead>
+              <tbody>
+                {yieldLogRows.slice(0, 5).map((row) => (
+                  <tr key={`${row.date}-${row.line}-${row.process}`} className={row.diff <= -3 ? 'danger-row' : ''}>
+                    <td>{row.date.slice(5)}</td>
+                    <td>{row.line}</td>
+                    <td>{row.process}</td>
+                    <td>{row.model}</td>
+                    <td>{row.diff.toFixed(1)}%</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </article>
+
+        <article className="yield-case-panel result-panel">
+          <span>After: AI 산출물</span>
+          <h4>빨간 표시, 추이 그래프, 보고서 초안이 한 화면에 나옵니다</h4>
+          <YieldTrendChart />
+          <div className="ai-report-card">
+            <div className="visual-header">
+              <span>Auto Report</span>
+              <strong>Yield Drop Summary</strong>
+            </div>
+            {aiReportFindings.map((item) => (
+              <div className="finding-card" key={item.title}>
+                <strong>{item.title}</strong>
+                <p>{item.body}</p>
+              </div>
+            ))}
+          </div>
+          <div className="detected-list compact-detected">
+            {detectedDrops.map((item) => (
+              <div key={`${item.line}-${item.process}-${item.model}`}>
+                <strong>{item.line} Line · {item.process}</strong>
+                <span>{item.model} / {item.diff.toFixed(1)}%p 하락</span>
+              </div>
+            ))}
+          </div>
+        </article>
+      </div>
+
+      <p className="case-takeaway">
+        핵심은 AI가 최종 판단을 대신하는 것이 아닙니다. AI가 먼저 봐야 할 이상 후보를 정리하고,
+        엔지니어가 공정·설비·검사 이력으로 검증하는 구조를 만드는 것입니다.
+      </p>
+    </div>
+  );
+}
 
 export default function App() {
   return (
@@ -119,7 +427,7 @@ export default function App() {
           transition={{ delay: 0.2 }}
         >
           <h1>1. 바이브 코딩: '코딩'의 시대에서 '의도'의 시대로</h1>
-          <p className="subtitle">AI와 함께 기술의 한계를 넘어서는 미래 엔지니어로의 도약</p>
+          <p className="subtitle">제조 현장의 반복 분석·보고서·이상감지를 AI로 자동화하는 첫걸음</p>
           <div className="lesson-meta" aria-label="lesson summary">
             <span>40분</span>
             <span>마인드셋</span>
@@ -131,34 +439,55 @@ export default function App() {
 
       <main>
         <section className="overview-section">
-          <span className="section-label">00. Learning Goal</span>
-          <h2>오늘의 목표: 코드를 배우기 전에, AI가 실행할 의도를 설계합니다</h2>
+          <span className="section-label">00. Opening & Learning Goal (3분)</span>
+          <h2>오늘 40분 뒤, 여러분은 AI에게 맡길 업무를 작업지시서로 설명할 수 있습니다</h2>
+          <p className="section-intro">
+            이 강의는 개발자가 되기 위한 문법 수업이 아닙니다. 제조/공정 엔지니어가 반복 분석, 보고서 작성,
+            이상 감지 업무를 AI에게 정확히 지시하는 법을 배우는 첫 시간입니다.
+          </p>
           <div className="outcome-grid">
             <div className="outcome-card">
               <Target size={28} color="var(--accent)" />
-              <h3>문제 정의</h3>
-              <p>현장 문제를 AI가 이해할 수 있는 작업 단위로 바꿉니다.</p>
+              <h3>개념 구분</h3>
+              <p>전통 코딩과 바이브 코딩의 차이를 말할 수 있습니다.</p>
             </div>
             <div className="outcome-card">
               <Factory size={28} color="var(--accent)" />
-              <h3>도메인 언어</h3>
-              <p>공정명, 장비명, spec, 수율 같은 엔지니어링 언어를 프롬프트의 중심에 둡니다.</p>
+              <h3>업무 연결</h3>
+              <p>수율, 불량, 설비 로그 업무에 AI를 어떻게 붙일지 이해합니다.</p>
             </div>
             <div className="outcome-card">
               <ClipboardCheck size={28} color="var(--accent)" />
-              <h3>산출물 기준</h3>
-              <p>표, 차트, 대시보드, 보고서처럼 AI가 끝내야 할 결과물을 먼저 정합니다.</p>
+              <h3>실습 산출물</h3>
+              <p>데이터, 기준, 결과물이 포함된 나의 첫 작업지시서를 완성합니다.</p>
             </div>
+          </div>
+          <div className="lesson-timeline" aria-label="40분 강의 진행표">
+            {lessonFlow.map((item) => (
+              <div className="timeline-step" key={item.label}>
+                <strong>{item.time}</strong>
+                <span>{item.label}</span>
+              </div>
+            ))}
           </div>
         </section>
 
         <section className="definition-section">
-          <span className="section-label">00-1. What is Vibe Coding?</span>
+          <span className="section-label">01. What is Vibe Coding? (4분)</span>
           <h2>바이브 코딩은 “문법을 입력하는 일”이 아니라 “의도를 설계하고 AI를 지휘하는 일”입니다</h2>
           <p className="section-intro">
-            일반 코딩은 사람이 구현 절차를 한 줄씩 작성하는 방식입니다. 바이브 코딩은 엔지니어가 문제, 데이터,
-            판단 기준, 원하는 결과물을 말하면 AI가 구현을 대신 수행하고, 사람은 결과가 현장 기준에 맞는지 검증합니다.
+            바이브 코딩이란 코드 문법 대신 의도(Vibe)를 언어로 담아 AI가 구현을 만들도록 지시하는 방식입니다.
+            엔지니어는 문제, 데이터, 판단 기준, 원하는 결과물을 정의하고, AI가 만든 결과가 현장 기준에 맞는지 검증합니다.
           </p>
+          <div className="role-flow" aria-label="바이브 코딩 역할 분리 흐름도">
+            {roleFlow.map((item, index) => (
+              <div className="role-step" key={`${item.owner}-${item.task}`}>
+                <span>{item.owner}</span>
+                <strong>{item.task}</strong>
+                {index < roleFlow.length - 1 && <ArrowRight size={22} />}
+              </div>
+            ))}
+          </div>
           <div className="coding-compare-grid">
             <motion.article
               className="coding-compare-card traditional"
@@ -221,16 +550,32 @@ export default function App() {
 
         {/* Section 1 */}
         <section>
-          <span className="section-label">01. Opening (5분)</span>
+          <span className="section-label">02. Core Analogy (3분)</span>
           <h2 style={{ fontSize: '3rem', color: 'var(--accent)', fontWeight: 900, marginBottom: '2rem' }}>
-            "우리는 이미 바이브 코딩을 하고 있습니다"
+            "바이브 코딩은 엔진 조립이 아니라 목적지를 말하는 일입니다"
           </h2>
           <div className="highlight-box">
             <p className="quote">"자동차 운전을 할 때 엔진 오일의 점도나 피스톤의 회전 속도를 일일이 계산하며 타시나요?"</p>
             <p style={{ fontSize: '1.1rem', fontWeight: 400, color: 'var(--text-secondary)', marginTop: '1.5rem', lineHeight: '1.6' }}>
-              자동차의 동작원리를 몰라도 운전해서 여행을 떠나는데는 문제가 없습니다.<br/>
-              복잡한 코딩은 AI에게 맡기고 우리는 기획과 설계를해서 원하는 결과물만 정확하게 얻으면 됩니다.
+              운전자는 엔진을 직접 조립하지 않아도 목적지, 속도, 안전 기준을 정합니다.<br/>
+              바이브 코딩에서도 구현은 AI가 돕고, 엔지니어는 문제 정의와 검증 기준을 책임집니다.
             </p>
+          </div>
+          <div className="navigation-visual" aria-label="목적지 지시 예시">
+            <div className="nav-card">
+              <span>목적지</span>
+              <strong>Array 수율 하락 원인 후보</strong>
+            </div>
+            <ArrowRight size={24} />
+            <div className="nav-card">
+              <span>조건</span>
+              <strong>최근 7일, 3% 이상 하락</strong>
+            </div>
+            <ArrowRight size={24} />
+            <div className="nav-card active">
+              <span>도착 결과</span>
+              <strong>차트 + TOP5 + 확인 질문</strong>
+            </div>
           </div>
           <motion.div 
             className="comic-grid-horizontal"
@@ -278,7 +623,7 @@ export default function App() {
 
         {/* Section 2 */}
         <section>
-          <span className="section-label">02. 핵심 비유 I (10분)</span>
+          <span className="section-label">03. Traditional vs Vibe (3분)</span>
           <h2>'설명서'를 쓰는 사람 vs '목적지'를 말하는 사람</h2>
           <div className="card-grid">
             <motion.div className="card" whileHover={{ y: -5 }}>
@@ -289,53 +634,66 @@ export default function App() {
             <motion.div className="card" whileHover={{ y: -5 }} style={{ borderColor: 'var(--accent)' }}>
               <Navigation size={32} color="var(--accent)" style={{ marginBottom: '1rem' }} />
               <h3>바이브 코딩 (자율 주행)</h3>
-              <p>"탕정 7라인 수율 대시보드 그려줘"라고 입력만 하세요. 구현은 AI가 하고, 엔지니어는 결과의 안전성만 결정합니다.</p>
+              <p>"최근 7일 수율 데이터를 라인별로 비교하고, 3% 이상 하락한 항목을 표시해줘"처럼 목적지와 판단 기준을 말합니다.</p>
             </motion.div>
+          </div>
+          <div className="prompt-pipeline" aria-label="전통 코딩과 바이브 코딩 절차 비교">
+            <div>
+              <span>전통 코딩</span>
+              <p>문법 학습 → 코드 작성 → 에러 수정 → 차트 생성 → 보고서 정리</p>
+            </div>
+            <div>
+              <span>바이브 코딩</span>
+              <p>업무 의도 작성 → AI 초안 생성 → 기준 검증 → 수정 지시 → 현장 적용</p>
+            </div>
           </div>
         </section>
 
         {/* Section 3 */}
         <section>
-          <span className="section-label">03. 핵심 비유 II (10분)</span>
-          <h2>"밀키트 요리" vs "배달 앱 요청사항"</h2>
-          <div className="card-grid">
-            <motion.div className="card" whileHover={{ y: -5 }}>
-              <Layers size={32} color="#888" style={{ marginBottom: '1rem' }} />
-              <h3>전통적 코딩 (밀키트 제작)</h3>
-              <p>양파를 몇 cm로 썰지, 불은 몇 분간 켤지 내가 다 챙겨야 합니다. 순서가 틀리면 맛이 어긋납니다.</p>
-            </motion.div>
-            <motion.div className="card" whileHover={{ y: -5 }} style={{ borderColor: 'var(--accent)' }}>
-              <Truck size={32} color="var(--accent)" style={{ marginBottom: '1rem' }} />
-              <h3>바이브 코딩 (배달 앱 요청)</h3>
-              <p>"최대한 맵게, 리뷰 이벤트 참여요." 의도(Vibe)만 정확히 적으세요. 요리는 전문가(AI)가 해서 집 앞까지 배달해줍니다.</p>
-            </motion.div>
-          </div>
-        </section>
-
-        {/* Section 4 */}
-        <section>
-          <span className="section-label">04. 왜 혁명인가? (10분)</span>
-          <h2>엔지니어링의 본질로 돌아가는 시간</h2>
-          <div className="card-grid">
-            <div className="card">
-              <Zap size={24} color="var(--accent)" style={{ marginBottom: '1rem' }} />
-              <h3>언어의 장벽 붕괴</h3>
-              <p>Python을 몰라도 됩니다. 우리가 평생 써온 전공 용어와 한국어가 곧 코딩 언어가 됩니다.</p>
-            </div>
-            <div className="card">
-              <Sparkles size={24} color="var(--accent)" style={{ marginBottom: '1rem' }} />
-              <h3>생산성의 비약</h3>
-              <p>8시간 걸리던 엑셀 노가다를 한 마디 의도(Vibe)로 15분 만에 끝내는 실전적 경험.</p>
-            </div>
+          <span className="section-label">04. Why It Matters (4분)</span>
+          <h2>왜 제조 엔지니어에게 중요한가?</h2>
+          <p className="section-intro">
+            AI는 공정 지식을 대신하지 않습니다. 대신 반복되는 데이터 정리, 초안 작성, 이상 구간 탐색을 빠르게 처리해
+            엔지니어가 원인 판단과 의사결정에 더 많은 시간을 쓰게 만듭니다.
+          </p>
+          <div className="impact-grid">
+            {impactExamples.map((item) => (
+              <div className="impact-card" key={item.title}>
+                <h3>{item.title}</h3>
+                <div>
+                  <span>Before</span>
+                  <p>{item.before}</p>
+                </div>
+                <div>
+                  <span>After AI</span>
+                  <p>{item.after}</p>
+                </div>
+              </div>
+            ))}
           </div>
           <div className="highlight-box" style={{ background: '#f5f5f7', borderLeftColor: '#333' }}>
             <p style={{ fontWeight: 700 }}>Target Point:</p>
-            <p>"기업은 파이썬 문법 암기자가 아니라, AI를 써서 10배 빠르게 문제를 해결하는 영리한 엔지니어를 원합니다."</p>
+            <p>"기업은 단순 문법 암기자가 아니라, AI를 활용해 공정 데이터 분석·보고서·이상감지를 빠르게 자동화하는 제조 엔지니어를 원합니다."</p>
+          </div>
+          <div className="mini-dashboard" aria-label="AI 자동화 결과물 샘플 대시보드">
+            <YieldTrendChart />
+            <div className="report-preview">
+              <div className="visual-header">
+                <span>AI Report Draft</span>
+                <strong>1-page summary</strong>
+              </div>
+              <ul>
+                <li><b>이상 구간</b> D-2, D-1 수율 90% 미만</li>
+                <li><b>원인 후보</b> 설비 A 온도 상승, 검사 불량률 증가</li>
+                <li><b>확인 질문</b> Recipe 변경 이력과 PM 기록 확인 필요</li>
+              </ul>
+            </div>
           </div>
         </section>
 
         <section>
-          <span className="section-label">05. Display Engineering Case (8분)</span>
+          <span className="section-label">05. Display Engineering Case (4분)</span>
           <h2>이 강의는 일반 코딩 수업이 아니라, 디스플레이 엔지니어의 업무 자동화 수업입니다</h2>
           <p className="section-intro">
             바이브 코딩의 출발점은 문법이 아니라 현장 문제입니다. 수율, AOI, 센서 로그처럼 이미 여러분이 알고 있는
@@ -366,10 +724,16 @@ export default function App() {
               );
             })}
           </div>
+          <YieldCaseDeepDive />
+          <div className="case-visual-grid">
+            <YieldTrendChart />
+            <DefectParetoChart />
+            <SensorControlChart />
+          </div>
         </section>
 
         <section>
-          <span className="section-label">06. Intent Engineering (7분)</span>
+          <span className="section-label">06. Intent Engineering (9분)</span>
           <h2>좋은 의도는 “해줘”가 아니라, 판단 기준과 결과물까지 포함합니다</h2>
           <div className="comparison-panel">
             <div className="bad-prompt">
@@ -387,10 +751,18 @@ export default function App() {
               <span>핵심: 데이터, 기준, 분석 관점, 산출물이 한 번에 정의됩니다.</span>
             </div>
           </div>
+          <div className="prompt-anatomy" aria-label="좋은 작업지시서 구성 요소">
+            {promptParts.map((item) => (
+              <div className="prompt-part" key={item.label}>
+                <strong>{item.label}</strong>
+                <span>{item.text}</span>
+              </div>
+            ))}
+          </div>
         </section>
 
         <section>
-          <span className="section-label">07. Mini Workshop (7분)</span>
+          <span className="section-label">07. Mini Workshop (8분)</span>
           <h2>실습: 나의 첫 AI 작업지시서 만들기</h2>
           <p className="section-intro">
             아래 3단계를 채우면 다음 강의에서 바로 프롬프트로 발전시킬 수 있는 개인용 작업지시서가 됩니다.
@@ -415,11 +787,25 @@ export default function App() {
               마지막에는 엔지니어가 확인해야 할 리스크와 추가 질문을 정리해줘.
             </p>
           </div>
+          <div className="worksheet-preview" aria-label="수강생 작업지시서 작성 예시">
+            <div className="worksheet-row">
+              <span>공정/장비/데이터</span>
+              <p>CVD 막두께 측정 로그, Lot ID, 설비 ID, Recipe, Temp, Pressure</p>
+            </div>
+            <div className="worksheet-row">
+              <span>문제 현상</span>
+              <p>특정 Lot에서 막두께 산포가 커지고 목표값 120nm를 벗어남</p>
+            </div>
+            <div className="worksheet-row">
+              <span>원하는 결과물</span>
+              <p>설비별 box plot, 이상 Lot 목록, 원인 후보 3개, 확인 질문</p>
+            </div>
+          </div>
         </section>
 
         <section>
-          <span className="section-label">08. Quality Gate (3분)</span>
-          <h2>AI에게 보내기 전, 이 5가지를 확인하세요</h2>
+          <span className="section-label">08. Quality Gate & Wrap-up (2분)</span>
+          <h2>AI에게 보내기 전, 이 5가지만 확인하세요</h2>
           <div className="checklist">
             {intentChecklist.map((item) => (
               <div className="check-item" key={item}>
@@ -435,16 +821,11 @@ export default function App() {
               2강의 프롬프트 설계로 자연스럽게 이어집니다.
             </p>
           </div>
-        </section>
-
-        {/* Section 5 */}
-        <section style={{ textAlign: 'center' }}>
-          <span className="section-label" style={{ margin: '0 auto 1rem auto' }}>09. Wrap-up & Bridge (5분)</span>
-          <Quote size={48} color="var(--accent)" style={{ margin: '2rem auto' }} />
-          <h2 style={{ fontSize: '2.5rem' }}>"코드를 외우지 마세요.<br/>여러분의 의도(Vibe)를 정의하세요."</h2>
-          <p className="subtitle" style={{ marginTop: '2rem' }}>
-            다음 강의: 그 의도를 어떻게 AI에게 전달할까요? (프롬프트 기획)
-          </p>
+          <div className="wrap-message">
+            <Quote size={36} color="var(--accent)" />
+            <h3>"코드를 외우기 전에, 먼저 업무 의도를 정확히 정의하세요."</h3>
+            <p>다음 강의: 그 의도를 어떻게 AI에게 전달할까요? (프롬프트 기획)</p>
+          </div>
           <div className="lesson-actions">
             {navigationLinks.map((link) => (
               <a href={link.href} key={link.label}>
@@ -457,10 +838,10 @@ export default function App() {
 
         <section className="professional-point">
           <div className="highlight-box" style={{ background: 'var(--accent)', color: 'white', border: 'none', borderRadius: '24px' }}>
-            <h3>Professional Engineering Point</h3>
+            <h3>Manufacturing Engineering Point</h3>
             <p style={{ color: 'rgba(255,255,255,0.8)', marginTop: '1rem', fontSize: '1.1rem' }}>
-              "전통적 코딩이 <strong>어셈블리(Assembly)</strong>라면, 바이브 코딩은 <strong>시스템 아키텍처(Architecture)</strong>입니다."<br/>
-              단순한 스킬이 아닌, 고차원적 엔지니어링 설계를 현실로 만드는 가장 스마트한 툴 체인을 경험하세요.
+              "바이브 코딩은 개발자 흉내가 아니라, 공정 데이터를 분석하고 보고서와 이상감지 초안을 자동화하는 실무형 문제 해결 방식입니다."<br/>
+              AI가 만든 결과는 초안이며, 최종 판단은 공정과 장비를 이해하는 엔지니어가 검증합니다.
             </p>
             <div className="point-strip">
               <span><Wrench size={16} /> 도구는 AI가 만듭니다</span>
