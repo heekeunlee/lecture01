@@ -847,7 +847,11 @@ export default function App() {
           transition={{ delay: 0.2 }}
         >
           <h1>1. 바이브 코딩: '코딩'의 시대에서 '의도'의 시대로</h1>
-          <p className="subtitle">제조 현장의 반복 분석·보고서·이상감지를 AI로 자동화하는 첫걸음</p>
+          <div className="one-line-definition">
+            <span>한 문장 정의</span>
+            <strong>바이브 코딩은 코드를 직접 짜는 것이 아니라, 내가 만들고 싶은 결과를 말로 설명하면 AI가 코드를 대신 만들어주는 방식입니다.</strong>
+          </div>
+          <p className="subtitle">코알못도 제조 현장의 반복 분석·보고서·이상감지를 AI에게 작업지시서로 맡기는 첫걸음</p>
           <div className="lesson-meta" aria-label="lesson summary">
             <span>40분</span>
             <span>마인드셋</span>
@@ -860,10 +864,10 @@ export default function App() {
       <main>
         <section className="overview-section">
           <span className="section-label">00. Opening & Learning Goal (3분)</span>
-          <h2>오늘 40분 뒤, 여러분은 AI에게 맡길 업무를 작업지시서로 설명할 수 있습니다</h2>
+          <h2>오늘 40분 뒤, 여러분은 “코딩 문법”이 아니라 “AI 작업지시서”로 업무를 설명할 수 있습니다</h2>
           <p className="section-intro">
-            이 강의는 개발자가 되기 위한 문법 수업이 아닙니다. 제조/공정 엔지니어가 반복 분석, 보고서 작성,
-            이상 감지 업무를 AI에게 정확히 지시하는 법을 배우는 첫 시간입니다.
+            이 강의는 개발자가 되기 위한 문법 수업이 아닙니다. 코드를 몰라도 시작할 수 있도록
+            “무엇을 만들지, 어떤 데이터를 쓸지, 어떤 기준으로 판단할지”를 AI에게 정확히 설명하는 법을 배우는 첫 시간입니다.
           </p>
           <div className="outcome-grid">
             <div className="outcome-card">
@@ -894,11 +898,26 @@ export default function App() {
 
         <section className="definition-section">
           <span className="section-label">01. What is Vibe Coding? (4분)</span>
-          <h2>바이브 코딩은 “문법을 입력하는 일”이 아니라 “의도를 설계하고 AI를 지휘하는 일”입니다</h2>
+          <h2>바이브 코딩은 “코드를 치는 일”보다 “AI가 일할 수 있게 주문서를 쓰는 일”에 가깝습니다</h2>
           <p className="section-intro">
-            바이브 코딩이란 코드 문법 대신 의도(Vibe)를 언어로 담아 AI가 구현을 만들도록 지시하는 방식입니다.
-            엔지니어는 문제, 데이터, 판단 기준, 원하는 결과물을 정의하고, AI가 만든 결과가 현장 기준에 맞는지 검증합니다.
+            요리사가 칼질과 조리를 맡더라도 주문서가 부정확하면 원하는 음식이 나오지 않습니다.
+            바이브 코딩도 마찬가지입니다. 사람은 문제, 데이터, 판단 기준, 원하는 결과물을 설명하고,
+            AI는 코드, 차트, 대시보드, 보고서 초안을 만듭니다.
           </p>
+          <div className="plain-definition-grid" aria-label="코알못을 위한 바이브 코딩 핵심 설명">
+            <div>
+              <span>기존 코딩</span>
+              <strong>사람이 문법을 외우고 코드를 직접 작성</strong>
+            </div>
+            <div>
+              <span>바이브 코딩</span>
+              <strong>사람이 작업지시서를 쓰고 AI가 초안을 구현</strong>
+            </div>
+            <div>
+              <span>사람의 역할</span>
+              <strong>문제 정의, 기준 제시, 결과 검증</strong>
+            </div>
+          </div>
           <div className="role-flow" aria-label="바이브 코딩 역할 분리 흐름도">
             {roleFlow.map((item, index) => (
               <div className="role-step" key={`${item.owner}-${item.task}`}>
