@@ -192,6 +192,16 @@ const aoiSamples = [
   { id: 'R-0041', type: 'Mura', confidence: 78, priority: 'Low' },
 ];
 
+const aoiImageWall = Array.from({ length: 72 }, (_, index) => {
+  const types = ['Scratch', 'Particle', 'Mura'];
+  const type = types[(index * 7 + 2) % types.length];
+  return {
+    id: `IMG-${String(index + 1).padStart(3, '0')}`,
+    type,
+    flagged: index % 5 === 0 || index % 11 === 0,
+  };
+});
+
 const defectMix = [
   { type: 'Particle', count: 38 },
   { type: 'Scratch', count: 24 },
@@ -458,6 +468,14 @@ function AoiTile({ sample }: { sample: typeof aoiSamples[number] }) {
   );
 }
 
+function AoiMicroTile({ item }: { item: typeof aoiImageWall[number] }) {
+  return (
+    <div className={`aoi-micro-tile ${item.type.toLowerCase()} ${item.flagged ? 'flagged' : ''}`}>
+      <span />
+    </div>
+  );
+}
+
 function AoiCaseDeepDive() {
   return (
     <div className="deep-dive aoi-deep-dive">
@@ -465,9 +483,15 @@ function AoiCaseDeepDive() {
         <span>Case 02 Deep Dive</span>
         <h3>AOI 불량 이미지 분류: 폴더 넘기기에서 리뷰용 대시보드로</h3>
         <p>
-          AOI 이미지는 한 장씩 보면 단순하지만, 수백 장을 폴더별로 넘기며 유형을 기록하면 시간이 빠르게 소모됩니다.
-          바이브 코딩에서는 이미지 샘플, 분류 기준, 원하는 갤러리 형태를 한 번에 지시합니다.
+          AOI(Automated Optical Inspection)는 카메라와 조명으로 패널 표면을 촬영해 Scratch, Particle, Mura 같은
+          외관 불량 후보를 찾아내는 자동 광학 검사입니다. 장비가 이미지를 찍어주더라도 최종 리뷰에서는 사람이
+          수백 장의 이미지를 넘기며 유형을 기록하고 우선순위를 정해야 하는 경우가 많습니다.
         </p>
+        <div className="aoi-definition-grid">
+          <div><strong>Scratch</strong><span>이송/접촉 과정에서 생긴 선형 흠집 후보</span></div>
+          <div><strong>Particle</strong><span>먼지, 이물, 국부 점 결함 후보</span></div>
+          <div><strong>Mura</strong><span>얼룩, 휘도 불균일, 면 형태 결함 후보</span></div>
+        </div>
       </div>
 
       <div className="yield-case-compare vertical-case-flow" aria-label="AOI 불량 이미지 분류 Before Prompt After 비교">
@@ -481,11 +505,16 @@ function AoiCaseDeepDive() {
                 <strong>{folder.name}</strong>
                 <span>{folder.count} images</span>
                 <div className="folder-thumbs">
-                  {aoiSamples.slice(0, 6).map((sample) => (
+                  {aoiImageWall.slice(0, 18).map((sample) => (
                     <i className={sample.type.toLowerCase()} key={`${folder.name}-${sample.id}`} />
                   ))}
                 </div>
               </div>
+            ))}
+          </div>
+          <div className="aoi-image-wall" aria-label="수작업 검토 대상 AOI 이미지 다량 예시">
+            {aoiImageWall.map((item) => (
+              <AoiMicroTile item={item} key={item.id} />
             ))}
           </div>
           <ul>
@@ -494,9 +523,9 @@ function AoiCaseDeepDive() {
             ))}
           </ul>
           <div className="pain-metrics">
-            <div><strong>600+</strong><span>이미지 후보</span></div>
+            <div><strong>668장</strong><span>이미지 후보</span></div>
             <div><strong>3유형</strong><span>육안 분류</span></div>
-            <div><strong>높음</strong><span>기록 누락 위험</span></div>
+            <div><strong>1-2시간</strong><span>확대·기록 반복</span></div>
           </div>
         </article>
 
@@ -512,6 +541,10 @@ function AoiCaseDeepDive() {
             <div><strong>Scratch</strong><span>길고 얇은 선형 결함</span></div>
             <div><strong>Particle</strong><span>점 형태의 국부 결함</span></div>
             <div><strong>Mura</strong><span>면 형태의 얼룩/휘도 불균일</span></div>
+          </div>
+          <div className="aoi-ai-promise">
+            <strong>바이브 코딩으로 바뀌는 점</strong>
+            <span>폴더 구조와 분류 기준을 설명하면 AI가 이미지 묶음, 대표 이미지, 재검토 후보, 우선순위 표를 한 번에 구성합니다.</span>
           </div>
         </article>
 
@@ -554,6 +587,11 @@ function AoiCaseDeepDive() {
                 ))}
               </tbody>
             </table>
+          </div>
+          <div className="aoi-impact-strip">
+            <div><strong>668 → 24</strong><span>우선 검토 후보 축소</span></div>
+            <div><strong>3개 갤러리</strong><span>유형별 자동 분류</span></div>
+            <div><strong>TOP 우선순위</strong><span>회의용 리뷰 순서 생성</span></div>
           </div>
         </article>
       </div>
