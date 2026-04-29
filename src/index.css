@@ -646,8 +646,33 @@ section h2 {
   stroke-dasharray: 5 5;
 }
 
+.lcl-line {
+  stroke: rgba(37,99,235,0.5);
+  stroke-width: 2;
+  stroke-dasharray: 5 5;
+}
+
+.center-line {
+  stroke: rgba(15,23,42,0.18);
+  stroke-width: 2;
+}
+
+.moving-average-line {
+  fill: none;
+  stroke: #f59e0b;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
 .normal-dot {
   fill: #22c55e;
+  stroke: white;
+  stroke-width: 2;
+}
+
+.watch-dot {
+  fill: #f59e0b;
   stroke: white;
   stroke-width: 2;
 }
@@ -1369,6 +1394,206 @@ section h2 {
   line-height: 1.45;
 }
 
+.sensor-deep-dive {
+  background: linear-gradient(180deg, #f8fffb 0%, #ffffff 100%);
+  border-color: rgba(34,197,94,0.22);
+}
+
+.sensor-manual-panel {
+  background: #fffdf8;
+}
+
+.sensor-file-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.sensor-file-card {
+  border: 1px solid #fed7aa;
+  background: white;
+  border-radius: 14px;
+  padding: 0.9rem;
+  box-shadow: 0 10px 24px rgba(124,45,18,0.07);
+}
+
+.sensor-file-card strong,
+.sensor-file-card span {
+  display: block;
+}
+
+.sensor-file-card strong {
+  color: var(--text-primary);
+  font-size: 0.76rem;
+  font-weight: 900;
+}
+
+.sensor-file-card span {
+  margin-top: 0.16rem;
+  color: var(--text-secondary);
+  font-size: 0.68rem;
+  font-weight: 800;
+}
+
+.sensor-mini-bars {
+  display: grid;
+  grid-template-columns: repeat(18, 1fr);
+  align-items: end;
+  gap: 0.12rem;
+  height: 54px;
+  margin-top: 0.75rem;
+  padding: 0.3rem;
+  border-radius: 8px;
+  background: #f8fafc;
+}
+
+.sensor-mini-bars i {
+  display: block;
+  height: 45%;
+  border-radius: 999px 999px 2px 2px;
+  background: #93c5fd;
+}
+
+.sensor-mini-bars i:nth-child(3n) {
+  height: 62%;
+}
+
+.sensor-mini-bars i:nth-child(4n) {
+  height: 74%;
+}
+
+.sensor-mini-bars i.hot {
+  height: 92%;
+  background: #ef4444;
+}
+
+.sensor-mini-bars i.low {
+  height: 24%;
+  background: #f59e0b;
+}
+
+.sensor-log-table {
+  margin-top: 1rem;
+}
+
+.data-table-card .warning-row td {
+  background: #fffbeb;
+  color: #92400e;
+  font-weight: 900;
+}
+
+.sensor-rule-grid div {
+  min-height: 110px;
+}
+
+.sensor-dashboard {
+  display: grid;
+  grid-template-columns: 1.25fr 0.75fr;
+  gap: 1rem;
+  margin-top: 1rem;
+  max-width: 960px;
+}
+
+.sensor-chart-card,
+.sensor-alert-panel {
+  border: 1px solid var(--border);
+  background: white;
+  border-radius: 16px;
+  padding: 1rem;
+}
+
+.sensor-chart-card svg {
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+.muted-label {
+  fill: var(--text-secondary);
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.chart-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 0.4rem;
+  color: var(--text-secondary);
+  font-size: 0.76rem;
+  font-weight: 800;
+}
+
+.chart-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.chart-legend i {
+  width: 20px;
+  height: 4px;
+  border-radius: 999px;
+}
+
+.legend-raw {
+  background: var(--accent);
+}
+
+.legend-ma {
+  background: #f59e0b;
+}
+
+.legend-ooc {
+  background: #ef4444;
+}
+
+.sensor-alert-panel {
+  display: grid;
+  align-content: start;
+  gap: 0.7rem;
+}
+
+.sensor-alert-card {
+  border: 1px solid #fecaca;
+  background: #fff7f7;
+  border-radius: 14px;
+  padding: 0.85rem;
+}
+
+.sensor-alert-card strong,
+.sensor-alert-card span {
+  display: block;
+}
+
+.sensor-alert-card strong {
+  color: #991b1b;
+  font-weight: 900;
+}
+
+.sensor-alert-card span {
+  margin-top: 0.2rem;
+  color: var(--text-primary);
+  font-size: 0.78rem;
+  font-weight: 900;
+}
+
+.sensor-alert-card p {
+  margin-top: 0.45rem;
+  color: var(--text-secondary);
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
+.sensor-impact-strip div {
+  border-color: #bae6fd;
+  background: #f0f9ff;
+}
+
+.sensor-impact-strip strong {
+  color: #075985;
+}
+
 .deep-dive {
   margin-top: 3rem;
   padding: 2rem;
@@ -2024,6 +2249,8 @@ footer {
   .aoi-dashboard,
   .aoi-gallery,
   .aoi-impact-strip,
+  .sensor-file-grid,
+  .sensor-dashboard,
   .pain-metrics,
   .compact-detected,
   .prompt-anatomy,

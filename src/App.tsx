@@ -225,6 +225,40 @@ const sensorReadings = [
   { label: '14:00', value: 84 },
 ];
 
+const sensorFiles = [
+  { name: 'EQP-17_TEMP_1min.csv', rows: '1,440 rows', target: 'Temp' },
+  { name: 'EQP-17_PRESS_1min.csv', rows: '1,440 rows', target: 'Pressure' },
+  { name: 'EQP-17_FLOW_1min.csv', rows: '1,440 rows', target: 'Flow' },
+  { name: 'EQP-22_TEMP_1min.csv', rows: '1,440 rows', target: 'Temp' },
+  { name: 'EQP-22_PRESS_1min.csv', rows: '1,440 rows', target: 'Pressure' },
+  { name: 'EQP-22_FLOW_1min.csv', rows: '1,440 rows', target: 'Flow' },
+];
+
+const sensorManualSteps = [
+  '설비별 CSV 파일을 열고 시간 범위를 맞춤',
+  '온도, 압력, 유량 컬럼마다 필터와 조건부 서식을 적용',
+  '이동평균을 직접 계산하고 UCL/LCL 초과 시점을 표시',
+  '초과 직전 30분의 상승/하락 패턴을 눈으로 확인',
+  '알림 캡처와 조치 메모를 회의 자료에 따로 붙임',
+];
+
+const sensorLogRows = [
+  { time: '09:20', temp: 74.8, pressure: 2.12, flow: 118, ma: 75.1, judge: 'OK' },
+  { time: '09:30', temp: 76.4, pressure: 2.15, flow: 116, ma: 75.8, judge: 'OK' },
+  { time: '09:40', temp: 78.9, pressure: 2.21, flow: 113, ma: 76.7, judge: 'Watch' },
+  { time: '09:50', temp: 81.6, pressure: 2.27, flow: 109, ma: 78.4, judge: 'Watch' },
+  { time: '10:00', temp: 84.2, pressure: 2.35, flow: 105, ma: 80.5, judge: 'Pre-OOC' },
+  { time: '10:10', temp: 88.7, pressure: 2.48, flow: 101, ma: 83.9, judge: 'OOC' },
+  { time: '10:20', temp: 90.4, pressure: 2.55, flow: 98, ma: 86.1, judge: 'OOC' },
+  { time: '10:30', temp: 85.1, pressure: 2.36, flow: 104, ma: 86.1, judge: 'Recover' },
+];
+
+const sensorAlertRows = [
+  { time: '10:10', sensor: 'Temp', value: '88.7°C', limit: 'UCL 87°C', memo: 'Chiller 공급 온도와 Recipe step 4 확인' },
+  { time: '10:20', sensor: 'Pressure', value: '2.55 bar', limit: 'UCL 2.50 bar', memo: 'Regulator drift 및 valve 응답 지연 확인' },
+  { time: '10:20', sensor: 'Flow', value: '98 slm', limit: 'LCL 100 slm', memo: 'MFC 편차와 필터 막힘 가능성 점검' },
+];
+
 const promptParts = [
   { label: '문제', text: '어떤 현상을 확인할 것인가?' },
   { label: '데이터', text: '파일·컬럼·기간·단위는 무엇인가?' },
@@ -328,6 +362,171 @@ function SensorControlChart() {
         })}
       </svg>
       <p>관리 한계를 함께 지시해야 AI가 “이상”을 현장 기준으로 표시합니다.</p>
+    </div>
+  );
+}
+
+function SensorDeepChart() {
+  const values = sensorLogRows.map((item) => item.temp);
+  const max = 92;
+  const min = 72;
+  const toPoint = (value: number, index: number) => {
+    const x = 34 + index * 42;
+    const y = 160 - ((value - min) / (max - min)) * 112;
+    return `${x},${y}`;
+  };
+
+  return (
+    <div className="sensor-chart-card">
+      <div className="visual-header">
+        <span>Control Chart</span>
+        <strong>EQP-17 Temp / Moving Avg</strong>
+      </div>
+      <svg viewBox="0 0 360 210" role="img" aria-label="UCL LCL 이동평균이 표시된 설비 센서 관리도">
+        <line x1="28" y1="45" x2="332" y2="45" className="ucl-line" />
+        <line x1="28" y1="160" x2="332" y2="160" className="lcl-line" />
+        <line x1="28" y1="102" x2="332" y2="102" className="center-line" />
+        <text x="32" y="38" className="alert-label">UCL 87°C</text>
+        <text x="32" y="176" className="muted-label">LCL 73°C</text>
+        <text x="248" y="96" className="muted-label">Center</text>
+        <polyline points={values.map((value, index) => toPoint(value, index)).join(' ')} className="trend-line" />
+        <polyline points={sensorLogRows.map((item, index) => toPoint(item.ma, index)).join(' ')} className="moving-average-line" />
+        {sensorLogRows.map((item, index) => {
+          const [x, y] = toPoint(item.temp, index).split(',').map(Number);
+          const isOoc = item.judge === 'OOC';
+          const isWatch = item.judge === 'Watch' || item.judge === 'Pre-OOC';
+          return (
+            <g key={item.time}>
+              <circle cx={x} cy={y} r={isOoc ? 6 : 4.5} className={isOoc ? 'alert-dot' : isWatch ? 'watch-dot' : 'normal-dot'} />
+              <text x={x} y="194" textAnchor="middle">{item.time}</text>
+            </g>
+          );
+        })}
+      </svg>
+      <div className="chart-legend">
+        <span><i className="legend-raw" />Raw sensor</span>
+        <span><i className="legend-ma" />Moving avg</span>
+        <span><i className="legend-ooc" />OOC</span>
+      </div>
+    </div>
+  );
+}
+
+function SensorCaseDeepDive() {
+  return (
+    <div className="deep-dive sensor-deep-dive">
+      <div className="deep-dive-heading">
+        <span>Case 03 Deep Dive</span>
+        <h3>설비 센서 OOC 감지: 로그 필터링에서 관리도 기반 알림 화면으로</h3>
+        <p>
+          OOC(Out of Control)는 센서 값이 단순히 높거나 낮다는 뜻이 아니라, 공정 관리 한계(UCL/LCL)를 벗어나
+          통계적으로 관리 상태가 깨졌다는 신호입니다. 현장에서는 온도, 압력, 유량 로그를 따로 열어 초과 시점과
+          직전 전조 패턴을 사람이 찾아야 하는 경우가 많습니다.
+        </p>
+      </div>
+
+      <div className="yield-case-compare vertical-case-flow" aria-label="설비 센서 OOC 감지 Before Prompt After 비교">
+        <article className="yield-case-panel manual-panel sensor-manual-panel">
+          <span>Before: 기존 수동 필터링</span>
+          <h4>온도·압력·유량 CSV를 각각 열고, 관리 한계 초과 시점을 손으로 찾습니다</h4>
+          <div className="sensor-file-grid">
+            {sensorFiles.map((file) => (
+              <div className="sensor-file-card" key={file.name}>
+                <strong>{file.name}</strong>
+                <span>{file.rows} · {file.target}</span>
+                <div className="sensor-mini-bars">
+                  {Array.from({ length: 18 }, (_, index) => (
+                    <i className={index > 12 && (file.target === 'Temp' || file.target === 'Pressure') ? 'hot' : index < 4 && file.target === 'Flow' ? 'low' : ''} key={`${file.name}-${index}`} />
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="data-table-card compact-table sensor-log-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Time</th>
+                  <th>Temp</th>
+                  <th>Pressure</th>
+                  <th>Flow</th>
+                  <th>MA</th>
+                  <th>Judge</th>
+                </tr>
+              </thead>
+              <tbody>
+                {sensorLogRows.map((row) => (
+                  <tr key={row.time} className={row.judge === 'OOC' ? 'danger-row' : row.judge.includes('Watch') || row.judge === 'Pre-OOC' ? 'warning-row' : ''}>
+                    <td>{row.time}</td>
+                    <td>{row.temp}</td>
+                    <td>{row.pressure}</td>
+                    <td>{row.flow}</td>
+                    <td>{row.ma}</td>
+                    <td>{row.judge}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <ul>
+            {sensorManualSteps.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+          <div className="pain-metrics">
+            <div><strong>6개</strong><span>로그 파일 비교</span></div>
+            <div><strong>3센서</strong><span>각각 한계 확인</span></div>
+            <div><strong>30분+</strong><span>전조 패턴 추적</span></div>
+          </div>
+        </article>
+
+        <article className="yield-case-panel prompt-panel">
+          <span>Prompt: 바이브 코딩 지시</span>
+          <h4>데이터, 계산 방식, 판정 기준, 알림 화면까지 한 번에 지시합니다</h4>
+          <p>
+            “설비 센서 데이터에 이동평균과 UCL/LCL을 적용해서 OOC 발생 시점과 전조 패턴을 표시해줘.
+            온도, 압력, 유량을 같은 시간축으로 정렬하고, UCL/LCL 초과 구간은 빨간색으로 표시해줘.
+            초과 30분 전부터의 상승/하락 패턴을 별도로 요약하고, 엔지니어가 바로 확인할 조치 메모 칸을 포함한
+            관리도 기반 알림 화면을 만들어줘.”
+          </p>
+          <div className="aoi-rule-grid sensor-rule-grid">
+            <div><strong>계산</strong><span>5-point 이동평균, UCL/LCL, Center line</span></div>
+            <div><strong>판정</strong><span>한계 초과, 연속 상승, LCL 접근 패턴</span></div>
+            <div><strong>산출물</strong><span>관리도, 알림 목록, 조치 메모</span></div>
+          </div>
+        </article>
+
+        <article className="yield-case-panel result-panel">
+          <span>After: AI 산출물</span>
+          <h4>OOC 시점과 전조 패턴이 관리도와 알림 화면에 자동 정리됩니다</h4>
+          <div className="sensor-dashboard">
+            <SensorDeepChart />
+            <div className="sensor-alert-panel">
+              <div className="visual-header">
+                <span>OOC Alert</span>
+                <strong>Action memo</strong>
+              </div>
+              {sensorAlertRows.map((row) => (
+                <div className="sensor-alert-card" key={`${row.time}-${row.sensor}`}>
+                  <strong>{row.time} · {row.sensor}</strong>
+                  <span>{row.value} / {row.limit}</span>
+                  <p>{row.memo}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="aoi-impact-strip sensor-impact-strip">
+            <div><strong>전체 로그</strong><span>같은 시간축으로 자동 정렬</span></div>
+            <div><strong>전조 30분</strong><span>상승/하락 패턴 자동 표시</span></div>
+            <div><strong>조치 메모</strong><span>점검 후보를 회의 자료로 바로 사용</span></div>
+          </div>
+        </article>
+      </div>
+
+      <p className="case-takeaway">
+        핵심은 AI가 설비 원인을 단정하는 것이 아니라, 사람이 필터와 조건부 서식으로 찾던 OOC 후보를
+        관리도와 조치 메모 형태로 먼저 정리해 엔지니어의 판단 시간을 줄여주는 것입니다.
+      </p>
     </div>
   );
 }
@@ -947,6 +1146,7 @@ export default function App() {
           </div>
           <YieldCaseDeepDive />
           <AoiCaseDeepDive />
+          <SensorCaseDeepDive />
           <div className="case-visual-grid">
             <YieldTrendChart />
             <DefectParetoChart />
