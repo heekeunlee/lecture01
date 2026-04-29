@@ -5,7 +5,6 @@ import {
   BarChart3,
   CheckCircle2,
   FileText,
-  Gauge,
   Image,
   Navigation,
   Quote,
@@ -847,6 +846,9 @@ function AoiCaseDeepDive() {
             <div><strong>3개 갤러리</strong><span>유형별 자동 분류</span></div>
             <div><strong>TOP 우선순위</strong><span>회의용 리뷰 순서 생성</span></div>
           </div>
+          <div className="aoi-chart-wrap">
+            <DefectParetoChart />
+          </div>
         </article>
       </div>
 
@@ -893,7 +895,7 @@ export default function App() {
           transition={{ delay: 0.2 }}
         >
           <h1>바이브 코딩이란 무엇인가? 무엇을 할 수 있나?</h1>
-          <p className="subtitle">코알못도 제조 현장의 반복 분석·보고서·이상감지를 AI에게 작업지시서로 맡기는 첫걸음</p>
+          <p className="subtitle">코알못도 첨단 공정 현장의 반복 분석·보고서·이상감지를 AI에게 작업지시서로 맡기는 첫걸음</p>
           <div className="lesson-meta" aria-label="lesson summary">
             <span>40분</span>
             <span>마인드셋</span>
@@ -1018,7 +1020,7 @@ export default function App() {
               <h3>혁신의 핵심</h3>
               <p>
                 코딩 실력의 출발점이 “문법 암기”에서 “문제 정의 능력”으로 이동합니다.
-                그래서 디스플레이 엔지니어에게 필요한 것은 개발자가 되는 것이 아니라,
+                그래서 첨단 공정기술 엔지니어에게 필요한 것은 개발자가 되는 것이 아니라,
                 AI가 일할 수 있을 만큼 정확하게 공정 문제를 설명하는 능력입니다.
               </p>
             </div>
@@ -1169,7 +1171,7 @@ export default function App() {
         {/* Section 3 */}
         <section>
           <span className="section-label">05. 왜 중요한가?</span>
-          <h2>왜 제조 엔지니어에게 중요한가?</h2>
+          <h2>왜 첨단 공정기술 엔지니어에게 중요한가?</h2>
           <p className="section-intro">
             AI는 공정 지식을 대신하지 않습니다. 대신 반복되는 데이터 정리, 초안 작성, 이상 구간 탐색을 빠르게 처리해
             엔지니어가 원인 판단과 의사결정에 더 많은 시간을 쓰게 만듭니다.
@@ -1191,7 +1193,7 @@ export default function App() {
           </div>
           <div className="highlight-box" style={{ background: '#f5f5f7', borderLeftColor: '#333' }}>
             <p style={{ fontWeight: 700 }}>Target Point:</p>
-            <p>"기업은 단순 문법 암기자가 아니라, AI를 활용해 공정 데이터 분석·보고서·이상감지를 빠르게 자동화하는 제조 엔지니어를 원합니다."</p>
+            <p>"기업은 단순 문법 암기자가 아니라, AI를 활용해 공정 데이터 분석·보고서·이상감지를 빠르게 자동화하는 첨단 공정기술 엔지니어를 원합니다."</p>
           </div>
           <div className="mini-dashboard" aria-label="AI 자동화 결과물 샘플 대시보드">
             <YieldTrendChart />
@@ -1210,8 +1212,8 @@ export default function App() {
         </section>
 
         <section>
-          <span className="section-label">06. 디스플레이 엔지니어링 사례</span>
-          <h2>이 강의는 일반 코딩 수업이 아니라, 디스플레이 엔지니어의 업무 자동화 수업입니다</h2>
+          <span className="section-label">06. 첨단 공정기술 사례</span>
+          <h2>이 강의는 일반 코딩 수업이 아니라, 반도체·디스플레이·이차전지 등 첨단 공정기술 엔지니어의 업무 자동화 수업입니다</h2>
           <p className="section-intro">
             바이브 코딩의 출발점은 문법이 아니라 현장 문제입니다. 수율, AOI, 센서 로그처럼 이미 여러분이 알고 있는
             업무 언어를 AI가 실행 가능한 지시로 바꾸는 것이 핵심입니다.
@@ -1245,8 +1247,6 @@ export default function App() {
           <AoiCaseDeepDive />
           <SensorCaseDeepDive />
           <div className="case-visual-grid">
-            <YieldTrendChart />
-            <DefectParetoChart />
             <SensorControlChart />
           </div>
         </section>
@@ -1415,13 +1415,6 @@ export default function App() {
               </div>
             ))}
           </div>
-          <div className="instructor-note">
-            <Gauge size={24} />
-            <p>
-              강사의 진행 포인트: 수강생 답변을 “데이터-기준-산출물” 구조로 다시 써주면,
-              2강의 프롬프트 설계로 자연스럽게 이어집니다.
-            </p>
-          </div>
           <div className="wrap-message">
             <Quote size={36} color="var(--accent)" />
             <h3>"코드를 외우기 전에, 먼저 업무 의도를 정확히 정의하세요."</h3>
@@ -1439,7 +1432,7 @@ export default function App() {
 
         <section className="professional-point">
           <div className="highlight-box" style={{ background: 'var(--accent)', color: 'white', border: 'none', borderRadius: '24px' }}>
-            <h3>Manufacturing Engineering Point</h3>
+            <h3>Advanced Process Engineering Point</h3>
             <p style={{ color: 'rgba(255,255,255,0.8)', marginTop: '1rem', fontSize: '1.1rem' }}>
               "바이브 코딩은 개발자 흉내가 아니라, 공정 데이터를 분석하고 보고서와 이상감지 초안을 자동화하는 실무형 문제 해결 방식입니다."<br/>
               AI가 만든 결과는 초안이며, 최종 판단은 공정과 장비를 이해하는 엔지니어가 검증합니다.
