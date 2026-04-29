@@ -45,15 +45,16 @@ body {
 .header-top {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
+  gap: 1rem;
   margin-bottom: 4rem;
 }
 
 .header-tag-container {
   flex: 1;
   display: flex;
-  justify-content: center;
-  margin: 0 2rem;
+  justify-content: flex-end;
+  margin: 0 0 0 2rem;
 }
 
 .logo-group {
@@ -73,6 +74,8 @@ body {
   color: var(--text-primary);
   font-weight: 800;
   letter-spacing: -0.01em;
+  text-align: right;
+  max-width: 360px;
 }
 
 .philosophy-tag {
@@ -164,7 +167,7 @@ section {
 }
 
 section h2 {
-  font-size: clamp(2rem, 4vw, 3rem);
+  font-size: clamp(1.4rem, 2.2vw, 1.65rem);
   line-height: 1.15;
   letter-spacing: -0.02em;
   word-break: keep-all;
@@ -192,14 +195,21 @@ section h2 mark {
   border: 1px solid rgba(0,113,227,0.18);
   background: #f0f7ff;
   border-radius: 999px;
-  padding: 0.42rem 0.72rem;
-  font-size: 0.82rem;
+  padding: 0.58rem 1rem;
+  font-size: 1.45rem;
   font-weight: 900;
   color: var(--accent);
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  margin-bottom: 1rem;
+  letter-spacing: 0.04em;
+  margin-bottom: 1.1rem;
   display: block;
+}
+
+.hero-quote-title {
+  font-size: clamp(2rem, 3vw, 2.6rem);
+  color: var(--accent);
+  font-weight: 900;
+  margin-bottom: 2rem;
 }
 
 .highlight-pen {
@@ -454,6 +464,44 @@ section h2 mark {
   line-height: 1.4;
   font-weight: 900;
   word-break: keep-all;
+}
+
+.learning-goals-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.learning-goal-card {
+  border: 1px solid var(--border);
+  background: var(--bg-secondary);
+  border-radius: 18px;
+  padding: 1.35rem;
+}
+
+.learning-goal-card span {
+  display: inline-block;
+  color: var(--accent);
+  font-size: 0.8rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 0.65rem;
+}
+
+.learning-goal-card h3 {
+  font-size: 1.2rem;
+  line-height: 1.25;
+  font-weight: 900;
+  word-break: keep-all;
+}
+
+.learning-goal-card p {
+  margin-top: 0.7rem;
+  color: var(--text-secondary);
+  font-family: var(--font-content);
+  line-height: 1.6;
 }
 
 .coding-compare-grid {
@@ -2089,6 +2137,174 @@ section h2 mark {
   color: var(--accent);
 }
 
+.trad-vibe-board {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.trad-vibe-column {
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  padding: 1.35rem;
+  background: white;
+  box-shadow: 0 12px 30px rgba(15,23,42,0.05);
+}
+
+.trad-vibe-column.traditional {
+  border-color: #fecaca;
+  background: #fff7f7;
+}
+
+.trad-vibe-column.vibe {
+  border-color: rgba(0,113,227,0.25);
+  background: #f0f7ff;
+}
+
+.trad-vibe-head {
+  display: flex;
+  gap: 0.8rem;
+  align-items: center;
+}
+
+.trad-vibe-head svg {
+  flex-shrink: 0;
+  color: var(--accent);
+}
+
+.trad-vibe-head span {
+  display: block;
+  color: var(--accent);
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.trad-vibe-head strong {
+  display: block;
+  margin-top: 0.2rem;
+  color: var(--text-primary);
+  font-size: 1.08rem;
+  line-height: 1.35;
+  font-weight: 900;
+}
+
+.trad-vibe-stepline {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto 1fr;
+  gap: 0.65rem;
+  align-items: center;
+  margin-top: 1.2rem;
+}
+
+.trad-vibe-stepline div {
+  min-height: 96px;
+  border: 1px solid var(--border);
+  background: white;
+  border-radius: 16px;
+  padding: 0.85rem;
+  text-align: center;
+}
+
+.trad-vibe-stepline div span {
+  display: inline-flex;
+  width: 30px;
+  height: 30px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--accent);
+  color: white;
+  font-size: 0.8rem;
+  font-weight: 900;
+}
+
+.trad-vibe-stepline div p {
+  margin-top: 0.55rem;
+  color: var(--text-primary);
+  font-weight: 800;
+  line-height: 1.45;
+  word-break: keep-all;
+}
+
+.trad-vibe-summary {
+  margin-top: 1rem;
+  border-top: 1px solid var(--border);
+  padding-top: 1rem;
+}
+
+.trad-vibe-summary strong {
+  display: block;
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  font-weight: 900;
+}
+
+.trad-vibe-summary p {
+  margin-top: 0.35rem;
+  color: var(--text-secondary);
+  font-family: var(--font-content);
+  line-height: 1.55;
+}
+
+.trad-vibe-table {
+  display: grid;
+  gap: 0.8rem;
+  margin-top: 1rem;
+}
+
+.trad-vibe-row {
+  display: grid;
+  grid-template-columns: 100px 1fr 1fr;
+  gap: 0.75rem;
+  align-items: stretch;
+}
+
+.row-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  background: #0f172a;
+  color: white;
+  font-size: 0.8rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.row-col {
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 0.95rem 1rem;
+  background: white;
+}
+
+.row-col strong {
+  display: block;
+  color: var(--accent);
+  font-size: 0.76rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.row-col p {
+  margin-top: 0.35rem;
+  color: var(--text-primary);
+  font-family: var(--font-content);
+  line-height: 1.5;
+  font-weight: 800;
+  word-break: keep-all;
+}
+
+.vibe-col {
+  border-color: rgba(0,113,227,0.25);
+  background: #f0f7ff;
+}
+
 .prompt-table-card {
   overflow: auto;
   margin-top: 1.5rem;
@@ -2600,7 +2816,8 @@ footer {
 
   .header-tag-container {
     margin: 0;
-    justify-content: flex-start;
+    justify-content: flex-end;
+    width: 100%;
   }
 
   .card-grid {
@@ -2608,9 +2825,11 @@ footer {
   }
 
   .comic-grid-horizontal,
+  .learning-goals-grid,
   .outcome-grid,
   .scenario-grid,
   .coding-compare-grid,
+  .trad-vibe-board,
   .workshop-flow,
   .workshop-example-grid,
   .intent-visual-lab,
@@ -2655,6 +2874,23 @@ footer {
   .comparison-arrow {
     transform: rotate(90deg);
     margin: 0.5rem auto;
+  }
+
+  .section-label {
+    font-size: 1.05rem;
+    padding: 0.45rem 0.8rem;
+  }
+
+  .hero-quote-title {
+    font-size: 1.7rem;
+  }
+
+  .trad-vibe-stepline {
+    grid-template-columns: 1fr;
+  }
+
+  .trad-vibe-row {
+    grid-template-columns: 1fr;
   }
 
   .scenario-before {

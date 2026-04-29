@@ -4,8 +4,6 @@ import {
   ArrowRight,
   BarChart3,
   CheckCircle2,
-  ClipboardCheck,
-  Factory,
   FileText,
   Gauge,
   Image,
@@ -98,6 +96,30 @@ const roleFlow = [
   { owner: '엔지니어', task: '문제·데이터·기준 정의' },
   { owner: 'AI', task: '코드·차트·보고서 초안 생성' },
   { owner: '엔지니어', task: '현장 기준으로 검증·수정 지시' },
+];
+
+const learningGoals = [
+  {
+    step: '학습목표 1',
+    title: '바이브 코딩의 뜻을 한 문장으로 설명',
+    body: '코드를 직접 치는 방식이 아니라, 원하는 결과를 말로 설명해 AI가 초안을 만들게 하는 방식임을 이해합니다.',
+  },
+  {
+    step: '학습목표 2',
+    title: '좋은 작업지시서의 요소 구분',
+    body: '문제, 데이터, 기준, 산출물, 검증조건이 들어가야 AI가 현장 기준에 맞는 결과를 만들 수 있습니다.',
+  },
+  {
+    step: '학습목표 3',
+    title: '현장 사례와 연결',
+    body: '수율, AOI, 설비 센서 같은 반복 업무를 AI 작업지시서로 바꾸는 흐름을 설명할 수 있습니다.',
+  },
+];
+
+const tradVibeSteps = [
+  { label: '입력', traditional: '문법, 라이브러리, 에러 메시지', vibe: '문제, 데이터, 기준, 결과물' },
+  { label: '초점', traditional: '어떻게 코드를 만들까', vibe: '무엇을 해결할까' },
+  { label: '결과', traditional: '직접 작성한 코드와 수정 흔적', vibe: '대시보드, 차트, 보고서 초안' },
 ];
 
 const yieldTrend = [
@@ -862,15 +884,6 @@ export default function App() {
           >
             <span className="header-tag">AI를 지휘하는 스마트한 엔지니어의 시작</span>
           </motion.div>
-
-          <motion.div 
-            className="philosophy-tag"
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.3 }}
-          >
-            <span>엔지니어링의 본질은 코드가 아닌 해결입니다</span>
-          </motion.div>
         </div>
         
         <motion.div 
@@ -896,28 +909,20 @@ export default function App() {
 
       <main>
         <section className="overview-section">
-          <span className="section-label">00. Opening & Learning Goal (3분)</span>
+          <span className="section-label">00. Opening & Learning Goal</span>
           <h2>오늘 40분 뒤, 여러분은 “코딩 문법”이 아니라 “AI 작업지시서”로 업무를 설명할 수 있습니다</h2>
           <p className="section-intro">
             이 강의는 개발자가 되기 위한 문법 수업이 아닙니다. 코드를 몰라도 시작할 수 있도록
             “무엇을 만들지, 어떤 데이터를 쓸지, 어떤 기준으로 판단할지”를 AI에게 정확히 설명하는 법을 배우는 첫 시간입니다.
           </p>
-          <div className="outcome-grid">
-            <div className="outcome-card">
-              <Target size={28} color="var(--accent)" />
-              <h3>개념 구분</h3>
-              <p>전통 코딩과 바이브 코딩의 차이를 말할 수 있습니다.</p>
-            </div>
-            <div className="outcome-card">
-              <Factory size={28} color="var(--accent)" />
-              <h3>업무 연결</h3>
-              <p>수율, 불량, 설비 로그 업무에 AI를 어떻게 붙일지 이해합니다.</p>
-            </div>
-            <div className="outcome-card">
-              <ClipboardCheck size={28} color="var(--accent)" />
-              <h3>실습 산출물</h3>
-              <p>데이터, 기준, 결과물이 포함된 나의 첫 작업지시서를 완성합니다.</p>
-            </div>
+          <div className="learning-goals-grid" aria-label="학습목표">
+            {learningGoals.map((item) => (
+              <div className="learning-goal-card" key={item.step}>
+                <span>{item.step}</span>
+                <h3>{item.title}</h3>
+                <p>{item.body}</p>
+              </div>
+            ))}
           </div>
           <div className="lesson-timeline" aria-label="40분 강의 진행표">
             {lessonFlow.map((item) => (
@@ -930,7 +935,7 @@ export default function App() {
         </section>
 
         <section className="definition-section">
-          <span className="section-label">01. What is Vibe Coding? (4분)</span>
+          <span className="section-label">01. What is Vibe Coding</span>
           <h2>바이브 코딩은 “코드를 치는 일”보다 “AI가 일할 수 있게 주문서를 쓰는 일”에 가깝습니다</h2>
           <p className="section-intro">
             요리사가 칼질과 조리를 맡더라도 주문서가 부정확하면 원하는 음식이 나오지 않습니다.
@@ -1022,8 +1027,8 @@ export default function App() {
 
         {/* Section 1 */}
         <section>
-          <span className="section-label">02. Core Analogy (3분)</span>
-          <h2 style={{ fontSize: '3rem', color: 'var(--accent)', fontWeight: 900, marginBottom: '2rem' }}>
+          <span className="section-label">02. Core Analogy</span>
+          <h2 className="hero-quote-title">
             "바이브 코딩은 엔진 조립이 아니라 목적지를 말하는 일입니다"
           </h2>
           <div className="highlight-box">
@@ -1094,36 +1099,76 @@ export default function App() {
         </section>
 
         {/* Section 2 */}
-        <section>
-          <span className="section-label">03. Traditional vs Vibe (3분)</span>
+        <section className="trad-vibe-section">
+          <span className="section-label">03. Traditional vs Vibe</span>
           <h2>'설명서'를 쓰는 사람 vs '목적지'를 말하는 사람</h2>
-          <div className="card-grid">
-            <motion.div className="card" whileHover={{ y: -5 }}>
-              <Terminal size={32} color="#888" style={{ marginBottom: '1rem' }} />
-              <h3>전통적 코딩 (수동 운전)</h3>
-              <p>1단을 넣고 클러치를 떼며 엑셀을 밟는 과정. 세미콜론 하나 틀리면 시동이 꺼집니다. 문법을 배우느라 본질을 놓칩니다.</p>
+          <p className="section-intro">
+            코알못에게는 “기술이 다르다”보다 “생각 순서가 다르다”가 더 중요합니다.
+            아래 그림은 사람이 직접 구현을 붙잡는 방식과, AI에게 해결 과정을 맡기는 방식을 나란히 보여줍니다.
+          </p>
+          <div className="trad-vibe-board" aria-label="전통 코딩과 바이브 코딩 시각 비교">
+            <motion.div className="trad-vibe-column traditional" whileHover={{ y: -4 }}>
+              <div className="trad-vibe-head">
+                <Terminal size={28} />
+                <div>
+                  <span>Traditional Coding</span>
+                  <strong>설명서를 직접 조립하는 방식</strong>
+                </div>
+              </div>
+              <div className="trad-vibe-stepline">
+                <div><span>1</span><p>문법을 외운다</p></div>
+                <ArrowRight size={18} />
+                <div><span>2</span><p>코드를 한 줄씩 쓴다</p></div>
+                <ArrowRight size={18} />
+                <div><span>3</span><p>오류를 찾고 수정한다</p></div>
+              </div>
+              <div className="trad-vibe-summary">
+                <strong>무엇이 어려운가?</strong>
+                <p>문법과 설정이 먼저라서, 현장 문제보다 구현 세부에 시간을 많이 씁니다.</p>
+              </div>
             </motion.div>
-            <motion.div className="card" whileHover={{ y: -5 }} style={{ borderColor: 'var(--accent)' }}>
-              <Navigation size={32} color="var(--accent)" style={{ marginBottom: '1rem' }} />
-              <h3>바이브 코딩 (자율 주행)</h3>
-              <p>"최근 7일 수율 데이터를 라인별로 비교하고, 3% 이상 하락한 항목을 표시해줘"처럼 목적지와 판단 기준을 말합니다.</p>
+
+            <motion.div className="trad-vibe-column vibe" whileHover={{ y: -4 }}>
+              <div className="trad-vibe-head">
+                <Navigation size={28} />
+                <div>
+                  <span>Vibe Coding</span>
+                  <strong>목적지를 먼저 말하는 방식</strong>
+                </div>
+              </div>
+              <div className="trad-vibe-stepline">
+                <div><span>1</span><p>문제와 기준을 말한다</p></div>
+                <ArrowRight size={18} />
+                <div><span>2</span><p>AI가 초안을 만든다</p></div>
+                <ArrowRight size={18} />
+                <div><span>3</span><p>사람이 결과를 검증한다</p></div>
+              </div>
+              <div className="trad-vibe-summary">
+                <strong>무엇이 쉬워지는가?</strong>
+                <p>라인, 공정, 기준, 산출물을 먼저 말하므로 결과를 빨리 보고 수정 방향도 쉽게 잡습니다.</p>
+              </div>
             </motion.div>
           </div>
-          <div className="prompt-pipeline" aria-label="전통 코딩과 바이브 코딩 절차 비교">
-            <div>
-              <span>전통 코딩</span>
-              <p>문법 학습 → 코드 작성 → 에러 수정 → 차트 생성 → 보고서 정리</p>
-            </div>
-            <div>
-              <span>바이브 코딩</span>
-              <p>업무 의도 작성 → AI 초안 생성 → 기준 검증 → 수정 지시 → 현장 적용</p>
-            </div>
+          <div className="trad-vibe-table" aria-label="전통 코딩과 바이브 코딩 비교표">
+            {tradVibeSteps.map((item) => (
+              <div className="trad-vibe-row" key={item.label}>
+                <span className="row-label">{item.label}</span>
+                <div className="row-col">
+                  <strong>전통</strong>
+                  <p>{item.traditional}</p>
+                </div>
+                <div className="row-col vibe-col">
+                  <strong>바이브</strong>
+                  <p>{item.vibe}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </section>
 
         {/* Section 3 */}
         <section>
-          <span className="section-label">04. Why It Matters (4분)</span>
+          <span className="section-label">04. Why It Matters</span>
           <h2>왜 제조 엔지니어에게 중요한가?</h2>
           <p className="section-intro">
             AI는 공정 지식을 대신하지 않습니다. 대신 반복되는 데이터 정리, 초안 작성, 이상 구간 탐색을 빠르게 처리해
@@ -1165,7 +1210,7 @@ export default function App() {
         </section>
 
         <section>
-          <span className="section-label">05. Display Engineering Case (4분)</span>
+          <span className="section-label">05. Display Engineering Case</span>
           <h2>이 강의는 일반 코딩 수업이 아니라, 디스플레이 엔지니어의 업무 자동화 수업입니다</h2>
           <p className="section-intro">
             바이브 코딩의 출발점은 문법이 아니라 현장 문제입니다. 수율, AOI, 센서 로그처럼 이미 여러분이 알고 있는
@@ -1207,7 +1252,7 @@ export default function App() {
         </section>
 
         <section className="intent-section teaching-section">
-          <span className="section-label">06. Intent Engineering (9분)</span>
+          <span className="section-label">06. Intent Engineering</span>
           <h2>좋은 의도는 <mark>“해줘”</mark>가 아니라, 판단 기준과 결과물까지 포함합니다</h2>
           <p className="section-intro">
             코알못에게 가장 중요한 실력은 코드를 외우는 것이 아니라, AI가 헷갈리지 않도록
@@ -1301,7 +1346,7 @@ export default function App() {
         </section>
 
         <section className="workshop-section teaching-section">
-          <span className="section-label">07. Mini Workshop (8분)</span>
+          <span className="section-label">07. Mini Workshop</span>
           <h2>실습: 나의 첫 <mark>AI 작업지시서</mark> 만들기</h2>
           <p className="section-intro">
             아래 3단계를 채우면 다음 강의에서 바로 프롬프트로 발전시킬 수 있는 개인용 작업지시서가 됩니다.
@@ -1360,7 +1405,7 @@ export default function App() {
         </section>
 
         <section>
-          <span className="section-label">08. Quality Gate & Wrap-up (2분)</span>
+          <span className="section-label">08. Quality Gate & Wrap-up</span>
           <h2>AI에게 보내기 전, 이 5가지만 확인하세요</h2>
           <div className="checklist">
             {intentChecklist.map((item) => (
