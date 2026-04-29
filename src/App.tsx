@@ -267,6 +267,39 @@ const promptParts = [
   { label: '검증', text: '사람이 다시 볼 리스크는 무엇인가?' },
 ];
 
+const promptExampleRows = [
+  { part: '문제', weak: '수율 분석', strong: 'Array 공정 A/B/C 라인의 OLED-14 수율 하락 원인 후보 확인' },
+  { part: '데이터', weak: '엑셀 파일', strong: '최근 14일 yield_log.xlsx, 컬럼: Date, Line, Model, Yield, Temp, Pressure, AOI Defect' },
+  { part: '기준', weak: '이상한 것', strong: '전일 대비 -3% 이상 또는 3일 이동평균 90% 미만이면 위험 표시' },
+  { part: '산출물', weak: '보기 좋게', strong: '라인별 추이 그래프, 위험 TOP5 표, 원인 후보, 확인 질문이 있는 HTML 대시보드' },
+  { part: '검증', weak: '알아서', strong: '데이터 누락, Lot 수 부족, Recipe 변경 여부는 검증 필요 항목으로 분리' },
+];
+
+const promptScoreCards = [
+  { label: '데이터 명확도', score: 92 },
+  { label: '판정 기준', score: 88 },
+  { label: '산출물 구체성', score: 95 },
+  { label: '검증 가능성', score: 82 },
+];
+
+const workshopExamples = [
+  {
+    title: '수율 로그형',
+    context: '최근 7일 라인별 수율',
+    prompt: '전일 대비 3% 이상 하락한 라인/공정/모델만 빨간색으로 표시하고 TOP5 원인 후보를 정리해줘.',
+  },
+  {
+    title: 'AOI 이미지형',
+    context: 'Scratch, Particle, Mura 이미지 폴더',
+    prompt: '불량 유형별 대표 이미지를 묶고 리뷰 우선순위와 재검토 후보를 대시보드로 만들어줘.',
+  },
+  {
+    title: '설비 센서형',
+    context: '온도/압력/유량 1분 로그',
+    prompt: '이동평균과 UCL/LCL을 적용해 OOC 시점, 전조 30분 패턴, 조치 메모를 표시해줘.',
+  },
+];
+
 const navigationLinks = [
   { label: '커리큘럼으로 돌아가기', href: 'https://heekeunlee.github.io/lecture_assist001/' },
   { label: '2강 프롬프트 기획 예고', href: 'https://heekeunlee.github.io/lecture_assist001/' },
@@ -1173,13 +1206,21 @@ export default function App() {
           </div>
         </section>
 
-        <section>
+        <section className="intent-section teaching-section">
           <span className="section-label">06. Intent Engineering (9분)</span>
-          <h2>좋은 의도는 “해줘”가 아니라, 판단 기준과 결과물까지 포함합니다</h2>
+          <h2>좋은 의도는 <mark>“해줘”</mark>가 아니라, 판단 기준과 결과물까지 포함합니다</h2>
+          <p className="section-intro">
+            코알못에게 가장 중요한 실력은 코드를 외우는 것이 아니라, AI가 헷갈리지 않도록
+            <span className="highlight-pen"> 문제·데이터·기준·산출물·검증조건</span>을 순서대로 적는 것입니다.
+          </p>
+          <div className="speech-note">
+            <Sparkles size={20} />
+            <p>강의 멘트: “AI에게 일을 맡길 때는 부탁이 아니라 작업지시서를 써야 합니다.”</p>
+          </div>
           <div className="comparison-panel">
             <div className="bad-prompt">
               <h3>부족한 지시</h3>
-              <p>수율 분석해줘.</p>
+              <p><span className="wavy-wrong">수율 분석해줘.</span></p>
               <span>문제: 데이터 범위, 기준, 출력물, 검증 조건이 없습니다.</span>
             </div>
             <ArrowRight className="comparison-arrow" size={32} />
@@ -1192,6 +1233,30 @@ export default function App() {
               <span>핵심: 데이터, 기준, 분석 관점, 산출물이 한 번에 정의됩니다.</span>
             </div>
           </div>
+          <div className="prompt-table-card" aria-label="부족한 표현과 좋은 표현 비교표">
+            <div className="visual-header">
+              <span>Prompt Upgrade Table</span>
+              <strong>모호한 말에서 작업지시서로</strong>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>구성</th>
+                  <th>모호한 표현</th>
+                  <th>좋은 표현</th>
+                </tr>
+              </thead>
+              <tbody>
+                {promptExampleRows.map((row) => (
+                  <tr key={row.part}>
+                    <td><b>{row.part}</b></td>
+                    <td className="weak-cell">{row.weak}</td>
+                    <td>{row.strong}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
           <div className="prompt-anatomy" aria-label="좋은 작업지시서 구성 요소">
             {promptParts.map((item) => (
               <div className="prompt-part" key={item.label}>
@@ -1200,14 +1265,54 @@ export default function App() {
               </div>
             ))}
           </div>
+          <div className="intent-visual-lab" aria-label="좋은 작업지시서를 입력했을 때 기대할 수 있는 산출물 예시">
+            <div className="score-dashboard">
+              <div className="visual-header">
+                <span>Prompt Quality</span>
+                <strong>작업지시서 점검</strong>
+              </div>
+              {promptScoreCards.map((item) => (
+                <div className="score-row" key={item.label}>
+                  <span>{item.label}</span>
+                  <div><i style={{ width: `${item.score}%` }} /></div>
+                  <strong>{item.score}</strong>
+                </div>
+              ))}
+            </div>
+            <div className="mock-output-board">
+              <div className="visual-header">
+                <span>AI Output Preview</span>
+                <strong>예상 산출물</strong>
+              </div>
+              <div className="mock-chart">
+                <i style={{ height: '46%' }} />
+                <i style={{ height: '62%' }} />
+                <i className="danger" style={{ height: '88%' }} />
+                <i style={{ height: '54%' }} />
+                <i className="danger" style={{ height: '78%' }} />
+              </div>
+              <ul>
+                <li><b>위험 TOP5</b> 기준 초과 항목만 정렬</li>
+                <li><b>원인 후보</b> 센서·AOI·Recipe와 연결</li>
+                <li><b>검증 질문</b> 사람이 확인할 리스크 분리</li>
+              </ul>
+            </div>
+          </div>
         </section>
 
-        <section>
+        <section className="workshop-section teaching-section">
           <span className="section-label">07. Mini Workshop (8분)</span>
-          <h2>실습: 나의 첫 AI 작업지시서 만들기</h2>
+          <h2>실습: 나의 첫 <mark>AI 작업지시서</mark> 만들기</h2>
           <p className="section-intro">
             아래 3단계를 채우면 다음 강의에서 바로 프롬프트로 발전시킬 수 있는 개인용 작업지시서가 됩니다.
+            빈칸을 완벽하게 채우는 것보다, <span className="highlight-pen">현장 문제를 AI가 이해할 수 있는 구조로 바꾸는 연습</span>이 목표입니다.
           </p>
+          <div className="workshop-flow" aria-label="8분 미니 워크숍 진행 흐름">
+            <div><strong>2분</strong><span>내 업무 문제 고르기</span></div>
+            <div><strong>3분</strong><span>데이터·기준 채우기</span></div>
+            <div><strong>2분</strong><span>원하는 산출물 정하기</span></div>
+            <div><strong>1분</strong><span>검증 질문 추가</span></div>
+          </div>
           <div className="practice-board">
             {practiceSteps.map((item) => (
               <div className="practice-step" key={item.step}>
@@ -1217,14 +1322,24 @@ export default function App() {
               </div>
             ))}
           </div>
+          <div className="workshop-example-grid" aria-label="실습 주제별 작업지시서 예시">
+            {workshopExamples.map((item) => (
+              <div className="workshop-example-card" key={item.title}>
+                <span>{item.title}</span>
+                <strong>{item.context}</strong>
+                <p>{item.prompt}</p>
+              </div>
+            ))}
+          </div>
           <div className="template-card">
             <div>
               <FileText size={28} color="var(--accent)" />
               <h3>작업지시서 템플릿</h3>
             </div>
             <p>
-              나는 [공정/장비/데이터]에서 [문제 현상]을 확인하고 싶다. 입력 데이터는 [컬럼/단위/기간]으로 구성되어 있다.
-              정상 기준은 [spec/관리 한계]이며, 결과물은 [표/그래프/대시보드/보고서] 형태로 만들어야 한다.
+              나는 <span>[공정/장비/데이터]</span>에서 <span>[문제 현상]</span>을 확인하고 싶다.
+              입력 데이터는 <span>[컬럼/단위/기간]</span>으로 구성되어 있다.
+              정상 기준은 <span>[spec/관리 한계]</span>이며, 결과물은 <span>[표/그래프/대시보드/보고서]</span> 형태로 만들어야 한다.
               마지막에는 엔지니어가 확인해야 할 리스크와 추가 질문을 정리해줘.
             </p>
           </div>
