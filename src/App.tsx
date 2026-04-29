@@ -892,7 +892,7 @@ export default function App() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
         >
-          <h1>1. 바이브 코딩: '코딩'의 시대에서 '의도'의 시대로</h1>
+          <h1>바이브 코딩이란 무엇인가? 무엇을 할 수 있나?</h1>
           <div className="one-line-definition">
             <span>한 문장 정의</span>
             <strong>바이브 코딩은 코드를 직접 짜는 것이 아니라, 내가 만들고 싶은 결과를 말로 설명하면 AI가 코드를 대신 만들어주는 방식입니다.</strong>
@@ -909,7 +909,7 @@ export default function App() {
 
       <main>
         <section className="overview-section">
-          <span className="section-label">00. Opening & Learning Goal</span>
+          <span className="section-label">00. 오프닝 및 학습목표</span>
           <h2>오늘 40분 뒤, 여러분은 “코딩 문법”이 아니라 “AI 작업지시서”로 업무를 설명할 수 있습니다</h2>
           <p className="section-intro">
             이 강의는 개발자가 되기 위한 문법 수업이 아닙니다. 코드를 몰라도 시작할 수 있도록
@@ -935,7 +935,7 @@ export default function App() {
         </section>
 
         <section className="definition-section">
-          <span className="section-label">01. What is Vibe Coding</span>
+          <span className="section-label">01. 바이브 코딩이란?</span>
           <h2>바이브 코딩은 “코드를 치는 일”보다 “AI가 일할 수 있게 주문서를 쓰는 일”에 가깝습니다</h2>
           <p className="section-intro">
             요리사가 칼질과 조리를 맡더라도 주문서가 부정확하면 원하는 음식이 나오지 않습니다.
@@ -1027,8 +1027,8 @@ export default function App() {
 
         {/* Section 1 */}
         <section>
-          <span className="section-label">02. Core Analogy</span>
-          <h2 className="hero-quote-title">
+          <span className="section-label">02. 핵심 비유</span>
+          <h2>
             "바이브 코딩은 엔진 조립이 아니라 목적지를 말하는 일입니다"
           </h2>
           <div className="highlight-box">
@@ -1100,7 +1100,7 @@ export default function App() {
 
         {/* Section 2 */}
         <section className="trad-vibe-section">
-          <span className="section-label">03. Traditional vs Vibe</span>
+          <span className="section-label">03. 전통 코딩 vs 바이브 코딩</span>
           <h2>'설명서'를 쓰는 사람 vs '목적지'를 말하는 사람</h2>
           <p className="section-intro">
             코알못에게는 “기술이 다르다”보다 “생각 순서가 다르다”가 더 중요합니다.
@@ -1168,7 +1168,7 @@ export default function App() {
 
         {/* Section 3 */}
         <section>
-          <span className="section-label">04. Why It Matters</span>
+          <span className="section-label">04. 왜 중요한가?</span>
           <h2>왜 제조 엔지니어에게 중요한가?</h2>
           <p className="section-intro">
             AI는 공정 지식을 대신하지 않습니다. 대신 반복되는 데이터 정리, 초안 작성, 이상 구간 탐색을 빠르게 처리해
@@ -1210,7 +1210,7 @@ export default function App() {
         </section>
 
         <section>
-          <span className="section-label">05. Display Engineering Case</span>
+          <span className="section-label">05. 디스플레이 엔지니어링 사례</span>
           <h2>이 강의는 일반 코딩 수업이 아니라, 디스플레이 엔지니어의 업무 자동화 수업입니다</h2>
           <p className="section-intro">
             바이브 코딩의 출발점은 문법이 아니라 현장 문제입니다. 수율, AOI, 센서 로그처럼 이미 여러분이 알고 있는
@@ -1252,7 +1252,7 @@ export default function App() {
         </section>
 
         <section className="intent-section teaching-section">
-          <span className="section-label">06. Intent Engineering</span>
+          <span className="section-label">06. 의도 설계</span>
           <h2>좋은 의도는 <mark>“해줘”</mark>가 아니라, 판단 기준과 결과물까지 포함합니다</h2>
           <p className="section-intro">
             코알못에게 가장 중요한 실력은 코드를 외우는 것이 아니라, AI가 헷갈리지 않도록
@@ -1346,7 +1346,7 @@ export default function App() {
         </section>
 
         <section className="workshop-section teaching-section">
-          <span className="section-label">07. Mini Workshop</span>
+          <span className="section-label">07. 미니 워크숍</span>
           <h2>실습: 나의 첫 <mark>AI 작업지시서</mark> 만들기</h2>
           <p className="section-intro">
             아래 3단계를 채우면 다음 강의에서 바로 프롬프트로 발전시킬 수 있는 개인용 작업지시서가 됩니다.
@@ -1405,7 +1405,7 @@ export default function App() {
         </section>
 
         <section>
-          <span className="section-label">08. Quality Gate & Wrap-up</span>
+          <span className="section-label">08. 품질 점검 및 정리</span>
           <h2>AI에게 보내기 전, 이 5가지만 확인하세요</h2>
           <div className="checklist">
             {intentChecklist.map((item) => (
