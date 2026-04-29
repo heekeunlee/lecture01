@@ -197,17 +197,21 @@ section h2 mark {
 
 .section-label {
   width: fit-content;
-  border: 1px solid rgba(0,113,227,0.18);
-  background: #f0f7ff;
+  border: 1px solid #d1d5db;
+  background: #ffffff;
   border-radius: 999px;
-  padding: 0.58rem 1rem;
-  font-size: 1.45rem;
+  padding: 0.34rem 0.75rem;
+  font-size: 0.95rem;
   font-weight: 900;
-  color: var(--accent);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  margin-bottom: 1.1rem;
+  color: #111827;
+  text-transform: none;
+  letter-spacing: 0.01em;
+  margin-bottom: 0.9rem;
   display: block;
+}
+
+.section-label::first-letter {
+  color: var(--accent);
 }
 
 .hero-quote-title {
@@ -2870,8 +2874,8 @@ footer {
   }
 
   .section-label {
-    font-size: 1.05rem;
-    padding: 0.45rem 0.8rem;
+    font-size: 0.88rem;
+    padding: 0.3rem 0.68rem;
   }
 
   .hero-quote-title {
