@@ -1,9 +1,15 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import {
   Activity,
+  AlertCircle,
   ArrowRight,
   BarChart3,
+  Bot,
+  Check,
   CheckCircle2,
+  Copy,
+  ExternalLink,
   FileText,
   Image,
   Navigation,
@@ -326,6 +332,83 @@ const navigationLinks = [
   { label: '2강 프롬프트 기획 예고', href: 'https://heekeunlee.github.io/lecture_assist001/' },
 ];
 
+// ── AI 대화 비교 데이터 ─────────────────────────────────────────
+const aiDialogueData = [
+  {
+    id: 'bad',
+    label: '일반 프롬프트',
+    prompt: '수율 분석해줘.',
+    response: 'AI: 수율 하락의 일반적인 원인은 장비 유지보수 지연, 원자재 오염,\n공정 파라미터 이탈 등이 있습니다.\n어떤 라인의 데이터인가요? 기간은 얼마나 되나요?\n데이터를 업로드해 주시면 도움이 됩니다.',
+    resultTag: '역질문 → 대화 반복',
+    score: 12,
+    scoreColor: '#ef4444',
+    bg: '#fff7f7',
+    border: '#fecaca',
+    tagColor: '#991b1b',
+    responseBg: '#fff1f2',
+  },
+  {
+    id: 'good',
+    label: '엔지니어 작업지시서',
+    prompt: '최근 7일간 A/B/C 라인 OLED-14 수율을 비교하고,\n전일 대비 3% 이상 하락한 항목만 빨간색으로 표시해줘.\n하락 폭 TOP5, 원인 후보, 엔지니어 확인 질문을\nHTML 보고서 형태로 만들어줘.',
+    response: 'AI: 수율 분석 대시보드를 생성합니다.\n\n① yield_log.xlsx → A/B/C 라인 × OLED-14 필터\n② 전일 대비 diff 계산, -3% 이하 행 red highlight\n③ 하락폭 TOP5 + 원인 후보(Recipe/PM/AOI) 추출\n④ 엔지니어 확인 질문 3개 자동 생성\n\n→ dashboard.html 생성 완료',
+    resultTag: '즉시 코드 + HTML 리포트 생성',
+    score: 94,
+    scoreColor: '#0071e3',
+    bg: '#f0f7ff',
+    border: 'rgba(0,113,227,0.28)',
+    tagColor: '#075985',
+    responseBg: '#f0fdf4',
+  },
+];
+
+// ── 검증 체크포인트 ────────────────────────────────────────────
+const yieldVerifyPoints = [
+  'AI가 찾은 하락 구간이 실제 원시 데이터와 일치하는가?',
+  '해당 Lot의 Recipe 변경 또는 PM 이력이 있는가?',
+  '동일 모델이 다른 라인에서도 동시에 하락했는가?',
+];
+
+const aoiVerifyPoints = [
+  'AI의 불량 분류 결과를 대표 이미지로 샘플 검증했는가?',
+  '재검토 후보로 분류된 이미지를 엔지니어가 직접 확인했는가?',
+  '이번 Lot의 불량 분포가 전주 대비 유의미하게 다른가?',
+];
+
+const sensorVerifyPoints = [
+  'OOC 시점에 실제 공정 이상이 발생했는지 이력과 대조했는가?',
+  'AI가 표시한 전조 패턴이 기존 알람 이력과 일치하는가?',
+  '조치 메모의 점검 항목을 실제 설비 담당자에게 전달했는가?',
+];
+
+// ── 첫 실행 가이드 ─────────────────────────────────────────────
+const firstRunSteps = [
+  {
+    step: '01',
+    title: 'Claude.ai 접속',
+    body: '브라우저에서 claude.ai 를 열고 무료 계정으로 로그인합니다. 별도 설치 없이 웹에서 바로 사용합니다.',
+  },
+  {
+    step: '02',
+    title: '작업지시서 붙여넣기',
+    body: '아래 [Claude에 복사하기] 버튼으로 클립보드에 복사한 뒤, 채팅창에 붙여넣고 Enter를 누릅니다.',
+  },
+  {
+    step: '03',
+    title: 'AI 초안 검증',
+    body: 'AI가 생성한 코드·보고서·차트를 현장 기준으로 검토합니다. 수정이 필요하면 추가 지시를 입력하세요.',
+  },
+];
+
+// ── 2강 예고 ──────────────────────────────────────────────────
+const tcreiItems = [
+  { label: 'T', name: 'Task', text: '무엇을 만들 것인가' },
+  { label: 'C', name: 'Context', text: '어떤 상황·데이터인가' },
+  { label: 'R', name: 'Role', text: 'AI에게 맡길 역할' },
+  { label: 'E', name: 'Example', text: '기대 출력 형식·예시' },
+  { label: 'I', name: 'Instruction', text: '제약조건·검증 기준' },
+];
+
 function YieldTrendChart() {
   const max = 96;
   const min = 84;
@@ -581,6 +664,7 @@ function SensorCaseDeepDive() {
         핵심은 AI가 설비 원인을 단정하는 것이 아니라, 사람이 필터와 조건부 서식으로 찾던 OOC 후보를
         관리도와 조치 메모 형태로 먼저 정리해 엔지니어의 판단 시간을 줄여주는 것입니다.
       </p>
+      <VerifyChecklist points={sensorVerifyPoints} />
     </div>
   );
 }
@@ -704,6 +788,7 @@ function YieldCaseDeepDive() {
         핵심은 AI가 최종 판단을 대신하는 것이 아닙니다. AI가 먼저 봐야 할 이상 후보를 정리하고,
         엔지니어가 공정·설비·검사 이력으로 검증하는 구조를 만드는 것입니다.
       </p>
+      <VerifyChecklist points={yieldVerifyPoints} />
     </div>
   );
 }
@@ -856,6 +941,193 @@ function AoiCaseDeepDive() {
         핵심은 AI가 불량 원인을 확정하는 것이 아니라, 수백 장의 이미지를 유형별로 먼저 묶어
         엔지니어가 우선 검토할 대상을 빠르게 좁혀주는 것입니다.
       </p>
+      <VerifyChecklist points={aoiVerifyPoints} />
+    </div>
+  );
+}
+
+// ── 검증 체크포인트 컴포넌트 ─────────────────────────────────
+function VerifyChecklist({ points }: { points: string[] }) {
+  return (
+    <div className="verify-checklist">
+      <span>엔지니어 검증 포인트</span>
+      {points.map((point) => (
+        <div className="verify-item" key={point}>
+          <CheckCircle2 size={15} />
+          <p>{point}</p>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+// ── AI 대화 비교 컴포넌트 ─────────────────────────────────────
+function AIDialogueDemo() {
+  return (
+    <div className="ai-dialogue-section">
+      <div className="ai-dialogue-heading">
+        <span>AI 응답 비교</span>
+        <h3>같은 의도라도 지시 방식에 따라 AI 반응이 완전히 달라집니다</h3>
+        <p>아래 두 프롬프트는 모두 "수율 문제를 분석해달라"는 의도를 담고 있습니다. 무엇이 다른지 확인하세요.</p>
+      </div>
+      <div className="ai-dialogue-grid">
+        {aiDialogueData.map((item) => (
+          <div
+            key={item.id}
+            className="ai-dialogue-card"
+            style={{ background: item.bg, borderColor: item.border }}
+          >
+            <span className="dialogue-type-label" style={{ color: item.tagColor }}>
+              {item.id === 'bad' ? <AlertCircle size={14} /> : <CheckCircle2 size={14} />}
+              {item.label}
+            </span>
+            <div className="dialogue-prompt-box">
+              <strong>입력한 프롬프트</strong>
+              <pre>{item.prompt}</pre>
+            </div>
+            <div className="dialogue-response-box" style={{ background: item.responseBg }}>
+              <strong>AI의 반응</strong>
+              <pre>{item.response}</pre>
+            </div>
+            <div className="dialogue-score-row">
+              <span>즉각 실행성</span>
+              <div className="dialogue-score-track">
+                <i style={{ width: `${item.score}%`, background: item.scoreColor }} />
+              </div>
+              <strong style={{ color: item.scoreColor }}>{item.score}%</strong>
+            </div>
+            <div className="dialogue-result-tag" style={{ color: item.tagColor, borderColor: item.border }}>
+              {item.resultTag}
+            </div>
+          </div>
+        ))}
+      </div>
+      <p className="dialogue-takeaway">
+        핵심: 5요소(문제·데이터·기준·산출물·검증)를 갖춘 지시는 AI가 역질문 없이 즉시 분석 도구를 만들어냅니다.
+      </p>
+    </div>
+  );
+}
+
+// ── 인터랙티브 워크숍 ─────────────────────────────────────────
+function InteractiveWorkshop() {
+  const [fields, setFields] = useState({
+    process: '',
+    problem: '',
+    data: '',
+    criteria: '',
+    output: '',
+  });
+  const [copied, setCopied] = useState(false);
+
+  const hasContent = Object.values(fields).some(Boolean);
+
+  const generated = hasContent
+    ? `나는 ${fields.process || '[공정/장비/데이터]'}에서 ${fields.problem || '[문제 현상]'}을 확인하고 싶다. 입력 데이터는 ${fields.data || '[컬럼/단위/기간]'}으로 구성되어 있다. 정상 기준은 ${fields.criteria || '[spec/관리 한계]'}이며, 결과물은 ${fields.output || '[표/그래프/대시보드/보고서]'} 형태로 만들어야 한다. 마지막에는 엔지니어가 확인해야 할 리스크와 추가 질문을 정리해줘.`
+    : '';
+
+  const handleCopy = () => {
+    if (!generated) return;
+    navigator.clipboard.writeText(generated).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2500);
+    });
+  };
+
+  const inputRows: { key: keyof typeof fields; label: string; placeholder: string }[] = [
+    { key: 'process', label: '공정/장비/데이터', placeholder: '예: CVD 설비 EQP-17, 온도 센서 1분 로그' },
+    { key: 'problem', label: '문제 현상', placeholder: '예: 특정 Lot 이후 막두께 산포가 커지고 목표값 초과' },
+    { key: 'data', label: '데이터 컬럼·기간', placeholder: '예: Lot ID, 설비 ID, Recipe, Temp, Pressure (최근 14일)' },
+    { key: 'criteria', label: '판정 기준', placeholder: '예: 목표 120nm ± 5nm, UCL/LCL 초과 시 이상' },
+    { key: 'output', label: '원하는 산출물', placeholder: '예: 설비별 box plot, 이상 Lot 목록, 원인 후보 3개, HTML 리포트' },
+  ];
+
+  return (
+    <div className="interactive-workshop">
+      <div className="iw-header">
+        <FileText size={22} color="var(--accent)" />
+        <strong>5요소 직접 입력하기</strong>
+        <p>빈칸을 채우면 작업지시서가 자동으로 완성됩니다.</p>
+      </div>
+      <div className="iw-body">
+        <div className="iw-inputs">
+          {inputRows.map((row) => (
+            <div className="iw-field" key={row.key}>
+              <label htmlFor={`iw-${row.key}`}>{row.label}</label>
+              <input
+                id={`iw-${row.key}`}
+                type="text"
+                placeholder={row.placeholder}
+                value={fields[row.key]}
+                onChange={(e) => setFields((prev) => ({ ...prev, [row.key]: e.target.value }))}
+              />
+            </div>
+          ))}
+        </div>
+        <div className="iw-output">
+          <div className="iw-output-header">
+            <Bot size={18} color="var(--accent)" />
+            <strong>완성된 작업지시서</strong>
+          </div>
+          <div className={`iw-generated-text ${hasContent ? 'active' : ''}`}>
+            {generated || '위 5요소를 하나씩 입력하면\n작업지시서가 완성됩니다.'}
+          </div>
+          <button
+            className={`iw-copy-btn ${copied ? 'copied' : ''}`}
+            onClick={handleCopy}
+            disabled={!hasContent}
+          >
+            {copied
+              ? <><Check size={15} />복사됨!</>
+              : <><Copy size={15} />Claude에 복사하기</>}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── 첫 실행 가이드 ─────────────────────────────────────────────
+function FirstRunGuide() {
+  return (
+    <div className="first-run-guide">
+      <div className="frg-title">
+        <ExternalLink size={18} color="var(--accent)" />
+        <strong>지금 바로 해보기 — Claude에서 첫 번째 실행</strong>
+      </div>
+      <div className="frg-steps">
+        {firstRunSteps.map((item) => (
+          <div className="frg-step" key={item.step}>
+            <span className="frg-num">{item.step}</span>
+            <div>
+              <strong>{item.title}</strong>
+              <p>{item.body}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ── 2강 예고 컴포넌트 ─────────────────────────────────────────
+function NextLecturePreview() {
+  return (
+    <div className="next-lecture-card">
+      <div className="nlc-header">
+        <span>2강 미리보기</span>
+        <h3>의도를 결과로 바꾸는 프롬프트 설계: TCREI 프레임워크</h3>
+        <p>오늘 만든 5요소 작업지시서를 구조화하면 AI가 더 정밀하게 반응합니다. 2강에서는 TCREI 프레임워크로 작업지시서를 업그레이드합니다.</p>
+      </div>
+      <div className="tcrei-grid">
+        {tcreiItems.map((item) => (
+          <div className="tcrei-item" key={item.label}>
+            <span className="tcrei-letter">{item.label}</span>
+            <strong>{item.name}</strong>
+            <p>{item.text}</p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
@@ -1278,6 +1550,7 @@ export default function App() {
               <span>핵심: 데이터, 기준, 분석 관점, 산출물이 한 번에 정의됩니다.</span>
             </div>
           </div>
+          <AIDialogueDemo />
           <div className="prompt-table-card" aria-label="부족한 표현과 좋은 표현 비교표">
             <div className="visual-header">
               <span>Prompt Upgrade Table</span>
@@ -1376,32 +1649,8 @@ export default function App() {
               </div>
             ))}
           </div>
-          <div className="template-card">
-            <div>
-              <FileText size={28} color="var(--accent)" />
-              <h3>작업지시서 템플릿</h3>
-            </div>
-            <p>
-              나는 <span>[공정/장비/데이터]</span>에서 <span>[문제 현상]</span>을 확인하고 싶다.
-              입력 데이터는 <span>[컬럼/단위/기간]</span>으로 구성되어 있다.
-              정상 기준은 <span>[spec/관리 한계]</span>이며, 결과물은 <span>[표/그래프/대시보드/보고서]</span> 형태로 만들어야 한다.
-              마지막에는 엔지니어가 확인해야 할 리스크와 추가 질문을 정리해줘.
-            </p>
-          </div>
-          <div className="worksheet-preview" aria-label="수강생 작업지시서 작성 예시">
-            <div className="worksheet-row">
-              <span>공정/장비/데이터</span>
-              <p>CVD 막두께 측정 로그, Lot ID, 설비 ID, Recipe, Temp, Pressure</p>
-            </div>
-            <div className="worksheet-row">
-              <span>문제 현상</span>
-              <p>특정 Lot에서 막두께 산포가 커지고 목표값 120nm를 벗어남</p>
-            </div>
-            <div className="worksheet-row">
-              <span>원하는 결과물</span>
-              <p>설비별 box plot, 이상 Lot 목록, 원인 후보 3개, 확인 질문</p>
-            </div>
-          </div>
+          <InteractiveWorkshop />
+          <FirstRunGuide />
         </section>
 
         <section>
@@ -1420,6 +1669,7 @@ export default function App() {
             <h3>"코드를 외우기 전에, 먼저 업무 의도를 정확히 정의하세요."</h3>
             <p>다음 강의: 그 의도를 어떻게 AI에게 전달할까요? (프롬프트 기획)</p>
           </div>
+          <NextLecturePreview />
           <div className="lesson-actions">
             {navigationLinks.map((link) => (
               <a href={link.href} key={link.label}>
