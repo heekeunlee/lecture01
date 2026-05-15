@@ -442,73 +442,80 @@ function VibeIntentVisual() {
     <div className="visual-container antigravity-sim">
       <div className="antigravity-window">
         <div className="ag-header">
+          <div className="dot red"></div>
+          <div className="dot yellow"></div>
+          <div className="dot green"></div>
           <div className="ag-logo">Antigravity Analysis</div>
-          <div className="ag-status">Live Monitoring</div>
+          <div className="ag-status">분석 중...</div>
         </div>
         <div className="ag-content">
           <div className="ag-prompt-section">
             <div className="ag-prompt-box">
-              <span className="typing-prompt">
-                1000개의 공정 데이터 중에서 이상점이 발생한 부분을 진단하고 그것을 시각화해줘.
-                기술적인 근거와 이유에 대해서도 간략히 정리해.
-              </span>
+              <div className="typing-container">
+                <span className="typing-prompt">
+                  1000개의 공정 데이터 중에서 이상점이 발생한 부분을 진단하고 그것을 시각화해줘.
+                  기술적인 근거와 이유에 대해서도 간략히 정리해.
+                </span>
+              </div>
             </div>
           </div>
           
           <div className="ag-ai-processing">
             <div className="ag-code-gen">
-              <div className="code-line"><span>Running Statistical Diagnostic...</span></div>
+              <div className="code-line"><span>통계적 진단 실행 중...</span></div>
             </div>
           </div>
 
           <div className="ag-results">
             <div className="ag-charts-row">
               <div className="ag-chart density">
-                <div className="chart-axis y"><span>Density</span></div>
-                <div className="chart-axis x"><span>Value</span></div>
-                <div className="gaussian-curve"></div>
-                <div className="scatter-points">
-                  {[...Array(20)].map((_, i) => (
+                <div className="chart-axis y"><span>밀도</span></div>
+                <div className="chart-axis x"><span>측정값</span></div>
+                <div className="gaussian-curve-v2">
+                  <div className="six-sigma-outlier"></div>
+                </div>
+                <div className="scatter-points-v2">
+                  {[...Array(30)].map((_, i) => (
                     <div key={i} className="point" style={{ 
-                      left: `${20 + Math.random() * 60}%`, 
-                      bottom: `${Math.random() * 30}%` 
+                      left: `${15 + Math.random() * 70}%`, 
+                      bottom: `${10 + Math.random() * 40}%` 
                     }}></div>
                   ))}
-                  <div className="point outlier" style={{ left: '85%', bottom: '5%' }}></div>
+                  <div className="point outlier-v2" style={{ left: '92%', bottom: '5%' }}></div>
                 </div>
-                <span className="chart-title">밀도 분포 & 산점도</span>
+                <span className="chart-title">밀도 분포 (Gaussian)</span>
               </div>
               <div className="ag-chart boxplot">
-                <div className="chart-axis y"><span>Stats</span></div>
-                <div className="chart-axis x"><span>Group</span></div>
-                <div className="box-elements">
-                  <div className="whisker-top"></div>
-                  <div className="box-body">
-                    <div className="median-line"></div>
+                <div className="chart-axis y"><span>통계</span></div>
+                <div className="chart-axis x"><span>그룹</span></div>
+                <div className="box-elements-v2">
+                  <div className="whisker-top-v2"></div>
+                  <div className="box-body-v2">
+                    <div className="median-line-v2"></div>
                   </div>
-                  <div className="whisker-bottom"></div>
-                  <div className="outliers-group">
-                    <div className="dot-outlier" style={{ top: '-10px' }}></div>
-                    <div className="dot-outlier" style={{ top: '-18px' }}></div>
+                  <div className="whisker-bottom-v2"></div>
+                  <div className="outliers-group-v2">
+                    <div className="dot-outlier-v2" style={{ top: '-15px' }}></div>
+                    <div className="dot-outlier-v2" style={{ top: '-25px' }}></div>
                   </div>
                 </div>
                 <span className="chart-title">상세 박스플랏</span>
               </div>
             </div>
             <div className="ag-summary-wide">
-              <strong>Diagnostic Summary</strong>
+              <strong>분석 결과 요약</strong>
               <div className="summary-grid">
                 <div className="sum-item">
-                  <span>Detected</span>
+                  <span>탐지된 이상치</span>
                   <strong>Lot #742 Outlier</strong>
                 </div>
                 <div className="sum-item">
-                  <span>Reason</span>
-                  <strong>3.2σ Deviation</strong>
+                  <span>통계적 근거</span>
+                  <strong>3.2σ 편차 (임계치 초과)</strong>
                 </div>
                 <div className="sum-item">
-                  <span>Action</span>
-                  <strong>Inspect Gas Flow</strong>
+                  <span>권고 조치</span>
+                  <strong>가스 유량 센서 점검</strong>
                 </div>
               </div>
             </div>

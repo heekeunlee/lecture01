@@ -3902,3 +3902,126 @@ footer {
   color: #78350f;
   margin: 0;
 }
+
+/* ── Antigravity Simulation v3 Refinements ──────────────── */
+.ag-prompt-box {
+  height: 75px; /* Increase height for multi-line */
+  overflow: hidden;
+}
+
+.typing-container {
+  width: 100%;
+}
+
+.typing-prompt {
+  display: inline; /* Changed to inline for wrapping */
+  white-space: pre-wrap; /* Wrap long text */
+  word-break: keep-all;
+  border-right: 2px solid var(--accent);
+  animation: typing-ag-v3 4s steps(60, end) forwards;
+}
+
+@keyframes typing-ag-v3 {
+  from { clip-path: inset(0 100% 0 0); }
+  to { clip-path: inset(0 0 0 0); }
+}
+
+.ag-charts-row {
+  margin-top: 15px; /* Prevent overlap with code gen text */
+}
+
+/* Gaussian Curve with Outlier Area */
+.gaussian-curve-v2 {
+  width: 85%;
+  height: 60%;
+  position: absolute;
+  bottom: 21px;
+  left: 16px;
+  border: 2px solid var(--accent);
+  border-bottom: none;
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+  background: linear-gradient(180deg, rgba(0, 113, 227, 0.1), transparent);
+}
+
+.six-sigma-outlier {
+  position: absolute;
+  right: 0;
+  top: 60%;
+  width: 15%;
+  height: 40%;
+  background: rgba(239, 68, 68, 0.2);
+  border-left: 1px dashed #ef4444;
+}
+
+.scatter-points-v2 .point {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: var(--accent);
+  border-radius: 50%;
+  opacity: 0.5;
+}
+
+.scatter-points-v2 .point.outlier-v2 {
+  width: 5px;
+  height: 5px;
+  background: #ef4444;
+  opacity: 1;
+  box-shadow: 0 0 6px rgba(239, 68, 68, 0.8);
+}
+
+/* Enhanced Boxplot */
+.box-elements-v2 {
+  position: absolute;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.box-body-v2 {
+  width: 28px;
+  height: 35px;
+  border: 1.5px solid #16a34a;
+  background: rgba(22, 163, 74, 0.1);
+  position: relative;
+}
+
+.median-line-v2 {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  height: 2px;
+  background: #16a34a;
+}
+
+.whisker-top-v2, .whisker-bottom-v2 {
+  width: 1px;
+  height: 12px;
+  background: #16a34a;
+  position: relative;
+}
+
+.whisker-top-v2:before, .whisker-bottom-v2:before {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 1px;
+  background: #16a34a;
+  left: -5px;
+}
+
+.whisker-top-v2:before { top: 0; }
+.whisker-bottom-v2:before { bottom: 0; }
+
+.outliers-group-v2 .dot-outlier-v2 {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  background: #ef4444;
+  border-radius: 50%;
+}
