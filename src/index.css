@@ -4025,3 +4025,124 @@ footer {
   background: #ef4444;
   border-radius: 50%;
 }
+
+/* ── Antigravity Simulation v4 Final Refinements ──────────────── */
+.gaussian-curve-v2 {
+  /* Redefining to be a centered Bell Curve */
+  width: 90%;
+  height: 65%;
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 21px;
+}
+
+/* Horizontal Boxplot Styles */
+.box-elements-v3 {
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+}
+
+.box-body-v3 {
+  width: 45px;
+  height: 25px;
+  border: 1.5px solid #16a34a;
+  background: rgba(22, 163, 74, 0.1);
+  position: relative;
+}
+
+.median-line-v3 {
+  position: absolute;
+  left: 50%;
+  height: 100%;
+  width: 2px;
+  background: #16a34a;
+}
+
+.whisker-left-v3, .whisker-right-v3 {
+  height: 1px;
+  width: 20px;
+  background: #16a34a;
+  position: relative;
+}
+
+.whisker-left-v3:before, .whisker-right-v3:before {
+  content: '';
+  position: absolute;
+  height: 12px;
+  width: 1px;
+  background: #16a34a;
+  top: -6px;
+}
+.whisker-left-v3:before { left: 0; }
+.whisker-right-v3:before { right: 0; }
+
+.outliers-group-v3 {
+  position: absolute;
+  right: -65px;
+  display: flex;
+  gap: 8px;
+}
+
+.dot-outlier-v3 {
+  width: 5px;
+  height: 5px;
+  background: #ef4444;
+  border-radius: 50%;
+  position: relative;
+}
+
+.outlier-label {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.45rem;
+  font-weight: 800;
+  color: #ef4444;
+  white-space: nowrap;
+}
+
+/* Compact Summary to prevent truncation */
+.ag-summary-v3 {
+  margin-top: 12px;
+  padding: 8px 12px;
+  background: #fffbeb;
+  border: 1px solid #fef3c7;
+  border-radius: 10px;
+}
+
+.ag-summary-v3 strong {
+  font-size: 0.65rem;
+  color: #92400e;
+  display: block;
+  margin-bottom: 6px;
+  border-bottom: 1px solid rgba(146, 100, 14, 0.1);
+  padding-bottom: 3px;
+}
+
+.summary-grid-v3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.sum-item-v3 span {
+  display: block;
+  font-size: 0.48rem;
+  color: #b45309;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.sum-item-v3 strong {
+  font-size: 0.65rem;
+  color: #78350f;
+  margin: 0;
+  border: none;
+  padding: 0;
+}

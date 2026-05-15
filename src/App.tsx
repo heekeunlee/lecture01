@@ -487,35 +487,37 @@ function VibeIntentVisual() {
               </div>
               <div className="ag-chart boxplot">
                 <div className="chart-axis y"><span>통계</span></div>
-                <div className="chart-axis x"><span>그룹</span></div>
-                <div className="box-elements-v2">
-                  <div className="whisker-top-v2"></div>
-                  <div className="box-body-v2">
-                    <div className="median-line-v2"></div>
+                <div className="chart-axis x"><span>측정</span></div>
+                <div className="box-elements-v3">
+                  <div className="whisker-left-v3"></div>
+                  <div className="box-body-v3">
+                    <div className="median-line-v3"></div>
                   </div>
-                  <div className="whisker-bottom-v2"></div>
-                  <div className="outliers-group-v2">
-                    <div className="dot-outlier-v2" style={{ top: '-15px' }}></div>
-                    <div className="dot-outlier-v2" style={{ top: '-25px' }}></div>
+                  <div className="whisker-right-v3"></div>
+                  <div className="outliers-group-v3">
+                    <div className="dot-outlier-v3" style={{ left: '40px' }}>
+                      <span className="outlier-label">이상점</span>
+                    </div>
+                    <div className="dot-outlier-v3" style={{ left: '55px' }}></div>
                   </div>
                 </div>
-                <span className="chart-title">상세 박스플랏</span>
+                <span className="chart-title">가로형 박스플랏</span>
               </div>
             </div>
-            <div className="ag-summary-wide">
+            <div className="ag-summary-v3">
               <strong>분석 결과 요약</strong>
-              <div className="summary-grid">
-                <div className="sum-item">
-                  <span>탐지된 이상치</span>
-                  <strong>Lot #742 Outlier</strong>
+              <div className="summary-grid-v3">
+                <div className="sum-item-v3">
+                  <span>이상치</span>
+                  <strong>Lot #742</strong>
                 </div>
-                <div className="sum-item">
-                  <span>통계적 근거</span>
-                  <strong>3.2σ 편차 (임계치 초과)</strong>
+                <div className="sum-item-v3">
+                  <span>통계근거</span>
+                  <strong>3.2σ 초과</strong>
                 </div>
-                <div className="sum-item">
-                  <span>권고 조치</span>
-                  <strong>가스 유량 센서 점검</strong>
+                <div className="sum-item-v3">
+                  <span>조치</span>
+                  <strong>센서 점검</strong>
                 </div>
               </div>
             </div>
