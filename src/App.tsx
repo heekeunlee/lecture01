@@ -417,9 +417,11 @@ function ComplexCodeVisual() {
     <div className="visual-container traditional-code">
       <div className="code-window">
         <div className="code-header">
-          <div className="dot red"></div>
-          <div className="dot yellow"></div>
-          <div className="dot green"></div>
+          <div className="window-dots">
+            <div className="dot red"></div>
+            <div className="dot yellow"></div>
+            <div className="dot green"></div>
+          </div>
         </div>
         <div className="code-body">
           <div className="code-line typing-1"><span>import</span> pandas <span>as</span> pd</div>
@@ -438,13 +440,21 @@ function ComplexCodeVisual() {
 }
 
 function VibeIntentVisual() {
+  const densityPoints = [
+    [20, 18], [24, 30], [29, 24], [33, 42], [37, 28], [41, 50],
+    [45, 36], [49, 58], [53, 43], [57, 64], [61, 48], [65, 36],
+    [69, 54], [73, 31], [77, 40], [82, 24],
+  ];
+
   return (
     <div className="visual-container antigravity-sim">
       <div className="antigravity-window">
         <div className="ag-header">
-          <div className="dot red"></div>
-          <div className="dot yellow"></div>
-          <div className="dot green"></div>
+          <div className="window-dots">
+            <div className="dot red"></div>
+            <div className="dot yellow"></div>
+            <div className="dot green"></div>
+          </div>
           <div className="ag-logo">Antigravity Analysis</div>
           <div className="ag-status">분석 중...</div>
         </div>
@@ -471,37 +481,42 @@ function VibeIntentVisual() {
               <div className="ag-chart density">
                 <div className="chart-axis y"><span>밀도</span></div>
                 <div className="chart-axis x"><span>측정값</span></div>
-                <div className="gaussian-curve-v2">
-                  <div className="six-sigma-outlier"></div>
-                </div>
-                <div className="scatter-points-v2">
-                  {[...Array(30)].map((_, i) => (
-                    <div key={i} className="point" style={{ 
-                      left: `${15 + Math.random() * 70}%`, 
-                      bottom: `${10 + Math.random() * 40}%` 
-                    }}></div>
+                <svg className="gaussian-plot" viewBox="0 0 220 92" role="img" aria-label="가우시안 밀도 분포와 이상점">
+                  <defs>
+                    <linearGradient id="gaussianFill" x1="0" x2="0" y1="0" y2="1">
+                      <stop offset="0%" stopColor="#0071e3" stopOpacity="0.22" />
+                      <stop offset="100%" stopColor="#0071e3" stopOpacity="0.02" />
+                    </linearGradient>
+                    <linearGradient id="outlierTail" x1="0" x2="1" y1="0" y2="0">
+                      <stop offset="0%" stopColor="#ef4444" stopOpacity="0.08" />
+                      <stop offset="100%" stopColor="#ef4444" stopOpacity="0.35" />
+                    </linearGradient>
+                  </defs>
+                  <path className="gaussian-fill" d="M10 82 C40 82 48 12 110 12 C172 12 180 82 210 82 L10 82 Z" />
+                  <path className="gaussian-tail" d="M178 82 C188 68 196 80 210 82 L210 82 Z" />
+                  <line className="sigma-line" x1="178" y1="24" x2="178" y2="82" />
+                  <path className="gaussian-line" d="M10 82 C40 82 48 12 110 12 C172 12 180 82 210 82" />
+                  {densityPoints.map(([x, y], index) => (
+                    <circle key={index} className="density-dot" cx={x} cy={82 - y * 0.72} r="1.9" />
                   ))}
-                  <div className="point outlier-v2" style={{ left: '92%', bottom: '5%' }}></div>
-                </div>
+                  <circle className="density-outlier" cx="206" cy="78" r="4.2" />
+                </svg>
                 <span className="chart-title">밀도 분포 (Gaussian)</span>
               </div>
               <div className="ag-chart boxplot">
                 <div className="chart-axis y"><span>통계</span></div>
                 <div className="chart-axis x"><span>측정</span></div>
                 <div className="ag-grid-lines"></div>
-                <div className="box-elements-v3">
-                  <div className="whisker-left-v3"></div>
-                  <div className="box-body-v3">
-                    <div className="median-line-v3"></div>
-                  </div>
-                  <div className="whisker-right-v3"></div>
-                  <div className="outliers-group-v3">
-                    <div className="dot-outlier-v3">
-                      <span className="outlier-label">이상점(Lot #742)</span>
-                    </div>
-                    <div className="dot-outlier-v3"></div>
-                  </div>
-                </div>
+                <svg className="boxplot-svg" viewBox="0 0 220 92" role="img" aria-label="가로형 박스플랏과 이상점">
+                  <line className="whisker" x1="34" y1="52" x2="176" y2="52" />
+                  <line className="cap" x1="34" y1="40" x2="34" y2="64" />
+                  <line className="cap" x1="176" y1="40" x2="176" y2="64" />
+                  <rect className="box-rect-main" x="72" y="34" width="74" height="36" rx="4" />
+                  <line className="median" x1="112" y1="34" x2="112" y2="70" />
+                  <circle className="box-outlier" cx="202" cy="52" r="4.5" />
+                  <circle className="box-outlier secondary" cx="192" cy="52" r="3.2" />
+                  <text className="box-outlier-text" x="160" y="29">이상점</text>
+                </svg>
                 <span className="chart-title">가로형 박스플랏</span>
               </div>
             </div>
@@ -1544,7 +1559,7 @@ export default function App() {
         </section>
 
         {/* Section 2 */}
-        <section className="trad-vibe-section">
+        <section id="traditional-vs-vibe" className="trad-vibe-section">
           <span className="section-label">04. 전통 코딩 vs 바이브 코딩</span>
           <h2>'과정'을 하나씩 짜는 사람 vs '목표'를 명확히 정의하는 사람</h2>
           <p className="section-intro">
