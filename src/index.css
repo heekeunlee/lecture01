@@ -3370,3 +3370,167 @@ footer {
   font-size: 0.75rem;
   font-weight: 900;
 }
+
+/* ── 전통 코딩 vs 바이브 코딩 시각화 (Comparison Visuals) ──────────────── */
+.visual-container {
+  margin: 1.2rem 0;
+  border-radius: 16px;
+  overflow: hidden;
+  height: 160px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  background: #111827;
+}
+
+.traditional-code .code-window {
+  width: 90%;
+  height: 90%;
+  background: #0f172a;
+  border: 1px solid #334155;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+.code-header {
+  padding: 8px;
+  display: flex;
+  gap: 6px;
+  border-bottom: 1px solid #1e293b;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+.dot.red { background: #ff5f56; }
+.dot.yellow { background: #ffbd2e; }
+.dot.green { background: #27c93f; }
+
+.code-body {
+  padding: 10px;
+  font-family: SF Mono, Fira Code, monospace;
+  font-size: 0.65rem;
+  line-height: 1.4;
+  color: #e2e8f0;
+  overflow: hidden;
+}
+
+.code-line span { color: #8b5cf6; } /* keyword */
+.code-line.error { color: #ef4444; font-weight: bold; margin-top: 4px; }
+
+/* Typing animation simulation */
+.typing-1, .typing-2, .typing-3, .typing-4, .typing-5, .typing-6, .typing-7, .typing-8 {
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+  animation: typing 2s steps(40, end) forwards;
+}
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+.typing-1 { animation-delay: 0s; }
+.typing-2 { animation-delay: 0.5s; }
+.typing-3 { animation-delay: 1s; }
+.typing-4 { animation-delay: 1.5s; }
+.typing-5 { animation-delay: 2s; }
+.typing-6 { animation-delay: 3s; } /* after error */
+.typing-7 { animation-delay: 3.5s; }
+.typing-8 { animation-delay: 4s; }
+
+.vibe-intent {
+  background: linear-gradient(135deg, #f0f7ff 0%, #e0f2fe 100%);
+  border: 1px solid #bae6fd;
+}
+
+.intent-bubble {
+  background: white;
+  padding: 0.6rem 1rem;
+  border-radius: 20px 20px 20px 4px;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  box-shadow: 0 4px 12px rgba(0, 113, 227, 0.1);
+  animation: float 3s ease-in-out infinite;
+}
+
+.user-icon {
+  width: 24px;
+  height: 24px;
+  background: var(--accent);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.intent-text {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.magic-sparkle {
+  margin: 0.4rem 0;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.result-preview {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  background: #f0fdf4;
+  border: 1.5px solid #86efac;
+  padding: 0.5rem 0.8rem;
+  border-radius: 12px;
+  transform: scale(0.9);
+  animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  animation-delay: 1.5s;
+  opacity: 0;
+}
+
+@keyframes popIn {
+  from { transform: scale(0.5); opacity: 0; }
+  to { transform: scale(0.9); opacity: 1; }
+}
+
+.mini-chart {
+  display: flex;
+  align-items: end;
+  gap: 3px;
+  height: 24px;
+}
+
+.mini-chart .bar {
+  width: 6px;
+  background: #22c55e;
+  border-radius: 2px 2px 0 0;
+}
+
+.mini-chart .bar.danger {
+  background: #ef4444;
+}
+
+.result-preview span {
+  font-size: 0.72rem;
+  font-weight: 900;
+  color: #166534;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.4; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.1); }
+}

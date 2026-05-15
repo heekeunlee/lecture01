@@ -412,6 +412,53 @@ const tcreiItems = [
   { label: 'I', name: 'Instruction', text: '제약조건·검증 기준' },
 ];
 
+function ComplexCodeVisual() {
+  return (
+    <div className="visual-container traditional-code">
+      <div className="code-window">
+        <div className="code-header">
+          <div className="dot red"></div>
+          <div className="dot yellow"></div>
+          <div className="dot green"></div>
+        </div>
+        <div className="code-body">
+          <div className="code-line typing-1"><span>import</span> pandas <span>as</span> pd</div>
+          <div className="code-line typing-2"><span>import</span> matplotlib.pyplot <span>as</span> plt</div>
+          <div className="code-line typing-3">df = pd.read_csv('sensor_log.csv')</div>
+          <div className="code-line typing-4">df['MA'] = df['value'].rolling(window=5).mean()</div>
+          <div className="code-line typing-5">plt.plot(df['timestamp'], df['MA'], color='red')</div>
+          <div className="code-line error">Error: ModuleNotFoundError: No module named 'matplotlib'</div>
+          <div className="code-line typing-6">pip install matplotlib --user</div>
+          <div className="code-line typing-7"><span>def</span> analyze_yield(data, threshold=0.95):</div>
+          <div className="code-line typing-8">    <span>return</span> [x <span>for</span> x <span>in</span> data <span>if</span> x {'<'} threshold]</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function VibeIntentVisual() {
+  return (
+    <div className="visual-container vibe-intent">
+      <div className="intent-bubble">
+        <div className="user-icon"><Navigation size={14} /></div>
+        <div className="intent-text">"수율 3% 하락한 설비 찾아줘"</div>
+      </div>
+      <div className="magic-sparkle">
+        <Sparkles size={24} color="#0071e3" />
+      </div>
+      <div className="result-preview">
+        <div className="mini-chart">
+          <div className="bar" style={{ height: '60%' }}></div>
+          <div className="bar danger" style={{ height: '30%' }}></div>
+          <div className="bar" style={{ height: '70%' }}></div>
+        </div>
+        <span>설비 A-102 탐지!</span>
+      </div>
+    </div>
+  );
+}
+
 function GoalVisual({ type }: { type: string }) {
   if (type === 'definition') {
     return (
@@ -1440,6 +1487,7 @@ export default function App() {
                   <strong>설명서를 직접 조립하는 방식</strong>
                 </div>
               </div>
+              <ComplexCodeVisual />
               <div className="trad-vibe-stepline">
                 <div><span>1</span><p>문법을 외운다</p></div>
                 <ArrowRight size={18} />
@@ -1461,6 +1509,7 @@ export default function App() {
                   <strong>목적지를 먼저 말하는 방식</strong>
                 </div>
               </div>
+              <VibeIntentVisual />
               <div className="trad-vibe-stepline">
                 <div><span>1</span><p>문제와 기준을 말한다</p></div>
                 <ArrowRight size={18} />
