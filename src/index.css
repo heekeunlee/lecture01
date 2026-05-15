@@ -1711,8 +1711,8 @@ section h2 mark {
 }
 
 .sensor-chart-card text {
-  font-size: 8px;
-  letter-spacing: 0;
+  font-size: 7px;
+  letter-spacing: -0.02em;
 }
 
 .sensor-chart-card .alert-label,
@@ -3278,4 +3278,95 @@ footer {
   font-size: 0.72rem;
   color: var(--muted);
   line-height: 1.4;
+}
+
+/* ── 학습목표 시각화 (Goal Visuals) ──────────────── */
+.goal-visual-wrapper {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background: white;
+  border-radius: 12px;
+  border: 1px dashed var(--border);
+  min-height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.goal-visual {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.visual-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  color: var(--accent);
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.visual-item.ai {
+  color: #16a34a;
+}
+
+.visual-arrow {
+  color: var(--text-secondary);
+  opacity: 0.5;
+}
+
+.goal-visual.elements {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.4rem;
+  width: 100%;
+}
+
+.element-tag {
+  background: #f0f7ff;
+  border: 1px solid rgba(0, 113, 227, 0.2);
+  color: var(--accent);
+  padding: 0.25rem 0.2rem;
+  border-radius: 6px;
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-align: center;
+}
+
+.goal-visual.field {
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.field-icons {
+  display: flex;
+  gap: 0.8rem;
+}
+
+.f-icon {
+  width: 34px;
+  height: 34px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.success-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: #16a34a;
+  background: #f0fdf4;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 900;
 }

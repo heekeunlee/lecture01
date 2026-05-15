@@ -108,16 +108,19 @@ const learningGoals = [
     step: '학습목표 1',
     title: '바이브 코딩의 뜻을 한 문장으로 설명',
     body: '코드를 직접 치는 방식이 아니라, 원하는 결과를 말로 설명해 AI가 초안을 만들게 하는 방식임을 이해합니다.',
+    type: 'definition'
   },
   {
     step: '학습목표 2',
     title: '좋은 작업지시서의 요소 구분',
     body: '문제, 데이터, 기준, 산출물, 검증조건이 들어가야 AI가 현장 기준에 맞는 결과를 만들 수 있습니다.',
+    type: 'elements'
   },
   {
     step: '학습목표 3',
     title: '현장 사례와 연결',
     body: '수율, AOI, 설비 센서 같은 반복 업무를 AI 작업지시서로 바꾸는 흐름을 설명할 수 있습니다.',
+    type: 'field'
   },
 ];
 
@@ -408,6 +411,51 @@ const tcreiItems = [
   { label: 'E', name: 'Example', text: '기대 출력 형식·예시' },
   { label: 'I', name: 'Instruction', text: '제약조건·검증 기준' },
 ];
+
+function GoalVisual({ type }: { type: string }) {
+  if (type === 'definition') {
+    return (
+      <div className="goal-visual definition">
+        <div className="visual-item person">
+          <Navigation size={18} />
+          <span>의도</span>
+        </div>
+        <ArrowRight size={14} className="visual-arrow" />
+        <div className="visual-item ai">
+          <Bot size={18} />
+          <span>결과</span>
+        </div>
+      </div>
+    );
+  }
+  if (type === 'elements') {
+    return (
+      <div className="goal-visual elements">
+        <div className="element-tag">문제</div>
+        <div className="element-tag">데이터</div>
+        <div className="element-tag">기준</div>
+        <div className="element-tag">산출물</div>
+        <div className="element-tag">검증</div>
+      </div>
+    );
+  }
+  if (type === 'field') {
+    return (
+      <div className="goal-visual field">
+        <div className="field-icons">
+          <div className="f-icon"><BarChart3 size={18} /></div>
+          <div className="f-icon"><Image size={18} /></div>
+          <div className="f-icon"><Activity size={18} /></div>
+        </div>
+        <div className="success-indicator">
+          <CheckCircle2 size={12} />
+          <span>현장 적용 완료</span>
+        </div>
+      </div>
+    );
+  }
+  return null;
+}
 
 function YieldTrendChart() {
   const max = 96;
@@ -1166,7 +1214,7 @@ export default function App() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
         >
-          <h1>Ch.1 의도를 결과로 바꾸는 프롬프트 설계</h1>
+          <h1>Ch.1 엔지니어를 위한 바이브 코딩 첫걸음</h1>
           <p className="subtitle">코알못도 첨단 공정 현장의 반복 분석·보고서·이상감지를 AI에게 작업지시서로 맡기는 첫걸음</p>
           <div className="lesson-meta" aria-label="lesson summary">
             <span>40분</span>
@@ -1180,7 +1228,7 @@ export default function App() {
       <main>
         <section className="overview-section">
           <span className="section-label">01. 오프닝 및 학습목표</span>
-          <h2>오늘 40분 뒤, 여러분은 “코딩 문법”이 아니라 “AI 작업지시서”로 업무를 설명할 수 있습니다</h2>
+          <h2>오늘 여러분은 “코딩 문법”이 아니라 “AI 작업지시서”로 반도체, 디스플레이, 2차 전지 등 엔지니어의 업무를 이해할 수 있습니다</h2>
           <p className="section-intro">
             이 강의는 개발자가 되기 위한 문법 수업이 아닙니다. 코드를 몰라도 시작할 수 있도록
             “무엇을 만들지, 어떤 데이터를 쓸지, 어떤 기준으로 판단할지”를 AI에게 정확히 설명하는 법을 배우는 첫 시간입니다.
@@ -1191,6 +1239,9 @@ export default function App() {
                 <span>{item.step}</span>
                 <h3>{item.title}</h3>
                 <p>{item.body}</p>
+                <div className="goal-visual-wrapper">
+                  <GoalVisual type={item.type} />
+                </div>
               </div>
             ))}
           </div>
