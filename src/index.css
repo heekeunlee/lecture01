@@ -3623,6 +3623,7 @@ footer {
 
 .ag-results {
   display: flex;
+  flex-direction: column;
   gap: 10px;
   opacity: 0;
   animation: fade-in 1s forwards;
