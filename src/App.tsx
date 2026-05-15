@@ -1546,7 +1546,7 @@ export default function App() {
         {/* Section 2 */}
         <section className="trad-vibe-section">
           <span className="section-label">04. 전통 코딩 vs 바이브 코딩</span>
-          <h2>'어떻게(How)'를 짜는 사람 vs '무엇을(What)'을 묻는 사람</h2>
+          <h2>'과정'을 하나씩 짜는 사람 vs '목표'를 명확히 정의하는 사람</h2>
           <p className="section-intro">
             코알못에게는 “기술이 다르다”보다 “생각 순서가 다르다”가 더 중요합니다.
             아래 그림은 사람이 직접 구현을 붙잡는 방식과, AI에게 해결 과정을 맡기는 방식을 나란히 보여줍니다.
