@@ -442,12 +442,11 @@ function VibeIntentVisual() {
     <div className="visual-container antigravity-sim">
       <div className="antigravity-window">
         <div className="ag-header">
-          <div className="ag-logo">Antigravity</div>
-          <div className="ag-status">Ready</div>
+          <div className="ag-logo">Antigravity Analysis</div>
+          <div className="ag-status">Live Monitoring</div>
         </div>
         <div className="ag-content">
           <div className="ag-prompt-section">
-            <div className="ag-prompt-label">Prompt</div>
             <div className="ag-prompt-box">
               <span className="typing-prompt">
                 1000개의 공정 데이터 중에서 이상점이 발생한 부분을 진단하고 그것을 시각화해줘.
@@ -458,31 +457,60 @@ function VibeIntentVisual() {
           
           <div className="ag-ai-processing">
             <div className="ag-code-gen">
-              <div className="code-line"><span>Generating Analysis Code...</span></div>
-              <div className="code-line tiny">import numpy as np</div>
-              <div className="code-line tiny">from scipy import stats</div>
+              <div className="code-line"><span>Running Statistical Diagnostic...</span></div>
             </div>
           </div>
 
           <div className="ag-results">
-            <div className="ag-visuals">
+            <div className="ag-charts-row">
               <div className="ag-chart density">
-                <div className="density-curve"></div>
-                <span className="label">밀도 분포</span>
+                <div className="chart-axis y"><span>Density</span></div>
+                <div className="chart-axis x"><span>Value</span></div>
+                <div className="gaussian-curve"></div>
+                <div className="scatter-points">
+                  {[...Array(20)].map((_, i) => (
+                    <div key={i} className="point" style={{ 
+                      left: `${20 + Math.random() * 60}%`, 
+                      bottom: `${Math.random() * 30}%` 
+                    }}></div>
+                  ))}
+                  <div className="point outlier" style={{ left: '85%', bottom: '5%' }}></div>
+                </div>
+                <span className="chart-title">밀도 분포 & 산점도</span>
               </div>
               <div className="ag-chart boxplot">
-                <div className="box-line"></div>
-                <div className="box-rect"></div>
-                <div className="outlier"></div>
-                <span className="label">박스플랏</span>
+                <div className="chart-axis y"><span>Stats</span></div>
+                <div className="chart-axis x"><span>Group</span></div>
+                <div className="box-elements">
+                  <div className="whisker-top"></div>
+                  <div className="box-body">
+                    <div className="median-line"></div>
+                  </div>
+                  <div className="whisker-bottom"></div>
+                  <div className="outliers-group">
+                    <div className="dot-outlier" style={{ top: '-10px' }}></div>
+                    <div className="dot-outlier" style={{ top: '-18px' }}></div>
+                  </div>
+                </div>
+                <span className="chart-title">상세 박스플랏</span>
               </div>
             </div>
-            <div className="ag-summary">
-              <strong>Key Points</strong>
-              <ul>
-                <li>이상점: Lot #742 (3.2σ 초과)</li>
-                <li>원인: 가스 유량 일시적 불안정</li>
-              </ul>
+            <div className="ag-summary-wide">
+              <strong>Diagnostic Summary</strong>
+              <div className="summary-grid">
+                <div className="sum-item">
+                  <span>Detected</span>
+                  <strong>Lot #742 Outlier</strong>
+                </div>
+                <div className="sum-item">
+                  <span>Reason</span>
+                  <strong>3.2σ Deviation</strong>
+                </div>
+                <div className="sum-item">
+                  <span>Action</span>
+                  <strong>Inspect Gas Flow</strong>
+                </div>
+              </div>
             </div>
           </div>
         </div>
