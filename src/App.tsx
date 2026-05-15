@@ -439,21 +439,53 @@ function ComplexCodeVisual() {
 
 function VibeIntentVisual() {
   return (
-    <div className="visual-container vibe-intent">
-      <div className="intent-bubble">
-        <div className="user-icon"><Navigation size={14} /></div>
-        <div className="intent-text">"수율 3% 하락한 설비 찾아줘"</div>
-      </div>
-      <div className="magic-sparkle">
-        <Sparkles size={24} color="#0071e3" />
-      </div>
-      <div className="result-preview">
-        <div className="mini-chart">
-          <div className="bar" style={{ height: '60%' }}></div>
-          <div className="bar danger" style={{ height: '30%' }}></div>
-          <div className="bar" style={{ height: '70%' }}></div>
+    <div className="visual-container antigravity-sim">
+      <div className="antigravity-window">
+        <div className="ag-header">
+          <div className="ag-logo">Antigravity</div>
+          <div className="ag-status">Ready</div>
         </div>
-        <span>설비 A-102 탐지!</span>
+        <div className="ag-content">
+          <div className="ag-prompt-section">
+            <div className="ag-prompt-label">Prompt</div>
+            <div className="ag-prompt-box">
+              <span className="typing-prompt">
+                1000개의 공정 데이터 중에서 이상점이 발생한 부분을 진단하고 그것을 시각화해줘.
+                기술적인 근거와 이유에 대해서도 간략히 정리해.
+              </span>
+            </div>
+          </div>
+          
+          <div className="ag-ai-processing">
+            <div className="ag-code-gen">
+              <div className="code-line"><span>Generating Analysis Code...</span></div>
+              <div className="code-line tiny">import numpy as np</div>
+              <div className="code-line tiny">from scipy import stats</div>
+            </div>
+          </div>
+
+          <div className="ag-results">
+            <div className="ag-visuals">
+              <div className="ag-chart density">
+                <div className="density-curve"></div>
+                <span className="label">밀도 분포</span>
+              </div>
+              <div className="ag-chart boxplot">
+                <div className="box-line"></div>
+                <div className="box-rect"></div>
+                <div className="outlier"></div>
+                <span className="label">박스플랏</span>
+              </div>
+            </div>
+            <div className="ag-summary">
+              <strong>Key Points</strong>
+              <ul>
+                <li>이상점: Lot #742 (3.2σ 초과)</li>
+                <li>원인: 가스 유량 일시적 불안정</li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
