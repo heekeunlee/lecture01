@@ -1419,11 +1419,11 @@ export default function App() {
             >
               <img src="/lecture01/traditional-coding.png" alt="전통적인 코딩 방식" />
               <div className="compare-content">
-                <span className="compare-kicker">Traditional Coding</span>
-                <h3>사람이 코드와 오류를 직접 다룹니다</h3>
+                <span className="compare-kicker">Traditional (Process Focused)</span>
+                <h3>구현 과정과 문법을 직접 관리합니다</h3>
                 <p>
-                  문법, 라이브러리, 디버깅, 화면 구성까지 사람이 직접 챙겨야 합니다. 처음 배우는 수강생은
-                  “무엇을 만들지”보다 “왜 에러가 나는지”에 시간을 많이 씁니다.
+                  로직을 한 줄씩 짜고 오타와 싸우는 '과정'에 에너지를 씁니다. 처음 배우는 엔지니어는 
+                  “어떤 문제를 풀지”보다 “어떻게 코드를 짤지”에 더 많은 시간을 뺏깁니다.
                 </p>
                 <ul>
                   <li>문법과 구현 순서를 먼저 배워야 함</li>
@@ -1442,11 +1442,11 @@ export default function App() {
             >
               <img src="/lecture01/vibe-coding.png" alt="바이브 코딩 방식" />
               <div className="compare-content">
-                <span className="compare-kicker">Vibe Coding</span>
-                <h3>엔지니어가 의도를 말하면 AI가 도구를 만듭니다</h3>
+                <span className="compare-kicker">Vibe Coding (Target Focused)</span>
+                <h3>해결 목표를 정의하면 AI가 도구를 완성합니다</h3>
                 <p>
-                  “어떤 데이터로 무엇을 판단할지”를 명확히 말하면 AI가 코드, 차트, 대시보드, 보고서 초안을 빠르게
-                  만듭니다. 엔지니어는 결과의 타당성과 현장 적용성을 판단합니다.
+                  “어떤 데이터를 분석하고 어떤 결과를 얻을지”라는 '목표'를 먼저 세웁니다. 엔지니어는 AI가 만든 결과의
+                  타당성과 현장 적용성이라는 핵심 가치에만 집중합니다.
                 </p>
                 <ul>
                   <li>한국어와 전공 용어로 바로 시작 가능</li>
@@ -1556,21 +1556,21 @@ export default function App() {
               <div className="trad-vibe-head">
                 <Terminal size={28} />
                 <div>
-                  <span>Traditional Coding</span>
-                  <strong>설명서를 직접 조립하는 방식</strong>
+                  <span>Traditional</span>
+                  <strong>구현 과정을 하나씩 조립</strong>
                 </div>
               </div>
               <ComplexCodeVisual />
               <div className="trad-vibe-stepline">
-                <div><span>1</span><p>문법을 외운다</p></div>
+                <div><span>1</span><p>문법과 규칙 습득</p></div>
                 <ArrowRight size={18} />
-                <div><span>2</span><p>코드를 한 줄씩 쓴다</p></div>
+                <div><span>2</span><p>코드를 한 줄씩 작성</p></div>
                 <ArrowRight size={18} />
-                <div><span>3</span><p>오류를 찾고 수정한다</p></div>
+                <div><span>3</span><p>에러 수정 및 디버깅</p></div>
               </div>
               <div className="trad-vibe-summary">
-                <strong>무엇이 어려운가?</strong>
-                <p>문법과 설정이 먼저라서, 현장 문제보다 구현 세부에 시간을 많이 씁니다.</p>
+                <strong>과정의 늪</strong>
+                <p>문법이 먼저라서, 현장 문제보다 구현 세부 '과정'에 시간을 많이 씁니다.</p>
               </div>
             </motion.div>
 
@@ -1579,20 +1579,20 @@ export default function App() {
                 <Navigation size={28} />
                 <div>
                   <span>Vibe Coding</span>
-                  <strong>목적지를 먼저 말하는 방식</strong>
+                  <strong>최종 해결 목표를 정의</strong>
                 </div>
               </div>
               <VibeIntentVisual />
               <div className="trad-vibe-stepline">
-                <div><span>1</span><p>문제와 기준을 말한다</p></div>
+                <div><span>1</span><p>현장 문제와 목표 정의</p></div>
                 <ArrowRight size={18} />
-                <div><span>2</span><p>AI가 초안을 만든다</p></div>
+                <div><span>2</span><p>AI가 해결 도구 생성</p></div>
                 <ArrowRight size={18} />
-                <div><span>3</span><p>사람이 결과를 검증한다</p></div>
+                <div><span>3</span><p>사람이 결과와 가치 검증</p></div>
               </div>
               <div className="trad-vibe-summary">
-                <strong>무엇이 쉬워지는가?</strong>
-                <p>라인, 공정, 기준, 산출물을 먼저 말하므로 결과를 빨리 보고 수정 방향도 쉽게 잡습니다.</p>
+                <strong>목표의 승리</strong>
+                <p>라인 목표와 산출물을 먼저 말하므로 결과를 빨리 보고 '가치'를 검증합니다.</p>
               </div>
             </motion.div>
           </div>
