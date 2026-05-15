@@ -3376,7 +3376,7 @@ footer {
   margin: 1.2rem 0;
   border-radius: 16px;
   overflow: hidden;
-  height: 160px;
+  height: 350px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -3539,7 +3539,7 @@ footer {
 .antigravity-sim {
   background: #f8fafc;
   border: 1px solid #e2e8f0;
-  height: 220px;
+  height: 350px;
 }
 
 .antigravity-window {
