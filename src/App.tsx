@@ -488,6 +488,7 @@ function VibeIntentVisual() {
               <div className="ag-chart boxplot">
                 <div className="chart-axis y"><span>통계</span></div>
                 <div className="chart-axis x"><span>측정</span></div>
+                <div className="ag-grid-lines"></div>
                 <div className="box-elements-v3">
                   <div className="whisker-left-v3"></div>
                   <div className="box-body-v3">
@@ -495,29 +496,32 @@ function VibeIntentVisual() {
                   </div>
                   <div className="whisker-right-v3"></div>
                   <div className="outliers-group-v3">
-                    <div className="dot-outlier-v3" style={{ left: '40px' }}>
-                      <span className="outlier-label">이상점</span>
+                    <div className="dot-outlier-v3">
+                      <span className="outlier-label">이상점(Lot #742)</span>
                     </div>
-                    <div className="dot-outlier-v3" style={{ left: '55px' }}></div>
+                    <div className="dot-outlier-v3"></div>
                   </div>
                 </div>
                 <span className="chart-title">가로형 박스플랏</span>
               </div>
             </div>
             <div className="ag-summary-v3">
-              <strong>분석 결과 요약</strong>
+              <div className="ag-summary-header">
+                <AlertCircle size={12} />
+                <strong>데이터 진단 보고서 (요약)</strong>
+              </div>
               <div className="summary-grid-v3">
                 <div className="sum-item-v3">
-                  <span>이상치</span>
+                  <span>이상항목</span>
                   <strong>Lot #742</strong>
                 </div>
                 <div className="sum-item-v3">
-                  <span>통계근거</span>
-                  <strong>3.2σ 초과</strong>
+                  <span>신뢰수준</span>
+                  <strong>99.7% (3σ)</strong>
                 </div>
                 <div className="sum-item-v3">
-                  <span>조치</span>
-                  <strong>센서 점검</strong>
+                  <span>현장조치</span>
+                  <strong>라인 PM 대기</strong>
                 </div>
               </div>
             </div>
