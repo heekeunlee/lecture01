@@ -1166,7 +1166,7 @@ export default function App() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
         >
-          <h1>바이브 코딩 :반복업무를 AI로 바꾸는 첫걸음!</h1>
+          <h1>Ch.1 의도를 결과로 바꾸는 프롬프트 설계</h1>
           <p className="subtitle">코알못도 첨단 공정 현장의 반복 분석·보고서·이상감지를 AI에게 작업지시서로 맡기는 첫걸음</p>
           <div className="lesson-meta" aria-label="lesson summary">
             <span>40분</span>

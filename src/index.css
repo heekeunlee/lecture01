@@ -1710,6 +1710,16 @@ section h2 mark {
   margin-top: 0.5rem;
 }
 
+.sensor-chart-card text {
+  font-size: 8px;
+  letter-spacing: 0;
+}
+
+.sensor-chart-card .alert-label,
+.sensor-chart-card .muted-label {
+  font-size: 9px;
+}
+
 .muted-label {
   fill: var(--text-secondary);
   font-size: 10px;
