@@ -2099,9 +2099,9 @@ section h2 mark {
 
 .comparison-panel {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1.3fr);
-  align-items: stretch;
-  gap: 1.25rem;
+  grid-template-columns: minmax(0, 1fr) 56px minmax(0, 1fr);
+  align-items: center;
+  gap: 1.6rem;
   margin-top: 2rem;
 }
 
@@ -2109,8 +2109,12 @@ section h2 mark {
 .good-prompt {
   border: 1px solid var(--border);
   border-radius: 20px;
-  padding: 1.8rem;
+  padding: 2rem;
   position: relative;
+  min-height: 240px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .bad-prompt {
@@ -2128,6 +2132,7 @@ section h2 mark {
   font-size: 1.25rem;
   font-weight: 900;
   margin-bottom: 1rem;
+  line-height: 1.25;
 }
 
 .bad-prompt h3 {
@@ -2143,7 +2148,8 @@ section h2 mark {
   font-family: var(--font-content);
   font-size: 1.05rem;
   color: var(--text-primary);
-  line-height: 1.7;
+  line-height: 1.75;
+  word-break: keep-all;
 }
 
 .bad-prompt span,
@@ -2153,10 +2159,13 @@ section h2 mark {
   color: var(--text-secondary);
   font-size: 0.95rem;
   font-weight: 700;
+  line-height: 1.55;
+  word-break: keep-all;
 }
 
 .comparison-arrow {
   align-self: center;
+  justify-self: center;
   color: var(--accent);
 }
 
@@ -2958,68 +2967,113 @@ footer {
   margin-bottom: 2rem;
 }
 .ai-dialogue-heading {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  margin-bottom: 1.2rem;
+  display: grid;
+  gap: 0.45rem;
+  margin-bottom: 1.4rem;
 }
-.ai-dialogue-heading svg {
+.ai-dialogue-heading span {
+  width: fit-content;
   color: var(--accent);
+  font-size: 0.88rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
 }
 .ai-dialogue-heading h3 {
   margin: 0;
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: var(--fg);
+  color: var(--text-primary);
+  font-size: 1.55rem;
+  font-weight: 900;
+  line-height: 1.28;
+  word-break: keep-all;
+}
+.ai-dialogue-heading p {
+  max-width: 760px;
+  margin: 0;
+  color: var(--text-secondary);
+  font-family: var(--font-content);
+  font-size: 1rem;
+  line-height: 1.65;
+  word-break: keep-all;
 }
 .ai-dialogue-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1.2rem;
+  align-items: stretch;
+  gap: 1.4rem;
 }
 @media (max-width: 700px) {
   .ai-dialogue-grid { grid-template-columns: 1fr; }
 }
 .ai-dialogue-card {
   border-radius: 16px;
-  padding: 1.4rem;
+  padding: 1.55rem;
   border: 1.5px solid;
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
+  gap: 1rem;
+  min-height: 590px;
 }
 .dialogue-type-label {
-  font-size: 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  min-height: 22px;
+  font-size: 0.82rem;
   font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  line-height: 1.2;
 }
 .dialogue-prompt-box {
   background: rgba(0,0,0,0.04);
   border-radius: 8px;
-  padding: 0.8rem 1rem;
+  padding: 1rem 1.1rem;
+  min-height: 136px;
   font-size: 0.9rem;
   font-family: 'SF Mono', 'Fira Code', monospace;
-  color: var(--fg);
+  color: var(--text-primary);
   line-height: 1.5;
+}
+.dialogue-prompt-box strong,
+.dialogue-response-box strong {
+  display: block;
+  margin-bottom: 0.45rem;
+  color: var(--text-primary);
+  font-family: var(--font-main);
+  font-size: 0.9rem;
+  font-weight: 900;
+  line-height: 1.25;
+}
+.dialogue-prompt-box pre,
+.dialogue-response-box pre {
+  margin: 0;
+  overflow: visible;
+  white-space: pre-wrap;
+  word-break: keep-all;
 }
 .dialogue-response-box {
   border-radius: 8px;
-  padding: 0.8rem 1rem;
+  padding: 1rem 1.1rem;
+  flex: 1;
   font-size: 0.88rem;
-  line-height: 1.6;
-  white-space: pre-line;
+  line-height: 1.7;
   color: #1e293b;
 }
 .dialogue-score-row {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) 58px;
   align-items: center;
-  gap: 0.8rem;
+  gap: 0.9rem;
+}
+.dialogue-score-row span {
+  color: var(--text-primary);
+  font-size: 0.96rem;
+  font-weight: 800;
+  white-space: nowrap;
 }
 .dialogue-score-row strong {
   font-size: 1.4rem;
   font-weight: 800;
-  min-width: 44px;
+  min-width: 58px;
+  text-align: right;
 }
 .dialogue-score-track {
   flex: 1;
@@ -3028,7 +3082,7 @@ footer {
   border-radius: 99px;
   overflow: hidden;
 }
-.dialogue-score-track span {
+.dialogue-score-track i {
   display: block;
   height: 100%;
   border-radius: 99px;
@@ -3036,11 +3090,13 @@ footer {
 }
 .dialogue-result-tag {
   display: inline-block;
-  padding: 3px 10px;
+  width: 100%;
+  padding: 0.55rem 0.9rem;
   border-radius: 99px;
-  font-size: 0.75rem;
+  font-size: 0.82rem;
   font-weight: 700;
   background: rgba(0,0,0,0.06);
+  line-height: 1.3;
 }
 .dialogue-takeaway {
   margin-top: 1rem;

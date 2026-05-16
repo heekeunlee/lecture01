@@ -1711,7 +1711,7 @@ export default function App() {
           </div>
         </section>
 
-        <section className="intent-section teaching-section">
+        <section id="intent-design" className="intent-section teaching-section">
           <span className="section-label">07. 의도 설계</span>
           <h2>좋은 의도는 <mark>“해줘”</mark>가 아니라, 판단 기준과 결과물까지 포함합니다</h2>
           <p className="section-intro">
